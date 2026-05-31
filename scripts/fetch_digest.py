@@ -61,6 +61,12 @@ RSS_FEEDS = {
     "Latent Space": "https://www.latent.space/feed",
     "The Gradient": "https://thegradient.pub/rss/",
     "Interconnects": "https://www.interconnects.ai/feed",
+    # Blog feed republishes select newsletter content as free articles (delayed).
+    # Prefer over the Substack feed which has partial paywall on full articles.
+    "Pragmatic Engineer": "https://blog.pragmaticengineer.com/feed/",
+    "Chip Huyen": "https://huyenchip.com/feed.xml",
+    # Title + summary only; full content requires visiting the site.
+    "LangChain Blog": "https://www.langchain.com/blog/rss.xml",
     # Reddit RSS avoids the JSON API 403 blocks while still providing
     # practitioner-level signal unavailable from other configured sources.
     "r/LocalLLaMA": "https://www.reddit.com/r/LocalLLaMA/.rss",

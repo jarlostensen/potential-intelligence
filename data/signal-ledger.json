@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "runs": [
+    {
+      "date": "2026-05-31T15:35:00+00:00",
+      "digest_file": "news/2026-05-31-1535.md",
+      "item_count": 18,
+      "topics": [
+        {
+          "tag": "MCP",
+          "count": 5,
+          "avg_signal": 7.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Agent Engineering",
+          "count": 4,
+          "avg_signal": 6.9,
+          "cluster_id": null
+        },
+        {
+          "tag": "Claude",
+          "count": 4,
+          "avg_signal": 7.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Evaluation",
+          "count": 3,
+          "avg_signal": 6.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "Context Management",
+          "count": 2,
+          "avg_signal": 7.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Prompt Engineering",
+          "count": 2,
+          "avg_signal": 7.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Local Inference",
+          "count": 2,
+          "avg_signal": 6.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Claude Code",
+          "count": 1,
+          "avg_signal": 7.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Multi-Agent",
+          "count": 1,
+          "avg_signal": 7.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Security",
+          "count": 1,
+          "avg_signal": 7.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI-Assisted Dev",
+          "count": 1,
+          "avg_signal": 7.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Knowledge Graph",
+          "count": 1,
+          "avg_signal": 7.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Memory",
+          "count": 1,
+          "avg_signal": 6.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "MLOps",
+          "count": 1,
+          "avg_signal": 6.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Performance",
+          "count": 1,
+          "avg_signal": 6.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Testing",
+          "count": 1,
+          "avg_signal": 7.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "LLM Models",
+          "count": 1,
+          "avg_signal": 7.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI Management",
+          "count": 1,
+          "avg_signal": 6.3,
+          "cluster_id": null
+        },
+        {
+          "tag": "Anthropic",
+          "count": 1,
+          "avg_signal": 6.4,
+          "cluster_id": null
+        }
+      ]
+    }
+  ]
+}
