@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# uv
+.python-version
+.uv/
+
+# Secrets
+.env
+.env.*
+*.env
+anthropic_api_key
+*_api_key*
+
+# Fetch script temp output (if ever redirected to a file in-tree)
+*.tmp.json
+fetch_output*.json
+
+# Editor
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Windows
+Thumbs.db
+desktop.ini
+*.lnk
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# Debug scripts (CLAUDE.md: temporary debug scripts go in scripts/debug/, can be deleted)
+scripts/debug/
