@@ -212,6 +212,109 @@
           "cluster_id": null
         }
       ]
+    },
+    {
+      "date": "2026-06-06T14:45:00+00:00",
+      "digest_file": "news/2026-06-06-1445.md",
+      "item_count": 18,
+      "topics": [
+        {
+          "tag": "Agent Engineering",
+          "count": 6,
+          "avg_signal": 7.1,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI-Assisted Dev",
+          "count": 4,
+          "avg_signal": 7.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Local Inference",
+          "count": 4,
+          "avg_signal": 6.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "LLM Models",
+          "count": 3,
+          "avg_signal": 6.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Claude",
+          "count": 2,
+          "avg_signal": 6.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Evaluation",
+          "count": 2,
+          "avg_signal": 7.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Security",
+          "count": 2,
+          "avg_signal": 7.3,
+          "cluster_id": null
+        },
+        {
+          "tag": "Performance",
+          "count": 2,
+          "avg_signal": 6.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Anthropic",
+          "count": 1,
+          "avg_signal": 7.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Context Management",
+          "count": 1,
+          "avg_signal": 7.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Cloud Infrastructure",
+          "count": 1,
+          "avg_signal": 7.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Tools",
+          "count": 1,
+          "avg_signal": 7.3,
+          "cluster_id": null
+        },
+        {
+          "tag": "Prompt Engineering",
+          "count": 1,
+          "avg_signal": 7.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "MLOps",
+          "count": 1,
+          "avg_signal": 7.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Claude Code",
+          "count": 1,
+          "avg_signal": 6.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI Management",
+          "count": 1,
+          "avg_signal": 6.0,
+          "cluster_id": null
+        }
+      ]
     }
   ]
 }
