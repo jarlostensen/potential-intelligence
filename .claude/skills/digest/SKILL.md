@@ -196,3 +196,63 @@ Append this record to the `runs` array to produce the complete updated ledger do
 Create the `data/` directory if it does not exist.
 
 After writing, report the output path and the count of items included. If the ledger was unreadable in Step 2, note that trend history has been reset.
+
+## Step 8 — Write news/latest.html
+
+Write a self-contained HTML rendering of this digest to `news/latest.html`. This file is always overwritten so it always reflects the most recent run. Use the Write tool.
+
+### Requirements
+
+**Self-contained** — all CSS must be in a `<style>` block in `<head>`. No external scripts, no CDN links, no web fonts. The file must render correctly when opened directly from the filesystem (`file:///`).
+
+**All links** open in `target="_blank" rel="noopener"`.
+
+### Page structure
+
+```
+<header>
+  <h1>AI Tool Digest</h1>
+  <p class="meta">{D Month YYYY} · {item_count} items · Coverage: {since date} → {fetched_at date}</p>
+  [Trend Summary pill row if present]
+</header>
+
+<main>
+  [One <section> per digest section heading]
+  [Each item as an <article> with title, meta bar, body, source link]
+  [Excluded items as a <details><summary> collapsed table at the bottom]
+</main>
+```
+
+### Item card structure
+
+```html
+<article>
+  <h3><a href="{url}" target="_blank" rel="noopener">{title}</a></h3>
+  <p class="item-meta">
+    <span class="signal">{score}</span>
+    <span class="source">{source}</span>
+    <span class="date">{date}</span>
+    {tags rendered as <span class="tag">…</span> chips}
+  </p>
+  <p>{body text}</p>
+</article>
+```
+
+### Trend Summary (if present)
+
+Render each classification (**Rising**, **New this period**, **Steady**, **Cooling**, **Resurfaced**) as a row of coloured pill chips inside the header. Omit entirely if the Trend Summary was skipped for this run.
+
+### CSS guidance
+
+- Background: `#0f1117`, text: `#e2e8f0` (dark theme)
+- Max content width: 860px, centred
+- Section headings: left-bordered accent (`border-left: 3px solid #7c3aed`)
+- Signal score chip: bold, monospace, background `#1e293b`, colour varies by range:
+  - ≥ 7.5: `#34d399` (green)
+  - 6.5–7.4: `#60a5fa` (blue)
+  - < 6.5: `#94a3b8` (muted)
+- Tag chips: `background: #1e293b`, `color: #a78bfa`, small font
+- Trend pills: Rising `#34d399`, New `#60a5fa`, Steady `#94a3b8`, Cooling `#f59e0b`, Resurfaced `#f472b6`
+- Article cards: subtle border `#1e293b`, `border-radius: 6px`, padding, bottom margin
+- Source link: muted, small, no underline until hover
+- Excluded items `<details>` styled as collapsible, closed by default
