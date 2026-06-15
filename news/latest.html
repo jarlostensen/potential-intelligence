@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tool Digest — 15 June 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f1117;
+    color: #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: #0a0d14;
+    border-bottom: 1px solid #1e293b;
+    padding: 32px 0 24px;
+    margin-bottom: 40px;
+  }
+
+  header .container {}
+
+  header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+  }
+
+  .meta {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  /* ---- TREND PILLS ---- */
+  .trend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .trend-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #475569;
+    align-self: center;
+    margin-right: 4px;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .pill-steady { background: rgba(148,163,184,0.15); color: #94a3b8; }
+  .pill-rising { background: rgba(52,211,153,0.15); color: #34d399; }
+  .pill-new { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .pill-cooling { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .pill-resurfaced { background: rgba(244,114,182,0.15); color: #f472b6; }
+
+  .trend-note {
+    font-size: 11px;
+    color: #475569;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* ---- SECTIONS ---- */
+  main {
+    padding-bottom: 60px;
+  }
+
+  section {
+    margin-bottom: 48px;
+  }
+
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #c4b5fd;
+    border-left: 3px solid #7c3aed;
+    padding-left: 12px;
+    margin-bottom: 20px;
+    letter-spacing: -0.2px;
+  }
+
+  /* ---- ARTICLE CARDS ---- */
+  article {
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    background: #0d1117;
+  }
+
+  article h3 {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  article h3 a {
+    color: #e2e8f0;
+    text-decoration: none;
+  }
+
+  article h3 a:hover {
+    color: #a78bfa;
+    text-decoration: underline;
+  }
+
+  .item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+
+  .signal {
+    font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+    font-weight: 700;
+    font-size: 12px;
+    background: #1e293b;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  .signal-green { color: #34d399; }
+  .signal-blue { color: #60a5fa; }
+  .signal-muted { color: #94a3b8; }
+
+  .source {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .date {
+    color: #475569;
+  }
+
+  .tag {
+    background: #1e293b;
+    color: #a78bfa;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  article p {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .source-link {
+    display: inline-block;
+    font-size: 12px;
+    color: #475569;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .source-link:hover {
+    color: #94a3b8;
+    border-bottom-color: #475569;
+  }
+
+  /* ---- EXCLUDED TABLE ---- */
+  details {
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    margin-top: 40px;
+    overflow: hidden;
+  }
+
+  summary {
+    padding: 14px 18px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    background: #0d1117;
+    user-select: none;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  summary::before {
+    content: "▶ ";
+    font-size: 10px;
+    color: #475569;
+  }
+
+  details[open] summary::before {
+    content: "▼ ";
+  }
+
+  summary:hover {
+    color: #94a3b8;
+  }
+
+  .excluded-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .excluded-table th {
+    text-align: left;
+    padding: 10px 18px;
+    background: #0a0d14;
+    color: #475569;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  .excluded-table td {
+    padding: 8px 18px;
+    border-bottom: 1px solid #0f1117;
+    color: #475569;
+    vertical-align: top;
+  }
+
+  .excluded-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .excluded-table tr:hover td {
+    background: #0d1117;
+  }
+
+  .excluded-table td:first-child {
+    color: #64748b;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>AI Tool Digest</h1>
+    <p class="meta">15 June 2026 &middot; 12 items &middot; Coverage: 13 June 2026 &rarr; 15 June 2026</p>
+
+    <div class="trend-row">
+      <span class="trend-label">Steady</span>
+      <span class="pill pill-steady">Anthropic</span>
+      <span class="pill pill-steady">Security</span>
+      <span class="pill pill-steady">Local Inference</span>
+      <span class="pill pill-steady">Performance</span>
+      <span class="pill pill-steady">Agent Engineering</span>
+      <span class="pill pill-steady">LLM Models</span>
+      <span class="pill pill-steady">Cloud Infrastructure</span>
+      <span class="pill pill-steady">AI-Assisted Dev</span>
+    </div>
+    <p class="trend-note">Based on 7 prior runs. Trend window: recent = last 7 runs, baseline = last 30 runs.</p>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+<!-- ============================================================ -->
+<!-- SECTION: Claude and Anthropic -->
+<!-- ============================================================ -->
+<section>
+  <h2>Claude and Anthropic</h2>
+
+  <article>
+    <h3><a href="https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dcc90578" target="_blank" rel="noopener">US places export controls on Anthropic's Fable/Mythos model &mdash; Amazon CEO's role</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-green">8.1</span>
+      <span class="source">Hacker News / WSJ</span>
+      <span class="date">13 Jun 2026</span>
+      <span class="tag">Anthropic</span>
+      <span class="tag">Security</span>
+    </p>
+    <p>The highest-engagement AI story in this project's dataset to date (784 HN upvotes, 587 comments): the WSJ reports that Amazon CEO Andy Jassy's conversations with White House officials, supported by Amazon's own security research on Fable's capabilities, directly triggered the US government's decision to place export controls on Anthropic's Fable/Mythos model &mdash; making it the first named frontier AI model to be placed under US export restrictions. The EU Commission immediately announced it is examining the practical consequences. For practitioners, the immediate question is whether models built on Fable/Mythos access via API (including through Amazon Bedrock) are affected by export restrictions for non-US users, and what the precedent means for future frontier model access.</p>
+    <a class="source-link" href="https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dcc90578" target="_blank" rel="noopener">wsj.com &rarr;</a>
+    &nbsp;&nbsp;
+    <a class="source-link" href="https://www.reuters.com/legal/litigation/eu-commission-looking-practical-consequences-anthropic-decision-spokesperson-2026-06-14/" target="_blank" rel="noopener">EU Commission response &rarr;</a>
+  </article>
+
+  <article>
+    <h3><a href="https://www.verysane.ai/p/did-anthropic-ask-for-this" target="_blank" rel="noopener">Did Anthropic ask for this? The question the community is debating</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-blue">7.0</span>
+      <span class="source">Hacker News / verysane.ai</span>
+      <span class="date">14 Jun 2026</span>
+      <span class="tag">Anthropic</span>
+    </p>
+    <p>The second-highest-engagement item (180 HN pts, 152 comments): verysane.ai's analysis asks whether Anthropic sought these export controls as a competitive moat or had them imposed. The piece traces Anthropic's prior public statements on government oversight, its existing defence-sector relationships, and the plausibility of each scenario. The question matters to practitioners because if Anthropic sought the controls, the company's relationship with open deployment of its most capable models is fundamentally different than if the controls were externally imposed.</p>
+    <a class="source-link" href="https://www.verysane.ai/p/did-anthropic-ask-for-this" target="_blank" rel="noopener">verysane.ai &rarr;</a>
+  </article>
+
+  <article>
+    <h3><a href="https://www.interconnects.ai/p/welcome-to-the-agi-era-of-ai-governance" target="_blank" rel="noopener">Welcome to the AGI era of AI governance &mdash; it's a one-way door</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-muted">6.3</span>
+      <span class="source">Interconnects</span>
+      <span class="date">14 Jun 2026</span>
+      <span class="tag">Anthropic</span>
+    </p>
+    <p>Nathan Lambert's analysis frames the Anthropic export controls as an inflection point: "It's a one-way door and we weren't ready for it." The argument is that once a government places a capability-based restriction on a specific AI model, the precedent normalises future capability-based restrictions across all frontier AI. For AI engineers making build vs. API decisions for production systems, this is the strategic context: capability-based government intervention on specific models is now an established practice, not a theoretical risk, and model access strategies need to account for it.</p>
+    <a class="source-link" href="https://www.interconnects.ai/p/welcome-to-the-agi-era-of-ai-governance" target="_blank" rel="noopener">interconnects.ai &rarr;</a>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION: Client and Systems Engineering -->
+<!-- ============================================================ -->
+<section>
+  <h2>Client and Systems Engineering</h2>
+
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u5z4j0/eagle_support_merged_into_llamacpp/" target="_blank" rel="noopener">EAGLE speculative decoding merged into llama.cpp mainline</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-blue">6.9</span>
+      <span class="source">r/LocalLLaMA</span>
+      <span class="date">14 Jun 2026</span>
+      <span class="tag">Local Inference</span>
+      <span class="tag">Performance</span>
+    </p>
+    <p>EAGLE (a speculative decoding method distinct from MTP) has been merged into mainline llama.cpp &mdash; no more custom builds required. EAGLE uses a small draft model trained specifically on the target model's hidden states to propose tokens, achieving acceptance rates typically higher than standalone draft models because the draft model sees the same internal representations as the target. For practitioners running llama.cpp for production local inference, EAGLE now joins MTP as a standard throughput option accessible with a flag rather than a custom binary.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u5z4j0/eagle_support_merged_into_llamacpp/" target="_blank" rel="noopener">reddit.com &rarr;</a>
+  </article>
+
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u67p4b/i_ported_exl3_to_run_well_on_apple_silicon/" target="_blank" rel="noopener">EXL3 ported to Apple Silicon &mdash; PonyExl3</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-blue">6.7</span>
+      <span class="source">r/LocalLLaMA</span>
+      <span class="date">15 Jun 2026</span>
+      <span class="tag">Local Inference</span>
+      <span class="tag">Performance</span>
+    </p>
+    <p>ExllamaV3 (EXL3) &mdash; widely regarded as the best quantization codec for the quality/VRAM tradeoff but previously CUDA-only &mdash; has been ported to Apple Silicon as PonyExl3 by Beam (oMLX), using Metal rather than CUDA. EXL3's quality advantage over standard GGUF K-quants at the same bit width is well-established; the Apple Silicon gap had been the primary reason M-series users were limited to llama.cpp with GGUF. For practitioners on M1 Max through M5 Ultra hardware, this opens the EXL3 model ecosystem for the first time.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u67p4b/i_ported_exl3_to_run_well_on_apple_silicon/" target="_blank" rel="noopener">reddit.com &rarr;</a>
+  </article>
+
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u60l19/gemma_12b_less_than_10_watts_65pp_13tg/" target="_blank" rel="noopener">Gemma 4 12B running at under 10 watts on Android via Termux and Vulkan</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-blue">6.6</span>
+      <span class="source">r/LocalLLaMA</span>
+      <span class="date">14 Jun 2026</span>
+      <span class="tag">Local Inference</span>
+    </p>
+    <p>A practitioner ran Gemma 4 12B on a Google Pixel 10 Pro via Termux with llama.cpp's Vulkan backend, achieving 6.5 tokens/second prompt processing and 1.3 tokens/second generation at sub-10W power draw with MTP enabled (Q3_K_XL quantization, 32k context, q8_0 KV cache). While generation speed is below real-time interaction thresholds, the sub-10W figure demonstrates that a capable 12B model can run on mobile SoC hardware at a power level compatible with passive cooling. For edge AI practitioners, this establishes the current lower bound of the deployment envelope for Gemma 4 12B.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u60l19/gemma_12b_less_than_10_watts_65pp_13tg/" target="_blank" rel="noopener">reddit.com &rarr;</a>
+  </article>
+
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u5mfaq/you_can_run_deepseek_4_flash_on_mac_m3_max_96gb/" target="_blank" rel="noopener">DeepSeek V4 Flash on Mac M3 Max 96GB via SSD streaming</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-blue">6.5</span>
+      <span class="source">r/LocalLLaMA</span>
+      <span class="date">14 Jun 2026</span>
+      <span class="tag">Local Inference</span>
+      <span class="tag">LLM Models</span>
+    </p>
+    <p>DeepSeek V4 Flash is now runnable on Apple Silicon M3 Max with 96GB unified memory using antirez's custom inference engine with <code>--ssd-streaming</code> to page weights from SSD when the model exceeds available RAM. Required: 64GB+ unified memory, <code>iogpu.wired_limit_mb=86016</code> to raise the Metal allocation limit. The SSD streaming approach trades throughput for the ability to run a model that doesn't fit in RAM &mdash; a practical technique for running frontier-class MoE models on high-RAM consumer Apple Silicon without a server-class machine.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u5mfaq/you_can_run_deepseek_4_flash_on_mac_m3_max_96gb/" target="_blank" rel="noopener">reddit.com &rarr;</a>
+  </article>
+
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u5fv6n/local_models_in_mid2026/" target="_blank" rel="noopener">Local models in mid-2026: efficiency gains, not more RAM</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-muted">5.4</span>
+      <span class="source">r/LocalLLaMA</span>
+      <span class="date">14 Jun 2026</span>
+      <span class="tag">Local Inference</span>
+    </p>
+    <p>A synthesis post observes that the 2026 wave of local model capability gains came from algorithmic efficiency (sparse attention, MoE, latent KV compression, multi-token prediction, four-bit QAT quant) rather than increased memory requirements. The practical implication: the best local model in mid-2026 runs on approximately the same hardware as the best local model of a year ago, but performs significantly better &mdash; the capability frontier moved without the hardware frontier moving. For practitioners evaluating whether to refresh local inference hardware, this is a "wait" signal.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u5fv6n/local_models_in_mid2026/" target="_blank" rel="noopener">reddit.com &rarr;</a>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION: Agent Engineering -->
+<!-- ============================================================ -->
+<section>
+  <h2>Agent Engineering</h2>
+
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u698b1/an_agent_that_plans_with_a_frontier_model_but/" target="_blank" rel="noopener">Hybrid agent: frontier model for planning, local model for execution</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-blue">6.5</span>
+      <span class="source">r/LocalLLaMA</span>
+      <span class="date">15 Jun 2026</span>
+      <span class="tag">Agent Engineering</span>
+      <span class="tag">Local Inference</span>
+    </p>
+    <p>A practitioner with a dual RTX 3090 system published a working agent that uses a frontier model (Claude/GPT) for high-level planning and task decomposition, then routes the bulk of token generation to local models (Qwen 3.5/3.6 27B or Gemma 4 31B) for execution. The split is driven by cost: frontier model tokens are expensive but local models lack the planning "taste" for complex tasks. The architecture is open source and specifically built for dual-GPU rigs. For practitioners facing the frontier cost vs. local quality tradeoff, this is a production-tested reference architecture for hybrid orchestration.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u698b1/an_agent_that_plans_with_a_frontier_model_but/" target="_blank" rel="noopener">reddit.com &rarr;</a>
+  </article>
+
+  <article>
+    <h3><a href="https://simonwillison.net/2026/Jun/13/publishing-wasm-wheels/#atom-everything" target="_blank" rel="noopener">Publishing WASM wheels to PyPI for Pyodide &mdash; new path for agent code sandboxes</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-muted">6.2</span>
+      <span class="source">Simon Willison</span>
+      <span class="date">13 Jun 2026</span>
+      <span class="tag">Security</span>
+      <span class="tag">Agent Engineering</span>
+    </p>
+    <p>Pyodide 314.0 now supports installing WASM-targeted Python packages from PyPI at runtime (via PEP 783), and Simon Willison documents the publication process: packages built for the <code>PyEmscripten</code> platform can be published to PyPI and installed like any other package in a Pyodide environment. This extends the micropython-wasm sandboxing pattern to the broader Python ecosystem: any library that can be compiled to WASM is now distributable as a standard PyPI package and usable inside a Pyodide sandbox. For teams building agent code execution environments, this opens a path to richer sandboxed Python beyond micropython's stdlib subset.</p>
+    <a class="source-link" href="https://simonwillison.net/2026/Jun/13/publishing-wasm-wheels/#atom-everything" target="_blank" rel="noopener">simonwillison.net &rarr;</a>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION: Cloud and Infrastructure -->
+<!-- ============================================================ -->
+<section>
+  <h2>Cloud and Infrastructure</h2>
+
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u5jtr8/xiaomi_is_now_serving_mimo_v25_at_10003000tps/" target="_blank" rel="noopener">Xiaomi serves MiMo V2.5 at 1000&ndash;3000 tokens/second with DFlash + persistent CUDA kernels</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-muted">6.4</span>
+      <span class="source">r/LocalLLaMA</span>
+      <span class="date">14 Jun 2026</span>
+      <span class="tag">Performance</span>
+      <span class="tag">Cloud Infrastructure</span>
+    </p>
+    <p>Xiaomi published a blog post describing their MiMo V2.5 production serving infrastructure achieving 1000&ndash;3000 tokens/second using DFlash (a custom attention optimization) combined with persistent CUDA kernels. DFlash models are released; open-source release of the persistent kernel implementation is promised "coming soon." The 3000 TPS figure is roughly 10&ndash;30&times; what typical production serving achieves, which implies significant infrastructure-level attention engineering beyond standard FlashAttention. For teams building high-throughput inference infrastructure, the DFlash model weights are available now; the kernel implementation is worth watching when it drops.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u5jtr8/xiaomi_is_now_serving_mimo_v25_at_10003000tps/" target="_blank" rel="noopener">reddit.com &rarr;</a>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION: AI-Assisted Software Development -->
+<!-- ============================================================ -->
+<section>
+  <h2>AI-Assisted Software Development</h2>
+
+  <article>
+    <h3><a href="https://simonwillison.net/2026/Jun/14/why-ai-hasnt-replaced-software-engineers/#atom-everything" target="_blank" rel="noopener">Why AI hasn't replaced software engineers, and won't &mdash; Narayanan &amp; Kappor</a></h3>
+    <p class="item-meta">
+      <span class="signal signal-muted">5.7</span>
+      <span class="source">Simon Willison</span>
+      <span class="date">14 Jun 2026</span>
+      <span class="tag">AI-Assisted Dev</span>
+    </p>
+    <p>Arvind Narayanan (Princeton) and Sayash Kappor argue in a new essay that software engineering is uniquely suited to AI disruption precisely because it is highly measurable and automatable, yet there is "enough evidence to reject the narrative that once AI capabilities reach a certain threshold, it will cause mass layoffs." Their argument: AI tools expand the scope of software projects teams attempt, rather than reducing headcount on fixed-scope projects. For engineering managers justifying AI investment or navigating organizational anxiety, this is the most evidence-grounded counter-narrative currently available.</p>
+    <a class="source-link" href="https://simonwillison.net/2026/Jun/14/why-ai-hasnt-replaced-software-engineers/#atom-everything" target="_blank" rel="noopener">simonwillison.net &rarr;</a>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<!-- EXCLUDED ITEMS -->
+<!-- ============================================================ -->
+<details>
+  <summary>Excluded items (54 items filtered out)</summary>
+  <table class="excluded-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Source</th>
+        <th>Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>CherryHQ/cherry-studio</td><td>GitHub</td><td>Established product, not a new finding</td></tr>
+      <tr><td>activepieces/activepieces</td><td>GitHub</td><td>Established platform, not a new finding</td></tr>
+      <tr><td>n8n-io/n8n</td><td>GitHub</td><td>Established, not a new finding</td></tr>
+      <tr><td>thedotmack/claude-mem</td><td>GitHub</td><td>Covered in run 2</td></tr>
+      <tr><td>NousResearch/hermes-agent</td><td>GitHub</td><td>Star count (193k) implausible, growing suspiciously</td></tr>
+      <tr><td>Significant-Gravitas/AutoGPT</td><td>GitHub</td><td>Established, not a new finding</td></tr>
+      <tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Flagged as suspicious stars in prior runs</td></tr>
+      <tr><td>affaan-m/ECC</td><td>GitHub</td><td>215k stars implausible; flagged in prior runs</td></tr>
+      <tr><td>f/prompts.chat</td><td>GitHub</td><td>Established, not a new finding</td></tr>
+      <tr><td>zhayujie/CowAgent</td><td>GitHub</td><td>Established (formerly chatgpt-on-wechat)</td></tr>
+      <tr><td>siyuan-note/siyuan</td><td>GitHub</td><td>Personal knowledge management; off-topic</td></tr>
+      <tr><td>santifer/career-ops</td><td>GitHub</td><td>Suspicious stars (53k); flagged in prior runs</td></tr>
+      <tr><td>ollama/ollama</td><td>GitHub</td><td>Established, not a new finding</td></tr>
+      <tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Covered in run 2 (signal 7.85)</td></tr>
+      <tr><td>ChromeDevTools/chrome-devtools-mcp</td><td>GitHub</td><td>Covered in run 1 (signal 8.1)</td></tr>
+      <tr><td>moar QAT stuff and hairy ticks</td><td>r/LocalLLaMA</td><td>Incremental update; QAT covered in run 3</td></tr>
+      <tr><td>UI/SVG block rendering in llama.cpp PR</td><td>r/LocalLLaMA</td><td>Niche UI feature, no demonstrated technique</td></tr>
+      <tr><td>I made a private on-device LLM app for Android</td><td>r/LocalLLaMA</td><td>Personal project; no reproducible technique</td></tr>
+      <tr><td>VFUSE: Virulent Feature Understanding with SAEs</td><td>LessWrong</td><td>Protein design; off-topic</td></tr>
+      <tr><td>100M model recommendation</td><td>r/LocalLLaMA</td><td>Support question</td></tr>
+      <tr><td>Do k-Sparse Autoencoders Reveal Thinking Patterns</td><td>LessWrong</td><td>Academic; no practitioner applicability</td></tr>
+      <tr><td>The Power to Punish</td><td>LessWrong</td><td>Philosophy; off-topic</td></tr>
+      <tr><td>Made a macOS app that creates personal macOS apps</td><td>r/LocalLLaMA</td><td>Consumer app demo; no technique</td></tr>
+      <tr><td>Quoting Julia Evans</td><td>Simon Willison</td><td>Writing advice; off-topic</td></tr>
+      <tr><td>You need to know about the Baruch Plan</td><td>LessWrong</td><td>Nuclear policy history; off-topic</td></tr>
+      <tr><td>Models for Psychological Review of Conversations</td><td>r/LocalLLaMA</td><td>Support question</td></tr>
+      <tr><td>Command A Plus GGUFs posted</td><td>r/LocalLLaMA</td><td>Model conversion; no new technique</td></tr>
+      <tr><td>Gemma 4 31B quick comparison Q4/QAT/heretic</td><td>r/LocalLLaMA</td><td>Qualitative; duplicate of prior QAT coverage</td></tr>
+      <tr><td>Gemma 4 models benchmarked on Triple GPU</td><td>r/LocalLLaMA</td><td>Duplicate of prior benchmark coverage</td></tr>
+      <tr><td>Qwen 3.6 35B-A3B Q4 or Gemma 4 12B Q8?</td><td>r/LocalLLaMA</td><td>Support question</td></tr>
+      <tr><td>z.ai Poll on X: MIT-licensed open weights losing</td><td>r/LocalLLaMA</td><td>Community poll, no technique</td></tr>
+      <tr><td>Gradual disempowerment at the scale of one user</td><td>LessWrong</td><td>Personal reflection; off-topic</td></tr>
+      <tr><td>How does congressmember use AI?</td><td>LessWrong</td><td>Off-topic</td></tr>
+      <tr><td>Nemotron - King of the Deep? Comparison 4 models</td><td>r/LocalLLaMA</td><td>Thin on reproducible data; hardware-specific</td></tr>
+      <tr><td>Voice-to-voice chatbot update</td><td>r/LocalLLaMA</td><td>Niche voice pipeline; limited generality</td></tr>
+      <tr><td>Why Do Naive SFT Filters For Safety Fail?</td><td>LessWrong</td><td>Academic research; no immediate practitioner use</td></tr>
+      <tr><td>Why I think a global AI pause won't happen</td><td>LessWrong</td><td>Policy speculation; off-topic</td></tr>
+      <tr><td>Anthropic staff to meet White House next week</td><td>Hacker News</td><td>27 pts; covered by main export control story</td></tr>
+      <tr><td>Which better local mobile TTS: Kokoro or Supertonic</td><td>r/LocalLLaMA</td><td>TTS comparison question; off-topic</td></tr>
+      <tr><td>How to turn off download images llama.cpp</td><td>r/LocalLLaMA</td><td>Build config support question</td></tr>
+      <tr><td>David Sacks on Anthropic export control</td><td>Hacker News</td><td>16 pts; no substantive content</td></tr>
+      <tr><td>FTX's former Anthropic stake worth $75B</td><td>Hacker News</td><td>Financial news; off-topic</td></tr>
+      <tr><td>Nex claims Rio 3.5 is Nex 2.5 PRO in trench coat</td><td>r/LocalLLaMA</td><td>Model drama; no content</td></tr>
+      <tr><td>EU Commission looking at Anthropic consequences</td><td>Hacker News</td><td>Folded into main Anthropic export control item</td></tr>
+      <tr><td>Exploring Known Unknowns in AI Regulatory Landscape</td><td>LessWrong</td><td>Policy analysis; off-topic</td></tr>
+      <tr><td>Attack of the Killer Differential Equations</td><td>LessWrong</td><td>Mathematics/philosophy; off-topic</td></tr>
+      <tr><td>Dual DGX Sparks DeepSeek V4 Flash benchmarks</td><td>r/LocalLLaMA</td><td>$30k+ hardware; too niche</td></tr>
+      <tr><td>Introducing the Heretic Grimoire</td><td>r/LocalLLaMA</td><td>Excluded on policy grounds</td></tr>
+      <tr><td>The whirlwind 24 hours that led to Anthropic ban</td><td>Hacker News</td><td>24 pts; folded into main Anthropic item</td></tr>
+      <tr><td>US Secretary of War Comments on Anthropic</td><td>Hacker News</td><td>15 pts; no substantive content</td></tr>
+      <tr><td>Amazon security research led to Fable ban (Verge)</td><td>Hacker News</td><td>18 pts; folded into main Anthropic item</td></tr>
+      <tr><td>Amazon and the White House Ended Anthropic's Fable</td><td>Hacker News</td><td>12 pts; folded into main Anthropic item</td></tr>
+      <tr><td>Open source AI Must Win</td><td>r/LocalLLaMA</td><td>No content</td></tr>
+      <tr><td>luau-wasm 0.1a0</td><td>Simon Willison</td><td>Alpha; duplicate WASM theme; lower signal than PyPI item</td></tr>
+      <tr><td>Mapping SQLite result columns to source table</td><td>Simon Willison</td><td>SQLite internals; off-topic</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</div><!-- .container -->
+</main>
+
+</body>
+</html>

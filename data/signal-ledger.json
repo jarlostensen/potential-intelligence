@@ -144,6 +144,21 @@
         { "tag": "AI-Assisted Dev", "count": 1, "avg_signal": 7.2, "cluster_id": null },
         { "tag": "Knowledge Graph", "count": 1, "avg_signal": 6.2, "cluster_id": null }
       ]
+    },
+    {
+      "date": "2026-06-15T07:30:00+00:00",
+      "digest_file": "news/2026-06-15-0730.md",
+      "item_count": 12,
+      "topics": [
+        { "tag": "Local Inference", "count": 6, "avg_signal": 6.4, "cluster_id": null },
+        { "tag": "Anthropic", "count": 3, "avg_signal": 7.1, "cluster_id": null },
+        { "tag": "Performance", "count": 3, "avg_signal": 6.7, "cluster_id": null },
+        { "tag": "Security", "count": 2, "avg_signal": 7.1, "cluster_id": null },
+        { "tag": "Agent Engineering", "count": 2, "avg_signal": 6.3, "cluster_id": null },
+        { "tag": "LLM Models", "count": 1, "avg_signal": 6.5, "cluster_id": null },
+        { "tag": "Cloud Infrastructure", "count": 1, "avg_signal": 6.4, "cluster_id": null },
+        { "tag": "AI-Assisted Dev", "count": 1, "avg_signal": 5.7, "cluster_id": null }
+      ]
     }
   ]
 }
