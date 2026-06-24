@@ -3,554 +3,672 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Tool Digest — 15 June 2026</title>
+<title>AI Tool Digest — 24 June 2026</title>
 <style>
+  :root {
+    --ground:  #0f1117;
+    --surface: #131820;
+    --border:  #1e2535;
+    --text:    #e2e8f0;
+    --dim:     #94a3b8;
+    --muted:   #64748b;
+    --accent:  #7c3aed;
+    --green:   #34d399;
+    --blue:    #60a5fa;
+    --amber:   #f59e0b;
+    --pink:    #f472b6;
+    --tag-bg:  #1e293b;
+    --tag-fg:  #a78bfa;
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: #0f1117;
-    color: #e2e8f0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 15px;
-    line-height: 1.65;
+    background: var(--ground);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .container {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
+  .mono { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; }
+  code  { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.88em;
+          background: rgba(255,255,255,0.06); padding: 0 4px; border-radius: 2px; }
 
-  /* ---- HEADER ---- */
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── header ── */
   header {
-    background: #0a0d14;
-    border-bottom: 1px solid #1e293b;
-    padding: 32px 0 24px;
-    margin-bottom: 40px;
+    padding: 52px 0 34px;
+    border-bottom: 1px solid var(--border);
   }
 
-  header .container {}
+  .eyebrow {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
 
   header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #f1f5f9;
-    letter-spacing: -0.3px;
-    margin-bottom: 8px;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
   }
 
-  .meta {
-    color: #64748b;
-    font-size: 13px;
-    margin-bottom: 20px;
-  }
-
-  /* ---- TREND PILLS ---- */
-  .trend-row {
+  .header-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 4px;
+    gap: 0;
+    margin-bottom: 22px;
   }
 
-  .trend-label {
-    font-size: 11px;
-    font-weight: 600;
+  .hm {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: #475569;
-    align-self: center;
-    margin-right: 4px;
+    color: var(--muted);
+    padding-right: 18px;
   }
 
-  .pill {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 500;
+  .hm strong { color: var(--dim); }
+
+  /* ── trend grid ── */
+  .trends {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    row-gap: 7px;
+    column-gap: 12px;
+    align-items: start;
+    margin-top: 18px;
   }
 
-  .pill-steady { background: rgba(148,163,184,0.15); color: #94a3b8; }
-  .pill-rising { background: rgba(52,211,153,0.15); color: #34d399; }
-  .pill-new { background: rgba(96,165,250,0.15); color: #60a5fa; }
-  .pill-cooling { background: rgba(245,158,11,0.15); color: #f59e0b; }
-  .pill-resurfaced { background: rgba(244,114,182,0.15); color: #f472b6; }
-
-  .trend-note {
-    font-size: 11px;
-    color: #475569;
-    margin-top: 10px;
-    font-style: italic;
+  .tk {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 3px;
   }
 
-  /* ---- SECTIONS ---- */
-  main {
-    padding-bottom: 60px;
-  }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
 
-  section {
-    margin-bottom: 48px;
-  }
-
-  section h2 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #c4b5fd;
-    border-left: 3px solid #7c3aed;
-    padding-left: 12px;
-    margin-bottom: 20px;
-    letter-spacing: -0.2px;
-  }
-
-  /* ---- ARTICLE CARDS ---- */
-  article {
-    border: 1px solid #1e293b;
-    border-radius: 6px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-    background: #0d1117;
-  }
-
-  article h3 {
-    font-size: 15px;
+  .chip {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.6rem;
     font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+
+  .ch-s { color: var(--muted);  background: rgba(100,116,139,0.1); border-color: rgba(100,116,139,0.18); }
+  .ch-c { color: var(--amber);  background: rgba(245,158,11,0.07); border-color: rgba(245,158,11,0.22); }
+
+  /* ── overview ── */
+  .overview {
+    margin: 38px 0 46px;
+    padding: 18px 22px;
+    border-left: 2px solid var(--accent);
+    background: rgba(124,58,237,0.04);
+    animation: rise 0.45s ease 0.05s both;
+  }
+
+  .ov-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 9px;
+  }
+
+  .overview p {
+    font-size: 0.86rem;
+    line-height: 1.78;
+    color: var(--dim);
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) { .overview { animation: none; } }
+
+  /* ── section head ── */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 46px 0 18px;
+  }
+
+  .sec-label {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .sec-rule { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── score-stamp card ── */
+  .item {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    margin-bottom: 9px;
+    transition: border-color 0.1s;
+  }
+
+  .item:hover { border-color: #2c3a52; }
+
+  .score-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 16px;
+    border-right: 1px solid var(--border);
+  }
+
+  .si {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .sd {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  .sg { color: var(--green); }
+  .sb { color: var(--blue); }
+  .sm { color: var(--muted); }
+
+  .item-body { padding: 14px 16px 13px; }
+
+  .item-body h2 {
+    font-size: 0.91rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
     line-height: 1.4;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
-  article h3 a {
-    color: #e2e8f0;
-    text-decoration: none;
-  }
+  .item-body h2 a { color: var(--text); }
+  .item-body h2 a:hover { color: var(--blue); text-decoration: none; }
 
-  article h3 a:hover {
-    color: #a78bfa;
-    text-decoration: underline;
-  }
-
-  .item-meta {
+  .byline {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-    font-size: 12px;
+    gap: 7px;
+    margin-bottom: 9px;
   }
 
-  .signal {
-    font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-    font-weight: 700;
-    font-size: 12px;
-    background: #1e293b;
-    padding: 2px 7px;
-    border-radius: 4px;
+  .b-src {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
-  .signal-green { color: #34d399; }
-  .signal-blue { color: #60a5fa; }
-  .signal-muted { color: #94a3b8; }
+  .b-sep { color: var(--border); font-size: 0.55rem; }
 
-  .source {
-    color: #64748b;
-    font-weight: 500;
-  }
-
-  .date {
-    color: #475569;
+  .b-date {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
   }
 
   .tag {
-    background: #1e293b;
-    color: #a78bfa;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 500;
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    font-family: 'SF Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    padding: 1px 6px;
+    border-radius: 1px;
   }
 
-  article p {
-    color: #cbd5e1;
-    font-size: 14px;
-    line-height: 1.65;
-    margin-bottom: 10px;
+  .item-body p {
+    font-size: 0.83rem;
+    line-height: 1.72;
+    color: var(--dim);
+    margin-bottom: 9px;
   }
 
-  .source-link {
-    display: inline-block;
-    font-size: 12px;
-    color: #475569;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-  }
-
-  .source-link:hover {
-    color: #94a3b8;
-    border-bottom-color: #475569;
-  }
-
-  /* ---- EXCLUDED TABLE ---- */
-  details {
-    border: 1px solid #1e293b;
-    border-radius: 6px;
-    margin-top: 40px;
-    overflow: hidden;
-  }
-
-  summary {
-    padding: 14px 18px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    color: #64748b;
-    background: #0d1117;
-    user-select: none;
-    list-style: none;
-  }
-
-  summary::-webkit-details-marker { display: none; }
-
-  summary::before {
-    content: "▶ ";
-    font-size: 10px;
-    color: #475569;
-  }
-
-  details[open] summary::before {
-    content: "▼ ";
-  }
-
-  summary:hover {
-    color: #94a3b8;
-  }
-
-  .excluded-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-  }
-
-  .excluded-table th {
-    text-align: left;
-    padding: 10px 18px;
-    background: #0a0d14;
-    color: #475569;
-    font-weight: 600;
+  .src-link {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid #1e293b;
+    color: var(--muted);
   }
 
-  .excluded-table td {
-    padding: 8px 18px;
-    border-bottom: 1px solid #0f1117;
-    color: #475569;
+  .src-link:hover { color: var(--blue); text-decoration: none; }
+
+  /* ── excluded ── */
+  .excl { margin-top: 52px; border-top: 1px solid var(--border); }
+
+  details summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 13px 0;
+    font-family: 'SF Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: '+ '; color: var(--accent); }
+  details[open] summary::before { content: '− '; }
+
+  .excl-wrap { overflow-x: auto; padding-bottom: 52px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 5px 10px;
+    font-size: 0.77rem;
+    color: var(--dim);
+    border-bottom: 1px solid rgba(30,37,53,0.5);
     vertical-align: top;
   }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { color: var(--text); }
+  td:first-child { max-width: 280px; }
 
-  .excluded-table tr:last-child td {
-    border-bottom: none;
-  }
-
-  .excluded-table tr:hover td {
-    background: #0d1117;
-  }
-
-  .excluded-table td:first-child {
-    color: #64748b;
-    font-weight: 500;
+  @media (max-width: 560px) {
+    .wrap { padding: 0 16px; }
+    header h1 { font-size: 1.55rem; }
+    .item { grid-template-columns: 48px 1fr; }
+    .si { font-size: 1.6rem; }
+    .trends { grid-template-columns: 1fr; }
+    .tk { display: none; }
   }
 </style>
 </head>
 <body>
+<div class="wrap">
 
 <header>
-  <div class="container">
-    <h1>AI Tool Digest</h1>
-    <p class="meta">15 June 2026 &middot; 12 items &middot; Coverage: 13 June 2026 &rarr; 15 June 2026</p>
+  <p class="eyebrow mono">Intelligence Brief &middot; Run 14</p>
+  <h1>AI Tool Digest</h1>
+  <div class="header-meta">
+    <span class="hm"><strong>24 June 2026</strong></span>
+    <span class="hm">Coverage <strong>22 Jun &rarr; 24 Jun</strong></span>
+    <span class="hm"><strong>14</strong> retained / 71 fetched</span>
+  </div>
 
-    <div class="trend-row">
-      <span class="trend-label">Steady</span>
-      <span class="pill pill-steady">Anthropic</span>
-      <span class="pill pill-steady">Security</span>
-      <span class="pill pill-steady">Local Inference</span>
-      <span class="pill pill-steady">Performance</span>
-      <span class="pill pill-steady">Agent Engineering</span>
-      <span class="pill pill-steady">LLM Models</span>
-      <span class="pill pill-steady">Cloud Infrastructure</span>
-      <span class="pill pill-steady">AI-Assisted Dev</span>
+  <div class="trends">
+    <span class="tk">Steady</span>
+    <div class="chips">
+      <span class="chip ch-s">Agent Engineering</span>
+      <span class="chip ch-s">Security</span>
+      <span class="chip ch-s">LLM Models</span>
+      <span class="chip ch-s">AI-Assisted Dev</span>
+      <span class="chip ch-s">Anthropic</span>
+      <span class="chip ch-s">Claude Code</span>
+      <span class="chip ch-s">Tools</span>
+      <span class="chip ch-s">Prompt Engineering</span>
+      <span class="chip ch-s">Evaluation</span>
+      <span class="chip ch-s">Local Inference</span>
+      <span class="chip ch-s">Cloud Infrastructure</span>
     </div>
-    <p class="trend-note">Based on 7 prior runs. Trend window: recent = last 7 runs, baseline = last 30 runs.</p>
+    <span class="tk">Cooling</span>
+    <div class="chips">
+      <span class="chip ch-c">Performance</span>
+    </div>
   </div>
 </header>
 
-<main>
-<div class="container">
+<div class="overview">
+  <p class="ov-label">Overview</p>
+  <p>Claude Tag is the headline this period: Anthropic's launch of multiplayer, proactive, persistent Claude agents in Slack marks the first time a frontier model has been deployed as an active team participant rather than a passive query tool, completing the loop between agent capability and enterprise collaboration infrastructure. On the model frontier, Qwen's AgentWorld is architecturally significant — a purpose-built world model trained to understand and execute agent action spaces (MCP, terminal, SWE, Android, web) rather than merely receive them as context. Security themes dominate this period more heavily than any prior run: Prompt Injection as Role Confusion (new theoretical framing), Gray Swan's red-teaming discussion post-Mythos, LessWrong monitoring research, and Preventative Steering all converge on how practitioners detect and defend against AI systems behaving unexpectedly at scale. Absent this period: MCP, Context Management, and Memory — the MCP ecosystem that dominated Run 13 has gone quiet.</p>
+</div>
 
-<!-- ============================================================ -->
-<!-- SECTION: Claude and Anthropic -->
-<!-- ============================================================ -->
-<section>
-  <h2>Claude and Anthropic</h2>
+<!-- CLAUDE AND ANTHROPIC -->
+<div class="sec-head"><span class="sec-label">Claude &amp; Anthropic</span><div class="sec-rule"></div></div>
 
-  <article>
-    <h3><a href="https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dcc90578" target="_blank" rel="noopener">US places export controls on Anthropic's Fable/Mythos model &mdash; Amazon CEO's role</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-green">8.1</span>
-      <span class="source">Hacker News / WSJ</span>
-      <span class="date">13 Jun 2026</span>
-      <span class="tag">Anthropic</span>
-      <span class="tag">Security</span>
-    </p>
-    <p>The highest-engagement AI story in this project's dataset to date (784 HN upvotes, 587 comments): the WSJ reports that Amazon CEO Andy Jassy's conversations with White House officials, supported by Amazon's own security research on Fable's capabilities, directly triggered the US government's decision to place export controls on Anthropic's Fable/Mythos model &mdash; making it the first named frontier AI model to be placed under US export restrictions. The EU Commission immediately announced it is examining the practical consequences. For practitioners, the immediate question is whether models built on Fable/Mythos access via API (including through Amazon Bedrock) are affected by export restrictions for non-US users, and what the precedent means for future frontier model access.</p>
-    <a class="source-link" href="https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dcc90578" target="_blank" rel="noopener">wsj.com &rarr;</a>
-    &nbsp;&nbsp;
-    <a class="source-link" href="https://www.reuters.com/legal/litigation/eu-commission-looking-practical-consequences-anthropic-decision-spokesperson-2026-06-14/" target="_blank" rel="noopener">EU Commission response &rarr;</a>
-  </article>
+<div class="item">
+  <div class="score-col">
+    <span class="si sg">8</span>
+    <span class="sd sg">.1</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.anthropic.com/news/introducing-claude-tag" target="_blank" rel="noopener">Claude Tag: Multiplayer, Proactive, Persistent Agents in Slack</a></h2>
+    <div class="byline">
+      <span class="b-src">Hacker News</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">23 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">Anthropic</span><span class="tag">Agent Engineering</span>
+    </div>
+    <p>Anthropic has launched Claude Tag, a Slack-native integration that shifts Claude from reactive query tool to active team participant: users @-tag Claude into threads, Claude proactively surfaces information across channels, retains memory within a workspace session, and coordinates work across multiple simultaneous users without context loss. This is the first frontier AI deployment in enterprise chat that is genuinely multiplayer — Claude can be tagged by multiple team members simultaneously with coherent thread awareness. For engineering organizations using Slack as their primary coordination layer, this changes the AI access model from individual tool to shared team agent.</p>
+    <a class="src-link" href="https://www.anthropic.com/news/introducing-claude-tag" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-  <article>
-    <h3><a href="https://www.verysane.ai/p/did-anthropic-ask-for-this" target="_blank" rel="noopener">Did Anthropic ask for this? The question the community is debating</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-blue">7.0</span>
-      <span class="source">Hacker News / verysane.ai</span>
-      <span class="date">14 Jun 2026</span>
-      <span class="tag">Anthropic</span>
-    </p>
-    <p>The second-highest-engagement item (180 HN pts, 152 comments): verysane.ai's analysis asks whether Anthropic sought these export controls as a competitive moat or had them imposed. The piece traces Anthropic's prior public statements on government oversight, its existing defence-sector relationships, and the plausibility of each scenario. The question matters to practitioners because if Anthropic sought the controls, the company's relationship with open deployment of its most capable models is fundamentally different than if the controls were externally imposed.</p>
-    <a class="source-link" href="https://www.verysane.ai/p/did-anthropic-ask-for-this" target="_blank" rel="noopener">verysane.ai &rarr;</a>
-  </article>
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">6</span>
+    <span class="sd sm">.1</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://simonwillison.net/2026/Jun/22/porting-moebius/#atom-everything" target="_blank" rel="noopener">Porting the Moebius 0.2B image inpainting model to run in the browser with Claude Code</a></h2>
+    <div class="byline">
+      <span class="b-src">Simon Willison</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">22 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">Claude Code</span><span class="tag">AI-Assisted Dev</span>
+    </div>
+    <p>Simon Willison documents a complete Claude Code workflow for porting Moebius (a 0.2B lightweight image inpainting model) from Python/PyTorch to run client-side in a browser via ONNX and WebAssembly — a non-trivial ML engineering task completed with minimal manual intervention. The workflow demonstrates Claude Code's capability beyond typical web development: model conversion pipelines, ONNX export debugging, and WebAssembly integration are within its reliable execution range when properly guided. Engineers needing to deploy small inference models client-side should evaluate this as a reproducible template before writing custom conversion tooling.</p>
+    <a class="src-link" href="https://simonwillison.net/2026/Jun/22/porting-moebius/#atom-everything" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-  <article>
-    <h3><a href="https://www.interconnects.ai/p/welcome-to-the-agi-era-of-ai-governance" target="_blank" rel="noopener">Welcome to the AGI era of AI governance &mdash; it's a one-way door</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-muted">6.3</span>
-      <span class="source">Interconnects</span>
-      <span class="date">14 Jun 2026</span>
-      <span class="tag">Anthropic</span>
-    </p>
-    <p>Nathan Lambert's analysis frames the Anthropic export controls as an inflection point: "It's a one-way door and we weren't ready for it." The argument is that once a government places a capability-based restriction on a specific AI model, the precedent normalises future capability-based restrictions across all frontier AI. For AI engineers making build vs. API decisions for production systems, this is the strategic context: capability-based government intervention on specific models is now an established practice, not a theoretical risk, and model access strategies need to account for it.</p>
-    <a class="source-link" href="https://www.interconnects.ai/p/welcome-to-the-agi-era-of-ai-governance" target="_blank" rel="noopener">interconnects.ai &rarr;</a>
-  </article>
-</section>
+<!-- LLM MODELS -->
+<div class="sec-head"><span class="sec-label">LLM Models &amp; Capabilities</span><div class="sec-rule"></div></div>
 
-<!-- ============================================================ -->
-<!-- SECTION: Client and Systems Engineering -->
-<!-- ============================================================ -->
-<section>
-  <h2>Client and Systems Engineering</h2>
+<div class="item">
+  <div class="score-col">
+    <span class="si sg">7</span>
+    <span class="sd sg">.6</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ue5149/qwenagentworld35ba3b_a_3bactive_moe_trained_to/" target="_blank" rel="noopener">Qwen-AgentWorld-35B-A3B: a 3B-active MoE trained to simulate MCP, terminal, SWE, Android, web and OS environments</a></h2>
+    <div class="byline">
+      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">LLM Models</span><span class="tag">Agent Engineering</span>
+    </div>
+    <p>Qwen has released AgentWorld-35B-A3B, a 35B-parameter MoE model with 3B active parameters per token, trained not as a standard instruction model but as a &ldquo;language world model&rdquo; — one that understands, predicts, and executes agent action spaces including MCP protocol calls, terminal commands, SWE-bench tasks, Android gestures, browser interactions, and OS operations. The architectural bet is that dedicated training on the semantics of agent environments produces qualitatively better agent execution than general instruction-following plus tool-call prompting. This is distinct from fine-tuning: the model is pre-trained to have a simulator&rsquo;s understanding of how agent environments respond, analogous to a world model in RL rather than an instruction-follower with tool access.</p>
+    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ue5149/qwenagentworld35ba3b_a_3bactive_moe_trained_to/" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-  <article>
-    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u5z4j0/eagle_support_merged_into_llamacpp/" target="_blank" rel="noopener">EAGLE speculative decoding merged into llama.cpp mainline</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-blue">6.9</span>
-      <span class="source">r/LocalLLaMA</span>
-      <span class="date">14 Jun 2026</span>
-      <span class="tag">Local Inference</span>
-      <span class="tag">Performance</span>
-    </p>
-    <p>EAGLE (a speculative decoding method distinct from MTP) has been merged into mainline llama.cpp &mdash; no more custom builds required. EAGLE uses a small draft model trained specifically on the target model's hidden states to propose tokens, achieving acceptance rates typically higher than standalone draft models because the draft model sees the same internal representations as the target. For practitioners running llama.cpp for production local inference, EAGLE now joins MTP as a standard throughput option accessible with a flag rather than a custom binary.</p>
-    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u5z4j0/eagle_support_merged_into_llamacpp/" target="_blank" rel="noopener">reddit.com &rarr;</a>
-  </article>
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">6</span>
+    <span class="sd sm">.2</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1udkxde/7_chinese_companies_are_already_shipping/" target="_blank" rel="noopener">7 Chinese companies are already shipping H100/H200-class AI chips, most IPO&rsquo;d in the last 6 months</a></h2>
+    <div class="byline">
+      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">23 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">Local Inference</span><span class="tag">LLM Models</span>
+    </div>
+    <p>A detailed community mapping of seven Chinese AI chip manufacturers — including Huawei Ascend 910C, Moore Threads MTT S4000, Biren BR100, and four emerging &ldquo;snake&rdquo; companies — clarifies that export controls are producing a bifurcated compute ecosystem rather than a Chinese compute gap. Most of these companies have IPO&rsquo;d in the last six months, signalling institutionalised supply-chain independence rather than experimental alternatives. For AI infrastructure planning in organizations with China partnerships, or teams anticipating further US export restrictions, this is actionable supply-chain intelligence that should inform hardware dependency mapping.</p>
+    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1udkxde/7_chinese_companies_are_already_shipping/" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-  <article>
-    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u67p4b/i_ported_exl3_to_run_well_on_apple_silicon/" target="_blank" rel="noopener">EXL3 ported to Apple Silicon &mdash; PonyExl3</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-blue">6.7</span>
-      <span class="source">r/LocalLLaMA</span>
-      <span class="date">15 Jun 2026</span>
-      <span class="tag">Local Inference</span>
-      <span class="tag">Performance</span>
-    </p>
-    <p>ExllamaV3 (EXL3) &mdash; widely regarded as the best quantization codec for the quality/VRAM tradeoff but previously CUDA-only &mdash; has been ported to Apple Silicon as PonyExl3 by Beam (oMLX), using Metal rather than CUDA. EXL3's quality advantage over standard GGUF K-quants at the same bit width is well-established; the Apple Silicon gap had been the primary reason M-series users were limited to llama.cpp with GGUF. For practitioners on M1 Max through M5 Ultra hardware, this opens the EXL3 model ecosystem for the first time.</p>
-    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u67p4b/i_ported_exl3_to_run_well_on_apple_silicon/" target="_blank" rel="noopener">reddit.com &rarr;</a>
-  </article>
-
-  <article>
-    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u60l19/gemma_12b_less_than_10_watts_65pp_13tg/" target="_blank" rel="noopener">Gemma 4 12B running at under 10 watts on Android via Termux and Vulkan</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-blue">6.6</span>
-      <span class="source">r/LocalLLaMA</span>
-      <span class="date">14 Jun 2026</span>
-      <span class="tag">Local Inference</span>
-    </p>
-    <p>A practitioner ran Gemma 4 12B on a Google Pixel 10 Pro via Termux with llama.cpp's Vulkan backend, achieving 6.5 tokens/second prompt processing and 1.3 tokens/second generation at sub-10W power draw with MTP enabled (Q3_K_XL quantization, 32k context, q8_0 KV cache). While generation speed is below real-time interaction thresholds, the sub-10W figure demonstrates that a capable 12B model can run on mobile SoC hardware at a power level compatible with passive cooling. For edge AI practitioners, this establishes the current lower bound of the deployment envelope for Gemma 4 12B.</p>
-    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u60l19/gemma_12b_less_than_10_watts_65pp_13tg/" target="_blank" rel="noopener">reddit.com &rarr;</a>
-  </article>
-
-  <article>
-    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u5mfaq/you_can_run_deepseek_4_flash_on_mac_m3_max_96gb/" target="_blank" rel="noopener">DeepSeek V4 Flash on Mac M3 Max 96GB via SSD streaming</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-blue">6.5</span>
-      <span class="source">r/LocalLLaMA</span>
-      <span class="date">14 Jun 2026</span>
-      <span class="tag">Local Inference</span>
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">4</span>
+    <span class="sd sm">.8</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ucwyes/deepseek_raises_74b_usd_at_60b_valuation/" target="_blank" rel="noopener">DeepSeek raises $7.4B USD at $60B valuation; Liang Wenfeng invests $3B personally</a></h2>
+    <div class="byline">
+      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">22 Jun 2026</span><span class="b-sep">&#9679;</span>
       <span class="tag">LLM Models</span>
-    </p>
-    <p>DeepSeek V4 Flash is now runnable on Apple Silicon M3 Max with 96GB unified memory using antirez's custom inference engine with <code>--ssd-streaming</code> to page weights from SSD when the model exceeds available RAM. Required: 64GB+ unified memory, <code>iogpu.wired_limit_mb=86016</code> to raise the Metal allocation limit. The SSD streaming approach trades throughput for the ability to run a model that doesn't fit in RAM &mdash; a practical technique for running frontier-class MoE models on high-RAM consumer Apple Silicon without a server-class machine.</p>
-    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u5mfaq/you_can_run_deepseek_4_flash_on_mac_m3_max_96gb/" target="_blank" rel="noopener">reddit.com &rarr;</a>
-  </article>
+    </div>
+    <p>DeepSeek has raised $7.4B at a $60B valuation, with founder Liang Wenfeng committing $3B of his own capital — simultaneously the largest Chinese AI funding round on record and a founder conviction signal of unusual scale. At $60B, DeepSeek is capitalising at a level that funds sustained frontier model development independent of external investor timelines. For teams building on DeepSeek&rsquo;s open models, this reduces exit-driven open-source discontinuity risk; the company&rsquo;s open-weight commitments are now backed by a balance sheet that doesn&rsquo;t require near-term monetisation pressure.</p>
+    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ucwyes/deepseek_raises_74b_usd_at_60b_valuation/" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-  <article>
-    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u5fv6n/local_models_in_mid2026/" target="_blank" rel="noopener">Local models in mid-2026: efficiency gains, not more RAM</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-muted">5.4</span>
-      <span class="source">r/LocalLLaMA</span>
-      <span class="date">14 Jun 2026</span>
-      <span class="tag">Local Inference</span>
-    </p>
-    <p>A synthesis post observes that the 2026 wave of local model capability gains came from algorithmic efficiency (sparse attention, MoE, latent KV compression, multi-token prediction, four-bit QAT quant) rather than increased memory requirements. The practical implication: the best local model in mid-2026 runs on approximately the same hardware as the best local model of a year ago, but performs significantly better &mdash; the capability frontier moved without the hardware frontier moving. For practitioners evaluating whether to refresh local inference hardware, this is a "wait" signal.</p>
-    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u5fv6n/local_models_in_mid2026/" target="_blank" rel="noopener">reddit.com &rarr;</a>
-  </article>
-</section>
+<!-- AGENT ENGINEERING -->
+<div class="sec-head"><span class="sec-label">Agent Engineering</span><div class="sec-rule"></div></div>
 
-<!-- ============================================================ -->
-<!-- SECTION: Agent Engineering -->
-<!-- ============================================================ -->
-<section>
-  <h2>Agent Engineering</h2>
+<div class="item">
+  <div class="score-col">
+    <span class="si sb">6</span>
+    <span class="sd sb">.8</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.latent.space/p/gray-swan" target="_blank" rel="noopener">Red-Teaming after Mythos &mdash; Zico Kolter &amp; Matt Fredrikson, Gray Swan</a></h2>
+    <div class="byline">
+      <span class="b-src">Latent Space</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">22 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">Security</span><span class="tag">Evaluation</span>
+    </div>
+    <p>OpenAI board member Zico Kolter and Gray Swan CEO Matt Fredrikson argue that AI security is not &ldquo;cybersecurity with AI&rdquo; — the threat model, failure modes, and required mitigations are qualitatively different because AI systems can autonomously discover and exploit vulnerabilities rather than requiring manual exploitation. Recorded in the wake of the Mythos/NSA disclosure, this is the clearest public articulation yet of how frontier AI reframes security: detection and containment logic that assumes bounded attacker intelligence fails against an attacker that can reason and adapt. For practitioners designing agentic systems with tool access, the implication is that standard security perimeter assumptions need structural re-evaluation, not incremental hardening.</p>
+    <a class="src-link" href="https://www.latent.space/p/gray-swan" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-  <article>
-    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u698b1/an_agent_that_plans_with_a_frontier_model_but/" target="_blank" rel="noopener">Hybrid agent: frontier model for planning, local model for execution</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-blue">6.5</span>
-      <span class="source">r/LocalLLaMA</span>
-      <span class="date">15 Jun 2026</span>
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">6</span>
+    <span class="sd sm">.0</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.lesswrong.com/posts/YMw2PhtDGcCwgc4GA/agentic-frameworks-or-different-ways-to-make-llm-api-calls" target="_blank" rel="noopener">Agentic Frameworks: Or different ways to make LLM API calls</a></h2>
+    <div class="byline">
+      <span class="b-src">LessWrong</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
       <span class="tag">Agent Engineering</span>
-      <span class="tag">Local Inference</span>
-    </p>
-    <p>A practitioner with a dual RTX 3090 system published a working agent that uses a frontier model (Claude/GPT) for high-level planning and task decomposition, then routes the bulk of token generation to local models (Qwen 3.5/3.6 27B or Gemma 4 31B) for execution. The split is driven by cost: frontier model tokens are expensive but local models lack the planning "taste" for complex tasks. The architecture is open source and specifically built for dual-GPU rigs. For practitioners facing the frontier cost vs. local quality tradeoff, this is a production-tested reference architecture for hybrid orchestration.</p>
-    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u698b1/an_agent_that_plans_with_a_frontier_model_but/" target="_blank" rel="noopener">reddit.com &rarr;</a>
-  </article>
+    </div>
+    <p>A structured LessWrong survey of the agentic framework research landscape covers key findings on topology: which graph structures (chains, trees, DAGs, ensembles) produce measurably better outcomes on which task types, and which are equivalent despite surface-level architectural differences. The central finding is that many apparent distinctions between agent frameworks reduce to different patterns of LLM API calls with different prompting strategies — the &ldquo;framework&rdquo; is mostly scaffolding, not capability. For engineers evaluating framework selection, this provides evidence-based grounds for preferring simpler orchestration over complex framework dependencies where task type doesn&rsquo;t demand topological complexity.</p>
+    <a class="src-link" href="https://www.lesswrong.com/posts/YMw2PhtDGcCwgc4GA/agentic-frameworks-or-different-ways-to-make-llm-api-calls" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-  <article>
-    <h3><a href="https://simonwillison.net/2026/Jun/13/publishing-wasm-wheels/#atom-everything" target="_blank" rel="noopener">Publishing WASM wheels to PyPI for Pyodide &mdash; new path for agent code sandboxes</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-muted">6.2</span>
-      <span class="source">Simon Willison</span>
-      <span class="date">13 Jun 2026</span>
-      <span class="tag">Security</span>
-      <span class="tag">Agent Engineering</span>
-    </p>
-    <p>Pyodide 314.0 now supports installing WASM-targeted Python packages from PyPI at runtime (via PEP 783), and Simon Willison documents the publication process: packages built for the <code>PyEmscripten</code> platform can be published to PyPI and installed like any other package in a Pyodide environment. This extends the micropython-wasm sandboxing pattern to the broader Python ecosystem: any library that can be compiled to WASM is now distributable as a standard PyPI package and usable inside a Pyodide sandbox. For teams building agent code execution environments, this opens a path to richer sandboxed Python beyond micropython's stdlib subset.</p>
-    <a class="source-link" href="https://simonwillison.net/2026/Jun/13/publishing-wasm-wheels/#atom-everything" target="_blank" rel="noopener">simonwillison.net &rarr;</a>
-  </article>
-</section>
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">5</span>
+    <span class="sd sm">.0</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.lesswrong.com/posts/krbFK53Y2bFm5apCQ/can-weak-ai-watch-strong-ai" target="_blank" rel="noopener">Can weak AI watch strong AI?</a></h2>
+    <div class="byline">
+      <span class="b-src">LessWrong</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">Evaluation</span><span class="tag">Agent Engineering</span>
+    </div>
+    <p>As frontier models gain capability, can a weaker model reliably detect when a stronger model is doing something it shouldn&rsquo;t? This post argues that the answer is increasingly negative — the same capability gaps that make frontier models useful also make them harder to monitor with weaker supervisors, and the gap widens as model strength increases. For AI engineers building production monitoring for coding agents or autonomous systems, this is a direct challenge to the common architecture of using a smaller/cheaper model as a runtime judge or safety monitor; the post suggests the problem requires solution at the training level rather than inference-time monitoring.</p>
+    <a class="src-link" href="https://www.lesswrong.com/posts/krbFK53Y2bFm5apCQ/can-weak-ai-watch-strong-ai" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-<!-- ============================================================ -->
-<!-- SECTION: Cloud and Infrastructure -->
-<!-- ============================================================ -->
-<section>
-  <h2>Cloud and Infrastructure</h2>
+<!-- AI-ASSISTED DEV -->
+<div class="sec-head"><span class="sec-label">AI-Assisted Software Development</span><div class="sec-rule"></div></div>
 
-  <article>
-    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1u5jtr8/xiaomi_is_now_serving_mimo_v25_at_10003000tps/" target="_blank" rel="noopener">Xiaomi serves MiMo V2.5 at 1000&ndash;3000 tokens/second with DFlash + persistent CUDA kernels</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-muted">6.4</span>
-      <span class="source">r/LocalLLaMA</span>
-      <span class="date">14 Jun 2026</span>
-      <span class="tag">Performance</span>
+<div class="item">
+  <div class="score-col">
+    <span class="si sb">7</span>
+    <span class="sd sb">.1</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://simonwillison.net/2026/Jun/22/prompt-injection-as-role-confusion/#atom-everything" target="_blank" rel="noopener">Prompt Injection as Role Confusion</a></h2>
+    <div class="byline">
+      <span class="b-src">Simon Willison</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">22 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">Security</span><span class="tag">Prompt Engineering</span>
+    </div>
+    <p>Simon Willison covers a paper that reframes prompt injection not as a data sanitization problem but as a role confusion problem: the model cannot reliably distinguish between instructions from the system role (trusted) and content from the user/environment role (untrusted), because both arrive as text in the same context window. This reframing has direct engineering implications — defenses built on content filtering target the wrong layer, while defenses that enforce role separation at the structural level (separate context partitions, instruction provenance tagging, sandboxed tool outputs) address the actual failure mode. The paper provides concrete architectural patterns for building injection-resistant agent pipelines.</p>
+    <a class="src-link" href="https://simonwillison.net/2026/Jun/22/prompt-injection-as-role-confusion/#atom-everything" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
+
+<div class="item">
+  <div class="score-col">
+    <span class="si sb">6</span>
+    <span class="sd sb">.7</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank" rel="noopener">nextlevelbuilder/ui-ux-pro-max-skill: An AI SKILL providing design intelligence for professional UI/UX</a></h2>
+    <div class="byline">
+      <span class="b-src">GitHub</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">AI-Assisted Dev</span><span class="tag">Tools</span>
+    </div>
+    <p>At 95,813 GitHub stars, ui-ux-pro-max-skill is the highest-starred AI skill module in the current ecosystem, providing structured design intelligence — component selection, layout reasoning, accessibility decisions, and cross-platform adaptation — as a composable skill layer for AI coding assistants. The star count reflects substantial adoption for a skill-type artifact, confirming that the composable-skill pattern for augmenting coding agents has moved from experimental to mainstream. Teams doing significant UI/UX work with AI coding assistants should evaluate this as a replacement for ad-hoc design prompting.</p>
+    <a class="src-link" href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
+
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">6</span>
+    <span class="sd sm">.4</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ue51uk/unlimitedocr_is_now_on_modelscope_a_33b/" target="_blank" rel="noopener">Unlimited-OCR: 3.3B multilingual OCR model for one-shot full-document parsing, MIT license</a></h2>
+    <div class="byline">
+      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">AI-Assisted Dev</span><span class="tag">Tools</span>
+    </div>
+    <p>Unlimited-OCR is a 3.3B multilingual OCR model (MIT license) on ModelScope that performs full-document parsing — not cropped-region extraction — with 32K output length for long OCR sequences, base and &ldquo;gundam&rdquo; image modes for different document layouts, and Transformers-compatible inference with SGLang serving support. The technical differentiation from PaddleOCR (covered in Run 13) is the 32K output window and full-document orientation: the model is designed to produce complete structured document outputs rather than page-level text blocks, reducing the chunking and reconstruction overhead in RAG pipelines handling dense or lengthy documents.</p>
+    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ue51uk/unlimitedocr_is_now_on_modelscope_a_33b/" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
+
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">5</span>
+    <span class="sd sm">.5</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.lesswrong.com/posts/R43jFiHaaaK3eMQJ6/preventative-steering-has-advantages-over-inoculation-2" target="_blank" rel="noopener">Preventative Steering has advantages over Inoculation Prompting</a></h2>
+    <div class="byline">
+      <span class="b-src">LessWrong</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">Prompt Engineering</span><span class="tag">Security</span>
+    </div>
+    <p>Research from the SPAR fellowship benchmarks Inoculation Prompting (few-shot refusal examples in the system prompt) against Preventative Steering (adjusting model representations before harmful patterns activate) across multiple attack categories. Preventative Steering outperforms on transfer to unseen attacks, with the performance gap widening as model capability increases, and does not require retraining the base model. For teams fine-tuning models for production deployment with safety requirements, this provides evidence to prioritise activation-level intervention over prompt-level inoculation when defending against a broad attack surface.</p>
+    <a class="src-link" href="https://www.lesswrong.com/posts/R43jFiHaaaK3eMQJ6/preventative-steering-has-advantages-over-inoculation-2" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
+
+<!-- CLOUD AND INFRASTRUCTURE -->
+<div class="sec-head"><span class="sec-label">Cloud &amp; Infrastructure</span><div class="sec-rule"></div></div>
+
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">6</span>
+    <span class="sd sm">.2</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://blog.pragmaticengineer.com/coinbase-fail/" target="_blank" rel="noopener">Reliability fail: No automated zone failover for Coinbase&rsquo;s global trading service</a></h2>
+    <div class="byline">
+      <span class="b-src">Pragmatic Engineer</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">23 Jun 2026</span><span class="b-sep">&#9679;</span>
       <span class="tag">Cloud Infrastructure</span>
-    </p>
-    <p>Xiaomi published a blog post describing their MiMo V2.5 production serving infrastructure achieving 1000&ndash;3000 tokens/second using DFlash (a custom attention optimization) combined with persistent CUDA kernels. DFlash models are released; open-source release of the persistent kernel implementation is promised "coming soon." The 3000 TPS figure is roughly 10&ndash;30&times; what typical production serving achieves, which implies significant infrastructure-level attention engineering beyond standard FlashAttention. For teams building high-throughput inference infrastructure, the DFlash model weights are available now; the kernel implementation is worth watching when it drops.</p>
-    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1u5jtr8/xiaomi_is_now_serving_mimo_v25_at_10003000tps/" target="_blank" rel="noopener">reddit.com &rarr;</a>
-  </article>
-</section>
+    </div>
+    <p>Gergely Orosz&rsquo;s post-mortem of Coinbase&rsquo;s June 2026 global trading outage reveals the root architectural failure: no automated zone failover for a business-critical service handling billions in daily volume, with manual failover too slow to prevent extended downtime. The lesson is not about zone redundancy being theoretically required (that&rsquo;s understood) but about why automated failover is consistently deferred: teams treat manual failover as &ldquo;good enough until needed&rdquo; and don&rsquo;t discover the gap until production pressure makes it irreversible. For platform architects designing AI-served trading, payments, or latency-sensitive services, this is a current-year, production-scale example of the compounding cost of infrastructure automation debt.</p>
+    <a class="src-link" href="https://blog.pragmaticengineer.com/coinbase-fail/" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-<!-- ============================================================ -->
-<!-- SECTION: AI-Assisted Software Development -->
-<!-- ============================================================ -->
-<section>
-  <h2>AI-Assisted Software Development</h2>
+<!-- TOOLS AND FRAMEWORKS -->
+<div class="sec-head"><span class="sec-label">Tools &amp; Frameworks</span><div class="sec-rule"></div></div>
 
-  <article>
-    <h3><a href="https://simonwillison.net/2026/Jun/14/why-ai-hasnt-replaced-software-engineers/#atom-everything" target="_blank" rel="noopener">Why AI hasn't replaced software engineers, and won't &mdash; Narayanan &amp; Kappor</a></h3>
-    <p class="item-meta">
-      <span class="signal signal-muted">5.7</span>
-      <span class="source">Simon Willison</span>
-      <span class="date">14 Jun 2026</span>
-      <span class="tag">AI-Assisted Dev</span>
-    </p>
-    <p>Arvind Narayanan (Princeton) and Sayash Kappor argue in a new essay that software engineering is uniquely suited to AI disruption precisely because it is highly measurable and automatable, yet there is "enough evidence to reject the narrative that once AI capabilities reach a certain threshold, it will cause mass layoffs." Their argument: AI tools expand the scope of software projects teams attempt, rather than reducing headcount on fixed-scope projects. For engineering managers justifying AI investment or navigating organizational anxiety, this is the most evidence-grounded counter-narrative currently available.</p>
-    <a class="source-link" href="https://simonwillison.net/2026/Jun/14/why-ai-hasnt-replaced-software-engineers/#atom-everything" target="_blank" rel="noopener">simonwillison.net &rarr;</a>
-  </article>
-</section>
+<div class="item">
+  <div class="score-col">
+    <span class="si sm">5</span>
+    <span class="sd sm">.2</span>
+  </div>
+  <div class="item-body">
+    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1udwabh/mimo_25_is_fast_at_large_context_dual_rtx_pro_6000/" target="_blank" rel="noopener">Mimo 2.5 is fast at large context (dual RTX Pro 6000)</a></h2>
+    <div class="byline">
+      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
+      <span class="b-date">23 Jun 2026</span><span class="b-sep">&#9679;</span>
+      <span class="tag">Local Inference</span><span class="tag">Performance</span>
+    </div>
+    <p>A practitioner benchmark on dual RTX Pro 6000 (96GB VRAM total) documents Mimo 2.5 maintaining competitive generation speed at 150K context depth — a context window where most tested models degraded severely. The context is agentic coding workflows where tools like OpenCode fill context windows rapidly; at those depths, per-token latency dominates end-to-end task time. For teams running local agentic coding with long-horizon task contexts, Mimo 2.5&rsquo;s large-context speed profile warrants evaluation specifically in that regime rather than as a general-purpose model replacement.</p>
+    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1udwabh/mimo_25_is_fast_at_large_context_dual_rtx_pro_6000/" target="_blank" rel="noopener">Source &rarr;</a>
+  </div>
+</div>
 
-<!-- ============================================================ -->
-<!-- EXCLUDED ITEMS -->
-<!-- ============================================================ -->
-<details>
-  <summary>Excluded items (54 items filtered out)</summary>
-  <table class="excluded-table">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Source</th>
-        <th>Reason</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>CherryHQ/cherry-studio</td><td>GitHub</td><td>Established product, not a new finding</td></tr>
-      <tr><td>activepieces/activepieces</td><td>GitHub</td><td>Established platform, not a new finding</td></tr>
-      <tr><td>n8n-io/n8n</td><td>GitHub</td><td>Established, not a new finding</td></tr>
-      <tr><td>thedotmack/claude-mem</td><td>GitHub</td><td>Covered in run 2</td></tr>
-      <tr><td>NousResearch/hermes-agent</td><td>GitHub</td><td>Star count (193k) implausible, growing suspiciously</td></tr>
-      <tr><td>Significant-Gravitas/AutoGPT</td><td>GitHub</td><td>Established, not a new finding</td></tr>
-      <tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Flagged as suspicious stars in prior runs</td></tr>
-      <tr><td>affaan-m/ECC</td><td>GitHub</td><td>215k stars implausible; flagged in prior runs</td></tr>
-      <tr><td>f/prompts.chat</td><td>GitHub</td><td>Established, not a new finding</td></tr>
-      <tr><td>zhayujie/CowAgent</td><td>GitHub</td><td>Established (formerly chatgpt-on-wechat)</td></tr>
-      <tr><td>siyuan-note/siyuan</td><td>GitHub</td><td>Personal knowledge management; off-topic</td></tr>
-      <tr><td>santifer/career-ops</td><td>GitHub</td><td>Suspicious stars (53k); flagged in prior runs</td></tr>
-      <tr><td>ollama/ollama</td><td>GitHub</td><td>Established, not a new finding</td></tr>
-      <tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Covered in run 2 (signal 7.85)</td></tr>
-      <tr><td>ChromeDevTools/chrome-devtools-mcp</td><td>GitHub</td><td>Covered in run 1 (signal 8.1)</td></tr>
-      <tr><td>moar QAT stuff and hairy ticks</td><td>r/LocalLLaMA</td><td>Incremental update; QAT covered in run 3</td></tr>
-      <tr><td>UI/SVG block rendering in llama.cpp PR</td><td>r/LocalLLaMA</td><td>Niche UI feature, no demonstrated technique</td></tr>
-      <tr><td>I made a private on-device LLM app for Android</td><td>r/LocalLLaMA</td><td>Personal project; no reproducible technique</td></tr>
-      <tr><td>VFUSE: Virulent Feature Understanding with SAEs</td><td>LessWrong</td><td>Protein design; off-topic</td></tr>
-      <tr><td>100M model recommendation</td><td>r/LocalLLaMA</td><td>Support question</td></tr>
-      <tr><td>Do k-Sparse Autoencoders Reveal Thinking Patterns</td><td>LessWrong</td><td>Academic; no practitioner applicability</td></tr>
-      <tr><td>The Power to Punish</td><td>LessWrong</td><td>Philosophy; off-topic</td></tr>
-      <tr><td>Made a macOS app that creates personal macOS apps</td><td>r/LocalLLaMA</td><td>Consumer app demo; no technique</td></tr>
-      <tr><td>Quoting Julia Evans</td><td>Simon Willison</td><td>Writing advice; off-topic</td></tr>
-      <tr><td>You need to know about the Baruch Plan</td><td>LessWrong</td><td>Nuclear policy history; off-topic</td></tr>
-      <tr><td>Models for Psychological Review of Conversations</td><td>r/LocalLLaMA</td><td>Support question</td></tr>
-      <tr><td>Command A Plus GGUFs posted</td><td>r/LocalLLaMA</td><td>Model conversion; no new technique</td></tr>
-      <tr><td>Gemma 4 31B quick comparison Q4/QAT/heretic</td><td>r/LocalLLaMA</td><td>Qualitative; duplicate of prior QAT coverage</td></tr>
-      <tr><td>Gemma 4 models benchmarked on Triple GPU</td><td>r/LocalLLaMA</td><td>Duplicate of prior benchmark coverage</td></tr>
-      <tr><td>Qwen 3.6 35B-A3B Q4 or Gemma 4 12B Q8?</td><td>r/LocalLLaMA</td><td>Support question</td></tr>
-      <tr><td>z.ai Poll on X: MIT-licensed open weights losing</td><td>r/LocalLLaMA</td><td>Community poll, no technique</td></tr>
-      <tr><td>Gradual disempowerment at the scale of one user</td><td>LessWrong</td><td>Personal reflection; off-topic</td></tr>
-      <tr><td>How does congressmember use AI?</td><td>LessWrong</td><td>Off-topic</td></tr>
-      <tr><td>Nemotron - King of the Deep? Comparison 4 models</td><td>r/LocalLLaMA</td><td>Thin on reproducible data; hardware-specific</td></tr>
-      <tr><td>Voice-to-voice chatbot update</td><td>r/LocalLLaMA</td><td>Niche voice pipeline; limited generality</td></tr>
-      <tr><td>Why Do Naive SFT Filters For Safety Fail?</td><td>LessWrong</td><td>Academic research; no immediate practitioner use</td></tr>
-      <tr><td>Why I think a global AI pause won't happen</td><td>LessWrong</td><td>Policy speculation; off-topic</td></tr>
-      <tr><td>Anthropic staff to meet White House next week</td><td>Hacker News</td><td>27 pts; covered by main export control story</td></tr>
-      <tr><td>Which better local mobile TTS: Kokoro or Supertonic</td><td>r/LocalLLaMA</td><td>TTS comparison question; off-topic</td></tr>
-      <tr><td>How to turn off download images llama.cpp</td><td>r/LocalLLaMA</td><td>Build config support question</td></tr>
-      <tr><td>David Sacks on Anthropic export control</td><td>Hacker News</td><td>16 pts; no substantive content</td></tr>
-      <tr><td>FTX's former Anthropic stake worth $75B</td><td>Hacker News</td><td>Financial news; off-topic</td></tr>
-      <tr><td>Nex claims Rio 3.5 is Nex 2.5 PRO in trench coat</td><td>r/LocalLLaMA</td><td>Model drama; no content</td></tr>
-      <tr><td>EU Commission looking at Anthropic consequences</td><td>Hacker News</td><td>Folded into main Anthropic export control item</td></tr>
-      <tr><td>Exploring Known Unknowns in AI Regulatory Landscape</td><td>LessWrong</td><td>Policy analysis; off-topic</td></tr>
-      <tr><td>Attack of the Killer Differential Equations</td><td>LessWrong</td><td>Mathematics/philosophy; off-topic</td></tr>
-      <tr><td>Dual DGX Sparks DeepSeek V4 Flash benchmarks</td><td>r/LocalLLaMA</td><td>$30k+ hardware; too niche</td></tr>
-      <tr><td>Introducing the Heretic Grimoire</td><td>r/LocalLLaMA</td><td>Excluded on policy grounds</td></tr>
-      <tr><td>The whirlwind 24 hours that led to Anthropic ban</td><td>Hacker News</td><td>24 pts; folded into main Anthropic item</td></tr>
-      <tr><td>US Secretary of War Comments on Anthropic</td><td>Hacker News</td><td>15 pts; no substantive content</td></tr>
-      <tr><td>Amazon security research led to Fable ban (Verge)</td><td>Hacker News</td><td>18 pts; folded into main Anthropic item</td></tr>
-      <tr><td>Amazon and the White House Ended Anthropic's Fable</td><td>Hacker News</td><td>12 pts; folded into main Anthropic item</td></tr>
-      <tr><td>Open source AI Must Win</td><td>r/LocalLLaMA</td><td>No content</td></tr>
-      <tr><td>luau-wasm 0.1a0</td><td>Simon Willison</td><td>Alpha; duplicate WASM theme; lower signal than PyPI item</td></tr>
-      <tr><td>Mapping SQLite result columns to source table</td><td>Simon Willison</td><td>SQLite internals; off-topic</td></tr>
-    </tbody>
-  </table>
-</details>
+<!-- EXCLUDED -->
+<div class="excl">
+  <details>
+    <summary>Excluded items (35 discarded)</summary>
+    <div class="excl-wrap">
+      <table>
+        <thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Significant-Gravitas/AutoGPT</td><td>GitHub</td><td>Established project, no novel technique</td></tr>
+          <tr><td>n8n-io/n8n</td><td>GitHub</td><td>Established automation platform</td></tr>
+          <tr><td>lobehub/lobehub</td><td>GitHub</td><td>Covered in prior run</td></tr>
+          <tr><td>CherryHQ/cherry-studio</td><td>GitHub</td><td>Covered in prior run</td></tr>
+          <tr><td>langgenius/dify</td><td>GitHub</td><td>Covered in prior run</td></tr>
+          <tr><td>huggingface/transformers</td><td>GitHub</td><td>Core library, not novel this period</td></tr>
+          <tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Covered in prior run</td></tr>
+          <tr><td>f/prompts.chat</td><td>GitHub</td><td>Covered in prior run</td></tr>
+          <tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Covered in prior run</td></tr>
+          <tr><td>ollama/ollama</td><td>GitHub</td><td>Covered in prior run</td></tr>
+          <tr><td>langchain-ai/langchain</td><td>GitHub</td><td>Established framework, no new technique</td></tr>
+          <tr><td>open-webui/open-webui</td><td>GitHub</td><td>Established tool, no new technique</td></tr>
+          <tr><td>asgeirtj/system_prompts_leaks</td><td>GitHub</td><td>Covered in prior run; update adds models but no new practitioner insight</td></tr>
+          <tr><td>ZhuLinsen/daily_stock_analysis</td><td>GitHub</td><td>Finance domain-specific, not general AI engineering</td></tr>
+          <tr><td>D4Vinci/Scrapling</td><td>GitHub</td><td>Web scraping framework, off-topic</td></tr>
+          <tr><td>Qwen-AgentWorld-397B-A17B</td><td>r/LocalLLaMA</td><td>Dedup with Qwen-AgentWorld-35B-A3B</td></tr>
+          <tr><td>GitHub - QwenLM/Qwen-AgentWorld (link post)</td><td>r/LocalLLaMA</td><td>Dedup with Qwen-AgentWorld-35B-A3B</td></tr>
+          <tr><td>PCIE 5.0 16x split into 2x8 with riser cable</td><td>r/LocalLLaMA</td><td>Hardware-only, not AI engineering</td></tr>
+          <tr><td>Chinese supercomputer displaces US machines</td><td>r/LocalLLaMA</td><td>Geopolitics, not actionable technique</td></tr>
+          <tr><td>Reasoning and injected concepts in LMs</td><td>LessWrong</td><td>ML interpretability research, off-topic</td></tr>
+          <tr><td>Toy transformers and belief-state geometry</td><td>LessWrong</td><td>Pure ML research, not practitioner-actionable</td></tr>
+          <tr><td>How might outsiders make things go well?</td><td>LessWrong</td><td>AI governance, off-topic</td></tr>
+          <tr><td>Superintelligence vs. The Second Strike</td><td>LessWrong</td><td>Nuclear/AI governance, off-topic</td></tr>
+          <tr><td>Anthropic updates terms for age/identity verification</td><td>Hacker News</td><td>Policy change, not a practitioner technique</td></tr>
+          <tr><td>Ask HN: Anthropic banned me from Claude Code</td><td>Hacker News</td><td>Community discussion, not actionable</td></tr>
+          <tr><td>[AINews] SpaceX is already a $28B/yr Neocloud</td><td>Latent Space</td><td>Off-topic (cloud finance)</td></tr>
+          <tr><td>datasette 1.0a35</td><td>Simon Willison</td><td>Off-topic (web app framework)</td></tr>
+          <tr><td>What are the top Chinese GPU rental platforms?</td><td>r/LocalLLaMA</td><td>Discussion question, no content</td></tr>
+          <tr><td>MiniMax2.7 @47tg 1200pp</td><td>r/LocalLLaMA</td><td>Hardware-specific benchmark, below threshold</td></tr>
+          <tr><td>Krea 2 released on Hugging Face</td><td>r/LocalLLaMA</td><td>Image generation model, off-topic</td></tr>
+          <tr><td>I mapped KLD of KV cache quantization</td><td>r/LocalLLaMA</td><td>Niche local inference tuning</td></tr>
+          <tr><td>Baidu: One-shot Long-horizon Parsing</td><td>r/LocalLLaMA</td><td>Insufficient content in snippet</td></tr>
+          <tr><td>V100 4-card AI large model, Tesla 128G server</td><td>r/LocalLLaMA</td><td>Hardware listing/purchase thread</td></tr>
+          <tr><td>I benchmarked 8 LLMs for medical scribing</td><td>r/LocalLLaMA</td><td>Domain-specific benchmark, not general</td></tr>
+          <tr><td>Speaking of those chinese chips... (supercomputer)</td><td>r/LocalLLaMA</td><td>Dedup / geopolitics</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>
 
-</div><!-- .container -->
-</main>
-
+</div><!-- /wrap -->
 </body>
 </html>
