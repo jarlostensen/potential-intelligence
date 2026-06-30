@@ -2,673 +2,579 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Tool Digest — 24 June 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Tool Digest — 30 June 2026</title>
+<meta name="description" content="Run 16 · 12 items · 29–30 June 2026. MCP resurfaces, programmatic subagent orchestration formalised, self-scaffolding models emerge.">
 <style>
-  :root {
-    --ground:  #0f1117;
-    --surface: #131820;
-    --border:  #1e2535;
-    --text:    #e2e8f0;
-    --dim:     #94a3b8;
-    --muted:   #64748b;
-    --accent:  #7c3aed;
-    --green:   #34d399;
-    --blue:    #60a5fa;
-    --amber:   #f59e0b;
-    --pink:    #f472b6;
-    --tag-bg:  #1e293b;
-    --tag-fg:  #a78bfa;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0f1117;
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 0 16px 80px;
+}
 
-  body {
-    background: var(--ground);
-    color: var(--text);
-    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+a { color: inherit; }
+a:hover { opacity: 0.75; }
 
-  .mono { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; }
-  code  { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.88em;
-          background: rgba(255,255,255,0.06); padding: 0 4px; border-radius: 2px; }
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
 
-  a { color: var(--blue); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+/* ── Header ── */
+header {
+  border-bottom: 1px solid #1e293b;
+  padding: 36px 0 24px;
+  margin-bottom: 36px;
+}
 
-  .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f1f5f9;
+}
 
-  /* ── header ── */
-  header {
-    padding: 52px 0 34px;
-    border-bottom: 1px solid var(--border);
-  }
+.meta {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 6px;
+}
 
-  .eyebrow {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
+.run-badge {
+  display: inline-block;
+  background: #1e1b4b;
+  color: #a78bfa;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
 
-  header h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 16px;
-  }
+/* ── Trend pills ── */
+.trend-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
 
-  .header-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-    margin-bottom: 22px;
-  }
+.trend-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
 
-  .hm {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding-right: 18px;
-  }
+.trend-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
 
-  .hm strong { color: var(--dim); }
+.pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
 
-  /* ── trend grid ── */
-  .trends {
-    display: grid;
-    grid-template-columns: 76px 1fr;
-    row-gap: 7px;
-    column-gap: 12px;
-    align-items: start;
-    margin-top: 18px;
-  }
+.pill-green  { background: rgba(52,211,153,0.12); color: #34d399; }
+.pill-blue   { background: rgba(96,165,250,0.12); color: #60a5fa; }
+.pill-muted  { background: rgba(148,163,184,0.10); color: #94a3b8; }
+.pill-amber  { background: rgba(245,158,11,0.12); color: #f59e0b; }
+.pill-pink   { background: rgba(244,114,182,0.12); color: #f472b6; }
 
-  .tk {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding-top: 3px;
-  }
+.trend-divider {
+  width: 1px;
+  height: 16px;
+  background: #1e293b;
+  align-self: center;
+}
 
-  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+/* ── Sections ── */
+section {
+  margin-bottom: 40px;
+}
 
-  .chip {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    padding: 2px 7px;
-    border-radius: 2px;
-    border: 1px solid;
-  }
+section h2 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  border-left: 3px solid #7c3aed;
+  padding-left: 10px;
+  margin-bottom: 18px;
+}
 
-  .ch-s { color: var(--muted);  background: rgba(100,116,139,0.1); border-color: rgba(100,116,139,0.18); }
-  .ch-c { color: var(--amber);  background: rgba(245,158,11,0.07); border-color: rgba(245,158,11,0.22); }
+/* ── Article cards (score-stamp layout) ── */
+article {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  gap: 0 16px;
+  background: #111827;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
 
-  /* ── overview ── */
-  .overview {
-    margin: 38px 0 46px;
-    padding: 18px 22px;
-    border-left: 2px solid var(--accent);
-    background: rgba(124,58,237,0.04);
-    animation: rise 0.45s ease 0.05s both;
-  }
+.score-stamp {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 3px;
+}
 
-  .ov-label {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.56rem;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 9px;
-  }
+.score-val {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
 
-  .overview p {
-    font-size: 0.86rem;
-    line-height: 1.78;
-    color: var(--dim);
-  }
+.score-green { color: #34d399; }
+.score-blue  { color: #60a5fa; }
+.score-muted { color: #94a3b8; }
 
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(5px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+.card-body h3 {
+  font-size: 0.97rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f1f5f9;
+  margin-bottom: 7px;
+}
 
-  @media (prefers-reduced-motion: reduce) { .overview { animation: none; } }
+.card-body h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+.card-body h3 a:hover { color: #a78bfa; opacity: 1; }
 
-  /* ── section head ── */
-  .sec-head {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 46px 0 18px;
-  }
+.item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 0.75rem;
+}
 
-  .sec-label {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    white-space: nowrap;
-  }
+.item-source { color: #64748b; }
+.item-date   { color: #64748b; }
+.item-sep    { color: #334155; }
 
-  .sec-rule { flex: 1; height: 1px; background: var(--border); }
+.tag {
+  background: #1e293b;
+  color: #a78bfa;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
 
-  /* ── score-stamp card ── */
-  .item {
-    display: grid;
-    grid-template-columns: 58px 1fr;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    margin-bottom: 9px;
-    transition: border-color 0.1s;
-  }
+.stars {
+  font-size: 0.72rem;
+  color: #64748b;
+}
 
-  .item:hover { border-color: #2c3a52; }
+.card-body p {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
 
-  .score-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 16px;
-    border-right: 1px solid var(--border);
-  }
+.source-link {
+  font-size: 0.75rem;
+  color: #475569;
+  text-decoration: none;
+  display: inline-block;
+  padding: 3px 0;
+  border-bottom: 1px solid transparent;
+}
+.source-link:hover { color: #94a3b8; border-color: #475569; opacity: 1; }
 
-  .si {
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 2rem;
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -0.05em;
-  }
+/* ── Overview ── */
+.overview {
+  background: #0c1220;
+  border: 1px solid #1e293b;
+  border-left: 3px solid #7c3aed;
+  border-radius: 6px;
+  padding: 18px 20px;
+  margin-bottom: 32px;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1.7;
+}
 
-  .sd {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-top: 1px;
-  }
+/* ── Excluded items ── */
+details {
+  margin-top: 40px;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  overflow: hidden;
+}
 
-  .sg { color: var(--green); }
-  .sb { color: var(--blue); }
-  .sm { color: var(--muted); }
+summary {
+  padding: 14px 18px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: '\25B6  '; font-size: 0.65rem; }
+details[open] summary::before { content: '\25BC  '; }
+summary:hover { color: #94a3b8; background: #111827; }
 
-  .item-body { padding: 14px 16px 13px; }
+.excl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  overflow-x: auto;
+  display: block;
+}
+.excl-table th {
+  text-align: left;
+  padding: 8px 14px;
+  background: #111827;
+  color: #475569;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #1e293b;
+}
+.excl-table td {
+  padding: 7px 14px;
+  color: #475569;
+  border-bottom: 1px solid #111827;
+  vertical-align: top;
+}
+.excl-table tr:last-child td { border-bottom: none; }
+.excl-table td:first-child { color: #64748b; max-width: 340px; }
 
-  .item-body h2 {
-    font-size: 0.91rem;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    line-height: 1.4;
-    margin-bottom: 6px;
-  }
-
-  .item-body h2 a { color: var(--text); }
-  .item-body h2 a:hover { color: var(--blue); text-decoration: none; }
-
-  .byline {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 7px;
-    margin-bottom: 9px;
-  }
-
-  .b-src {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .b-sep { color: var(--border); font-size: 0.55rem; }
-
-  .b-date {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--muted);
-  }
-
-  .tag {
-    background: var(--tag-bg);
-    color: var(--tag-fg);
-    font-family: 'SF Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.05em;
-    padding: 1px 6px;
-    border-radius: 1px;
-  }
-
-  .item-body p {
-    font-size: 0.83rem;
-    line-height: 1.72;
-    color: var(--dim);
-    margin-bottom: 9px;
-  }
-
-  .src-link {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .src-link:hover { color: var(--blue); text-decoration: none; }
-
-  /* ── excluded ── */
-  .excl { margin-top: 52px; border-top: 1px solid var(--border); }
-
-  details summary {
-    cursor: pointer;
-    list-style: none;
-    padding: 13px 0;
-    font-family: 'SF Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    user-select: none;
-  }
-
-  details summary::-webkit-details-marker { display: none; }
-  details summary::before { content: '+ '; color: var(--accent); }
-  details[open] summary::before { content: '− '; }
-
-  .excl-wrap { overflow-x: auto; padding-bottom: 52px; }
-
-  table { width: 100%; border-collapse: collapse; }
-  th {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.56rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-align: left;
-    padding: 7px 10px;
-    border-bottom: 1px solid var(--border);
-  }
-  td {
-    padding: 5px 10px;
-    font-size: 0.77rem;
-    color: var(--dim);
-    border-bottom: 1px solid rgba(30,37,53,0.5);
-    vertical-align: top;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { color: var(--text); }
-  td:first-child { max-width: 280px; }
-
-  @media (max-width: 560px) {
-    .wrap { padding: 0 16px; }
-    header h1 { font-size: 1.55rem; }
-    .item { grid-template-columns: 48px 1fr; }
-    .si { font-size: 1.6rem; }
-    .trends { grid-template-columns: 1fr; }
-    .tk { display: none; }
-  }
+@media (max-width: 600px) {
+  article { grid-template-columns: 50px 1fr; gap: 0 12px; }
+  .score-val { font-size: 1.2rem; }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header>
-  <p class="eyebrow mono">Intelligence Brief &middot; Run 14</p>
-  <h1>AI Tool Digest</h1>
-  <div class="header-meta">
-    <span class="hm"><strong>24 June 2026</strong></span>
-    <span class="hm">Coverage <strong>22 Jun &rarr; 24 Jun</strong></span>
-    <span class="hm"><strong>14</strong> retained / 71 fetched</span>
-  </div>
+  <h1><span class="run-badge">Run 16</span>AI Tool Digest</h1>
+  <p class="meta">30 June 2026 &middot; 12 items &middot; Coverage: 29 Jun 2026 &rarr; 30 Jun 2026 &middot; 67 fetched (Reddit blocked)</p>
 
-  <div class="trends">
-    <span class="tk">Steady</span>
-    <div class="chips">
-      <span class="chip ch-s">Agent Engineering</span>
-      <span class="chip ch-s">Security</span>
-      <span class="chip ch-s">LLM Models</span>
-      <span class="chip ch-s">AI-Assisted Dev</span>
-      <span class="chip ch-s">Anthropic</span>
-      <span class="chip ch-s">Claude Code</span>
-      <span class="chip ch-s">Tools</span>
-      <span class="chip ch-s">Prompt Engineering</span>
-      <span class="chip ch-s">Evaluation</span>
-      <span class="chip ch-s">Local Inference</span>
-      <span class="chip ch-s">Cloud Infrastructure</span>
+  <div class="trend-row">
+    <div class="trend-group">
+      <span class="trend-label">New</span>
+      <span class="pill pill-blue">Multi-Agent</span>
     </div>
-    <span class="tk">Cooling</span>
-    <div class="chips">
-      <span class="chip ch-c">Performance</span>
+    <div class="trend-divider"></div>
+    <div class="trend-group">
+      <span class="trend-label">Steady</span>
+      <span class="pill pill-muted">Agent Engineering</span>
+      <span class="pill pill-muted">Claude Code</span>
+      <span class="pill pill-muted">LLM Models</span>
+      <span class="pill pill-muted">MCP</span>
+      <span class="pill pill-muted">Tools</span>
+      <span class="pill pill-muted">AI-Assisted Dev</span>
+      <span class="pill pill-muted">Local Inference</span>
+      <span class="pill pill-muted">Evaluation</span>
     </div>
   </div>
 </header>
 
 <div class="overview">
-  <p class="ov-label">Overview</p>
-  <p>Claude Tag is the headline this period: Anthropic's launch of multiplayer, proactive, persistent Claude agents in Slack marks the first time a frontier model has been deployed as an active team participant rather than a passive query tool, completing the loop between agent capability and enterprise collaboration infrastructure. On the model frontier, Qwen's AgentWorld is architecturally significant — a purpose-built world model trained to understand and execute agent action spaces (MCP, terminal, SWE, Android, web) rather than merely receive them as context. Security themes dominate this period more heavily than any prior run: Prompt Injection as Role Confusion (new theoretical framing), Gray Swan's red-teaming discussion post-Mythos, LessWrong monitoring research, and Preventative Steering all converge on how practitioners detect and defend against AI systems behaving unexpectedly at scale. Absent this period: MCP, Context Management, and Memory — the MCP ecosystem that dominated Run 13 has gone quiet.</p>
+  This run covers a narrow 30-hour window with all Reddit subreddits blocked (403), leaving 67 items from GitHub Trending, LangChain, Simon Willison, and Hacker News. MCP resurfaces prominently with two strong entries &#8212; the Chrome DevTools team officially treating coding agents as a primary client class, and Upstash&#8217;s context7 solving the stale-documentation failure mode at the toolchain level. The highest-signal item is LangChain&#8217;s Dynamic Subagents, which formalises programmatic subagent orchestration &#8212; agents writing code to spawn subagents rather than invoking tool calls &#8212; a pattern that mirrors how Claude&#8217;s Workflow engine operates and is now available as a product primitive. Ornith-1.0, the first MIT-licensed self-scaffolding model, extends this further: the model generates its own execution harness rather than relying on an external framework. Security, Anthropic, and Evaluation are all absent this run.
 </div>
 
-<!-- CLAUDE AND ANTHROPIC -->
-<div class="sec-head"><span class="sec-label">Claude &amp; Anthropic</span><div class="sec-rule"></div></div>
+<!-- LLM Models -->
+<section>
+<h2>LLM Models and Capabilities</h2>
 
-<div class="item">
-  <div class="score-col">
-    <span class="si sg">8</span>
-    <span class="sd sg">.1</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.anthropic.com/news/introducing-claude-tag" target="_blank" rel="noopener">Claude Tag: Multiplayer, Proactive, Persistent Agents in Slack</a></h2>
-    <div class="byline">
-      <span class="b-src">Hacker News</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">23 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Anthropic</span><span class="tag">Agent Engineering</span>
-    </div>
-    <p>Anthropic has launched Claude Tag, a Slack-native integration that shifts Claude from reactive query tool to active team participant: users @-tag Claude into threads, Claude proactively surfaces information across channels, retains memory within a workspace session, and coordinates work across multiple simultaneous users without context loss. This is the first frontier AI deployment in enterprise chat that is genuinely multiplayer — Claude can be tagged by multiple team members simultaneously with coherent thread awareness. For engineering organizations using Slack as their primary coordination layer, this changes the AI access model from individual tool to shared team agent.</p>
-    <a class="src-link" href="https://www.anthropic.com/news/introducing-claude-tag" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">6</span>
-    <span class="sd sm">.1</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://simonwillison.net/2026/Jun/22/porting-moebius/#atom-everything" target="_blank" rel="noopener">Porting the Moebius 0.2B image inpainting model to run in the browser with Claude Code</a></h2>
-    <div class="byline">
-      <span class="b-src">Simon Willison</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">22 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Claude Code</span><span class="tag">AI-Assisted Dev</span>
-    </div>
-    <p>Simon Willison documents a complete Claude Code workflow for porting Moebius (a 0.2B lightweight image inpainting model) from Python/PyTorch to run client-side in a browser via ONNX and WebAssembly — a non-trivial ML engineering task completed with minimal manual intervention. The workflow demonstrates Claude Code's capability beyond typical web development: model conversion pipelines, ONNX export debugging, and WebAssembly integration are within its reliable execution range when properly guided. Engineers needing to deploy small inference models client-side should evaluate this as a reproducible template before writing custom conversion tooling.</p>
-    <a class="src-link" href="https://simonwillison.net/2026/Jun/22/porting-moebius/#atom-everything" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<!-- LLM MODELS -->
-<div class="sec-head"><span class="sec-label">LLM Models &amp; Capabilities</span><div class="sec-rule"></div></div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sg">7</span>
-    <span class="sd sg">.6</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ue5149/qwenagentworld35ba3b_a_3bactive_moe_trained_to/" target="_blank" rel="noopener">Qwen-AgentWorld-35B-A3B: a 3B-active MoE trained to simulate MCP, terminal, SWE, Android, web and OS environments</a></h2>
-    <div class="byline">
-      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">LLM Models</span><span class="tag">Agent Engineering</span>
-    </div>
-    <p>Qwen has released AgentWorld-35B-A3B, a 35B-parameter MoE model with 3B active parameters per token, trained not as a standard instruction model but as a &ldquo;language world model&rdquo; — one that understands, predicts, and executes agent action spaces including MCP protocol calls, terminal commands, SWE-bench tasks, Android gestures, browser interactions, and OS operations. The architectural bet is that dedicated training on the semantics of agent environments produces qualitatively better agent execution than general instruction-following plus tool-call prompting. This is distinct from fine-tuning: the model is pre-trained to have a simulator&rsquo;s understanding of how agent environments respond, analogous to a world model in RL rather than an instruction-follower with tool access.</p>
-    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ue5149/qwenagentworld35ba3b_a_3bactive_moe_trained_to/" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">6</span>
-    <span class="sd sm">.2</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1udkxde/7_chinese_companies_are_already_shipping/" target="_blank" rel="noopener">7 Chinese companies are already shipping H100/H200-class AI chips, most IPO&rsquo;d in the last 6 months</a></h2>
-    <div class="byline">
-      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">23 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Local Inference</span><span class="tag">LLM Models</span>
-    </div>
-    <p>A detailed community mapping of seven Chinese AI chip manufacturers — including Huawei Ascend 910C, Moore Threads MTT S4000, Biren BR100, and four emerging &ldquo;snake&rdquo; companies — clarifies that export controls are producing a bifurcated compute ecosystem rather than a Chinese compute gap. Most of these companies have IPO&rsquo;d in the last six months, signalling institutionalised supply-chain independence rather than experimental alternatives. For AI infrastructure planning in organizations with China partnerships, or teams anticipating further US export restrictions, this is actionable supply-chain intelligence that should inform hardware dependency mapping.</p>
-    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1udkxde/7_chinese_companies_are_already_shipping/" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">4</span>
-    <span class="sd sm">.8</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ucwyes/deepseek_raises_74b_usd_at_60b_valuation/" target="_blank" rel="noopener">DeepSeek raises $7.4B USD at $60B valuation; Liang Wenfeng invests $3B personally</a></h2>
-    <div class="byline">
-      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">22 Jun 2026</span><span class="b-sep">&#9679;</span>
+<article>
+  <div class="score-stamp"><span class="score-val score-blue">7.4</span></div>
+  <div class="card-body">
+    <h3><a href="https://simonwillison.net/2026/Jun/29/ornith/" target="_blank" rel="noopener">Ornith-1.0: Self-Scaffolding LLMs for Agentic Coding</a></h3>
+    <p class="item-meta">
+      <span class="item-source">Simon Willison</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">29 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
       <span class="tag">LLM Models</span>
-    </div>
-    <p>DeepSeek has raised $7.4B at a $60B valuation, with founder Liang Wenfeng committing $3B of his own capital — simultaneously the largest Chinese AI funding round on record and a founder conviction signal of unusual scale. At $60B, DeepSeek is capitalising at a level that funds sustained frontier model development independent of external investor timelines. For teams building on DeepSeek&rsquo;s open models, this reduces exit-driven open-source discontinuity risk; the company&rsquo;s open-weight commitments are now backed by a balance sheet that doesn&rsquo;t require near-term monetisation pressure.</p>
-    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ucwyes/deepseek_raises_74b_usd_at_60b_valuation/" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<!-- AGENT ENGINEERING -->
-<div class="sec-head"><span class="sec-label">Agent Engineering</span><div class="sec-rule"></div></div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sb">6</span>
-    <span class="sd sb">.8</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.latent.space/p/gray-swan" target="_blank" rel="noopener">Red-Teaming after Mythos &mdash; Zico Kolter &amp; Matt Fredrikson, Gray Swan</a></h2>
-    <div class="byline">
-      <span class="b-src">Latent Space</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">22 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Security</span><span class="tag">Evaluation</span>
-    </div>
-    <p>OpenAI board member Zico Kolter and Gray Swan CEO Matt Fredrikson argue that AI security is not &ldquo;cybersecurity with AI&rdquo; — the threat model, failure modes, and required mitigations are qualitatively different because AI systems can autonomously discover and exploit vulnerabilities rather than requiring manual exploitation. Recorded in the wake of the Mythos/NSA disclosure, this is the clearest public articulation yet of how frontier AI reframes security: detection and containment logic that assumes bounded attacker intelligence fails against an attacker that can reason and adapt. For practitioners designing agentic systems with tool access, the implication is that standard security perimeter assumptions need structural re-evaluation, not incremental hardening.</p>
-    <a class="src-link" href="https://www.latent.space/p/gray-swan" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">6</span>
-    <span class="sd sm">.0</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.lesswrong.com/posts/YMw2PhtDGcCwgc4GA/agentic-frameworks-or-different-ways-to-make-llm-api-calls" target="_blank" rel="noopener">Agentic Frameworks: Or different ways to make LLM API calls</a></h2>
-    <div class="byline">
-      <span class="b-src">LessWrong</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
       <span class="tag">Agent Engineering</span>
-    </div>
-    <p>A structured LessWrong survey of the agentic framework research landscape covers key findings on topology: which graph structures (chains, trees, DAGs, ensembles) produce measurably better outcomes on which task types, and which are equivalent despite surface-level architectural differences. The central finding is that many apparent distinctions between agent frameworks reduce to different patterns of LLM API calls with different prompting strategies — the &ldquo;framework&rdquo; is mostly scaffolding, not capability. For engineers evaluating framework selection, this provides evidence-based grounds for preferring simpler orchestration over complex framework dependencies where task type doesn&rsquo;t demand topological complexity.</p>
-    <a class="src-link" href="https://www.lesswrong.com/posts/YMw2PhtDGcCwgc4GA/agentic-frameworks-or-different-ways-to-make-llm-api-calls" target="_blank" rel="noopener">Source &rarr;</a>
+    </p>
+    <p>Ornith-1.0 is the first MIT-licensed open-weights model designed specifically to self-scaffold: it generates its own execution harness for agentic coding tasks rather than relying on an externally provided framework. This inverts the standard assumption &#8212; instead of a runtime wrapping a model, the model defines the runtime &#8212; which means Ornith can adapt its scaffolding strategy to the task rather than being constrained by the scaffold&#8217;s author. For teams building coding agents, this opens the possibility of substrate-agnostic deployment where the agent determines its own tool composition at inference time. The MIT licence makes it a clean base for derivative work.</p>
+    <a class="source-link" href="https://simonwillison.net/2026/Jun/29/ornith/" target="_blank" rel="noopener">simonwillison.net</a>
   </div>
+</article>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-muted">6.4</span></div>
+  <div class="card-body">
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1uj7egu/introducing_longcat20_a_largescale_moe_language/" target="_blank" rel="noopener">LongCat-2.0: 1.6T-Parameter MoE, Formerly &#8216;owl-alpha&#8217; on OpenRouter</a></h3>
+    <p class="item-meta">
+      <span class="item-source">r/LocalLLaMA</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">29 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">LLM Models</span>
+    </p>
+    <p>LongCat-2.0 is a 1.6 trillion total-parameter MoE (~48B activated per token) that had been quietly serving as &#8216;owl-alpha&#8217; on OpenRouter before being officially named. The stealth deployment pattern &#8212; production serving under a codename before public announcement &#8212; is now confirmed frontier lab behaviour for gathering usage data without anchoring expectations. Practitioners routing traffic through OpenRouter alias endpoints should instrument their pipelines with response fingerprinting or model-identity checks when consistency matters.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1uj7egu/introducing_longcat20_a_largescale_moe_language/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA</a>
+  </div>
+</article>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-muted">6.2</span></div>
+  <div class="card-body">
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ujktg5/normpreserving_abliteration_on_qwen3635ba3b_0/" target="_blank" rel="noopener">Norm-Preserving Abliteration on Qwen3.6-35B-A3B: 0% Refusal, Benchmarks Intact</a></h3>
+    <p class="item-meta">
+      <span class="item-source">r/LocalLLaMA</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">30 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">LLM Models</span>
+      <span class="tag">Local Inference</span>
+    </p>
+    <p>A community researcher applied a norm-preserving abliteration technique to Qwen3.6-35B-A3B &#8212; fully removing refusal behaviour while keeping benchmark performance within noise &#8212; and released both the modified weights and the dataset used. The methodological contribution is the norm-preservation constraint, which prior abliteration approaches lacked and which caused measurable benchmark degradation. Teams running uncensored local models for automated red-teaming or security research can now apply this recipe without the performance penalty.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ujktg5/normpreserving_abliteration_on_qwen3635ba3b_0/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA</a>
+  </div>
+</article>
+</section>
+
+<!-- Agent Engineering -->
+<section>
+<h2>Agent Engineering</h2>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-green">7.6</span></div>
+  <div class="card-body">
+    <h3><a href="https://www.langchain.com/blog/introducing-dynamic-subagents-in-deep-agents" target="_blank" rel="noopener">Introducing Dynamic Subagents in Deep Agents</a></h3>
+    <p class="item-meta">
+      <span class="item-source">LangChain</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">29 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">Agent Engineering</span>
+      <span class="tag">Multi-Agent</span>
+    </p>
+    <p>LangChain&#8217;s Deep Agents product now supports dynamic subagents: agents that emit Python code to instantiate and invoke subagents rather than issuing fixed tool calls. Code-based orchestration is compositional and runtime-determined; tool-call orchestration is schema-bounded and author-determined. This matches the pattern used by Claude&#8217;s Workflow engine and production multi-agent systems at DoorDash and Cognition, and its arrival as a first-class product primitive signals that the community has validated programmatic orchestration as the correct abstraction for long-horizon pipelines. Teams building multi-agent workflows should evaluate whether their current tool-call approach is hitting expressiveness limits that code-based orchestration would remove.</p>
+    <a class="source-link" href="https://www.langchain.com/blog/introducing-dynamic-subagents-in-deep-agents" target="_blank" rel="noopener">langchain.com</a>
+  </div>
+</article>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-blue">6.6</span></div>
+  <div class="card-body">
+    <h3><a href="https://github.com/doordash-oss/agentic-orchestrator" target="_blank" rel="noopener">Show HN: Agentic Orchestrator &#8212; TUI for Long-Running Coding Agents</a></h3>
+    <p class="item-meta">
+      <span class="item-source">Hacker News</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">30 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">Tools</span>
+      <span class="tag">Agent Engineering</span>
+    </p>
+    <p>DoorDash open-sourced a terminal UI purpose-built for supervising long-running coding agents &#8212; showing step execution, tool calls, and intermediate outputs in a structured live view rather than a raw log stream. The production motivation is concrete: DoorDash&#8217;s internal agent pipelines run for tens of minutes, and existing monitoring primitives are poorly suited to the branching, non-linear execution graph of a coding agent. Teams running Claude Code or similar agents in CI/CD or batch contexts should evaluate this before investing in heavier observability tooling.</p>
+    <a class="source-link" href="https://github.com/doordash-oss/agentic-orchestrator" target="_blank" rel="noopener">github.com/doordash-oss</a>
+  </div>
+</article>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-muted">6.3</span></div>
+  <div class="card-body">
+    <h3><a href="https://github.com/zhayujie/CowAgent" target="_blank" rel="noopener">zhayujie/CowAgent &#8212; Self-Evolving Agent Harness with Memory</a></h3>
+    <p class="item-meta">
+      <span class="item-source">GitHub Trending</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">30 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">Agent Engineering</span>
+      <span class="tag">Memory</span>
+      <span class="stars">45.7K &#9733;</span>
+    </p>
+    <p>CowAgent (formerly chatgpt-on-wechat, 45.7K &#9733;) has reoriented as a general-purpose agent harness that plans tasks, uses tools, self-evolves its skill library from task outcomes, and operates across multiple models and channels from a single install. The self-evolution capability &#8212; the agent updates its own skill set based on what it learned in previous tasks &#8212; is the architecturally novel claim. One-line install and high star count lower the entry cost for evaluating it as a persistent, multi-session agent backbone, though independent benchmarks on self-evolution claims are not yet available.</p>
+    <a class="source-link" href="https://github.com/zhayujie/CowAgent" target="_blank" rel="noopener">github.com/zhayujie/CowAgent</a>
+  </div>
+</article>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-muted">6.1</span></div>
+  <div class="card-body">
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1uj9viw/been_running_qwen3627b_through_a_3critic_harness/" target="_blank" rel="noopener">3-Critic Harness on Qwen3.6-27B: The Harness Matters More Than the Model</a></h3>
+    <p class="item-meta">
+      <span class="item-source">r/LocalLLaMA</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">30 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">Agent Engineering</span>
+      <span class="tag">Evaluation</span>
+    </p>
+    <p>A practitioner report on running Qwen3.6-27B through a three-critic harness &#8212; code review, test generation, and runtime analysis running in parallel against the same code &#8212; found the harness architecture produced larger quality improvements than swapping the underlying model. Parallel specialised critics catch orthogonal failure modes: the code reviewer finds logic errors, the test generator surfaces missing coverage, the runtime analyst identifies inefficiencies the other two skip. This pattern is reproducible at low cost using three instances of any capable 27B model and a thin orchestration layer.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1uj9viw/been_running_qwen3627b_through_a_3critic_harness/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA</a>
+  </div>
+</article>
+</section>
+
+<!-- AI-Assisted Software Development -->
+<section>
+<h2>AI-Assisted Software Development</h2>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-blue">7.4</span></div>
+  <div class="card-body">
+    <h3><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="noopener">ChromeDevTools/chrome-devtools-mcp &#8212; Chrome DevTools for Coding Agents</a></h3>
+    <p class="item-meta">
+      <span class="item-source">GitHub Trending</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">30 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">MCP</span>
+      <span class="tag">Claude Code</span>
+      <span class="tag">Tools</span>
+      <span class="stars">44.8K &#9733;</span>
+    </p>
+    <p>The official Chrome DevTools team has published an MCP server that exposes Chrome DevTools APIs to coding agents &#8212; network inspection, DOM queries, console logs, performance traces, and JavaScript execution in a running browser. The significance is not just the tool but the signal: the Chrome DevTools team is officially treating coding agents as a primary user class alongside human developers. Any Claude Code or Cursor workflow involving frontend development, end-to-end testing, or web debugging can now instrument the browser programmatically via MCP rather than relying on screenshots or manual steps.</p>
+    <a class="source-link" href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="noopener">github.com/ChromeDevTools</a>
+  </div>
+</article>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-blue">7.3</span></div>
+  <div class="card-body">
+    <h3><a href="https://github.com/upstash/context7" target="_blank" rel="noopener">upstash/context7 &#8212; Up-to-Date Code Documentation for LLMs and AI Editors</a></h3>
+    <p class="item-meta">
+      <span class="item-source">GitHub Trending</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">30 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">Context Management</span>
+      <span class="tag">MCP</span>
+      <span class="tag">Claude Code</span>
+      <span class="stars">58.3K &#9733;</span>
+    </p>
+    <p>Context7 resolves one of the most consistent failure modes in AI-assisted coding: models generating API calls against library versions that no longer exist. It maintains a continuously updated documentation corpus and injects the correct versioned documentation for the libraries in scope at prompt time, available as an MCP server or direct API. The practical effect is that coding agents stop hallucinating deprecated methods and generate runnable code on first attempt. Add it as an MCP server to any Claude Code or Cursor setup to eliminate the class of errors that currently require a human to look up the right API and re-prompt.</p>
+    <a class="source-link" href="https://github.com/upstash/context7" target="_blank" rel="noopener">github.com/upstash/context7</a>
+  </div>
+</article>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-blue">7.2</span></div>
+  <div class="card-body">
+    <h3><a href="https://github.com/safishamsi/graphify" target="_blank" rel="noopener">safishamsi/graphify &#8212; Turn a Codebase into a Queryable Knowledge Graph</a></h3>
+    <p class="item-meta">
+      <span class="item-source">GitHub Trending</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">30 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">Knowledge Graph</span>
+      <span class="tag">Claude Code</span>
+      <span class="tag">AI-Assisted Dev</span>
+      <span class="stars">74.7K &#9733;</span>
+    </p>
+    <p>Graphify is a coding-agent skill compatible with Claude Code, Cursor, Codex, and Gemini CLI that converts an entire repository &#8212; code, SQL schemas, shell scripts, documentation, papers, images, and videos &#8212; into a queryable knowledge graph. The graph representation exposes structural relationships that flat-file RAG misses: how a database schema maps to application models, which shell scripts invoke which services, how documentation references specific code paths. On large or polyglot repositories, this yields materially better answers to cross-cutting architecture questions than embedding-based retrieval, at the cost of an initial indexing step.</p>
+    <a class="source-link" href="https://github.com/safishamsi/graphify" target="_blank" rel="noopener">github.com/safishamsi/graphify</a>
+  </div>
+</article>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-muted">6.3</span></div>
+  <div class="card-body">
+    <h3><a href="https://github.com/github/awesome-copilot" target="_blank" rel="noopener">github/awesome-copilot &#8212; Community Copilot Instructions, Skills, and Configurations</a></h3>
+    <p class="item-meta">
+      <span class="item-source">GitHub Trending</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">30 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">AI-Assisted Dev</span>
+      <span class="tag">Claude Code</span>
+      <span class="stars">36.0K &#9733;</span>
+    </p>
+    <p>GitHub&#8217;s official awesome-copilot repository collects community-contributed instruction files, agent skills, and configurations for GitHub Copilot &#8212; effectively a community-maintained instruction pattern library. The value for practitioners extends beyond Copilot: the instruction patterns (how to scope an agent&#8217;s role, define output format, constrain tool use) transfer directly to Claude Code&#8217;s CLAUDE.md, Cursor&#8217;s .cursorrules, and any other agent instruction system. Treat it as a reference for instruction design across all coding agents, not a Copilot-specific resource.</p>
+    <a class="source-link" href="https://github.com/github/awesome-copilot" target="_blank" rel="noopener">github.com/github/awesome-copilot</a>
+  </div>
+</article>
+</section>
+
+<!-- Tools and Frameworks -->
+<section>
+<h2>Tools and Frameworks</h2>
+
+<article>
+  <div class="score-stamp"><span class="score-val score-muted">6.2</span></div>
+  <div class="card-body">
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1uj0fkw/deepseek_v4_pr_merged_into_llamacpp/" target="_blank" rel="noopener">DeepSeek V4 PR Merged into llama.cpp</a></h3>
+    <p class="item-meta">
+      <span class="item-source">r/LocalLLaMA</span>
+      <span class="item-sep">&middot;</span>
+      <span class="item-date">29 Jun 2026</span>
+      <span class="item-sep">&middot;</span>
+      <span class="tag">Local Inference</span>
+      <span class="tag">Tools</span>
+    </p>
+    <p>The DeepSeek V4 inference implementation has been merged into the llama.cpp main branch, meaning DeepSeek V4 GGUFs are now runnable with a standard cmake build &#8212; no custom fork, no patched runtime required. Combined with community GGUF quantizations now publicly available, this completes the local inference path: git pull, cmake, download quantized weights, run. For teams evaluating DeepSeek V4 as an internal code-review or batch-inference model, the integration friction has dropped to near zero.</p>
+    <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1uj0fkw/deepseek_v4_pr_merged_into_llamacpp/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA</a>
+  </div>
+</article>
+</section>
+
+<!-- Excluded -->
+<details>
+<summary>Excluded items (28)</summary>
+<table class="excl-table">
+  <thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead>
+  <tbody>
+    <tr><td>NousResearch/hermes-agent</td><td>GitHub</td><td>Dedup &#8212; covered Run 15</td></tr>
+    <tr><td>thedotmack/claude-mem</td><td>GitHub</td><td>Dedup &#8212; covered Run 15</td></tr>
+    <tr><td>affaan-m/ECC</td><td>GitHub</td><td>Dedup &#8212; covered Run 15</td></tr>
+    <tr><td>asgeirtj/system_prompts_leaks</td><td>GitHub</td><td>Dedup &#8212; covered Run 15</td></tr>
+    <tr><td>AutoGPT</td><td>GitHub</td><td>Established framework, no novel signal</td></tr>
+    <tr><td>langgenius/dify</td><td>GitHub</td><td>Established platform, no new technique</td></tr>
+    <tr><td>infiniflow/ragflow</td><td>GitHub</td><td>Established RAG engine, no novel update</td></tr>
+    <tr><td>n8n-io/n8n</td><td>GitHub</td><td>Established workflow tool, off-topic</td></tr>
+    <tr><td>ollama/ollama</td><td>GitHub</td><td>New model additions only, no technique</td></tr>
+    <tr><td>open-webui/open-webui</td><td>GitHub</td><td>Established UI, no novel update</td></tr>
+    <tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Covered in prior runs</td></tr>
+    <tr><td>f/prompts.chat</td><td>GitHub</td><td>Established resource, no novel signal</td></tr>
+    <tr><td>InternScience/Agents-A1</td><td>r/LocalLLaMA</td><td>Benchmark claims unverified</td></tr>
+    <tr><td>ascend-tribe/openPangu-2.0-Flash</td><td>r/LocalLLaMA</td><td>No weights on HuggingFace yet</td></tr>
+    <tr><td>Bartowski DS4 GGUF availability</td><td>r/LocalLLaMA</td><td>Subsumed by DeepSeek V4 llama.cpp item</td></tr>
+    <tr><td>nvidia/Qwen3.6-27B-NVFP4</td><td>r/LocalLLaMA</td><td>NVIDIA-hardware-specific, insufficient signal</td></tr>
+    <tr><td>Meta secretly tested chatbots with minor crisis prompts</td><td>r/LocalLLaMA</td><td>Safety news, not practitioner-actionable</td></tr>
+    <tr><td>Anthropic embedded spyware in Claude Code</td><td>Hacker News</td><td>Unverified Reddit claim, HN score 11</td></tr>
+    <tr><td>OpenAI/Anthropic AI spending efficiency shift</td><td>Hacker News</td><td>Market news, no technique, HN score 12</td></tr>
+    <tr><td>Anthropic CEO: Open-Source AI dangerous (2023)</td><td>Hacker News</td><td>2023 article recirculating</td></tr>
+    <tr><td>LessWrong (multiple posts)</td><td>LessWrong</td><td>Off-topic &#8212; AI safety/alignment philosophy</td></tr>
+    <tr><td>HKUDS/nanobot</td><td>GitHub</td><td>Sparse description, insufficient evidence</td></tr>
+    <tr><td>DietrichGebert/ponytail</td><td>GitHub</td><td>Sparse description, insufficient evidence</td></tr>
+    <tr><td>Simon Willison miscellaneous posts</td><td>Simon Willison</td><td>Off-topic or trivial dev notes</td></tr>
+    <tr><td>Dario opinion pieces / rants</td><td>r/LocalLLaMA</td><td>Opinion, no technique or evidence</td></tr>
+    <tr><td>Samsung/SK Hynix/Micron RAM lawsuit</td><td>r/LocalLLaMA</td><td>Off-topic &#8212; hardware antitrust</td></tr>
+    <tr><td>Tesla V100 local LLM benchmarks</td><td>r/LocalLLaMA</td><td>Hardware benchmark, off-topic</td></tr>
+    <tr><td>[AINews] not much happened today</td><td>Latent Space</td><td>No content worth covering</td></tr>
+  </tbody>
+</table>
+</details>
+
 </div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">5</span>
-    <span class="sd sm">.0</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.lesswrong.com/posts/krbFK53Y2bFm5apCQ/can-weak-ai-watch-strong-ai" target="_blank" rel="noopener">Can weak AI watch strong AI?</a></h2>
-    <div class="byline">
-      <span class="b-src">LessWrong</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Evaluation</span><span class="tag">Agent Engineering</span>
-    </div>
-    <p>As frontier models gain capability, can a weaker model reliably detect when a stronger model is doing something it shouldn&rsquo;t? This post argues that the answer is increasingly negative — the same capability gaps that make frontier models useful also make them harder to monitor with weaker supervisors, and the gap widens as model strength increases. For AI engineers building production monitoring for coding agents or autonomous systems, this is a direct challenge to the common architecture of using a smaller/cheaper model as a runtime judge or safety monitor; the post suggests the problem requires solution at the training level rather than inference-time monitoring.</p>
-    <a class="src-link" href="https://www.lesswrong.com/posts/krbFK53Y2bFm5apCQ/can-weak-ai-watch-strong-ai" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<!-- AI-ASSISTED DEV -->
-<div class="sec-head"><span class="sec-label">AI-Assisted Software Development</span><div class="sec-rule"></div></div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sb">7</span>
-    <span class="sd sb">.1</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://simonwillison.net/2026/Jun/22/prompt-injection-as-role-confusion/#atom-everything" target="_blank" rel="noopener">Prompt Injection as Role Confusion</a></h2>
-    <div class="byline">
-      <span class="b-src">Simon Willison</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">22 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Security</span><span class="tag">Prompt Engineering</span>
-    </div>
-    <p>Simon Willison covers a paper that reframes prompt injection not as a data sanitization problem but as a role confusion problem: the model cannot reliably distinguish between instructions from the system role (trusted) and content from the user/environment role (untrusted), because both arrive as text in the same context window. This reframing has direct engineering implications — defenses built on content filtering target the wrong layer, while defenses that enforce role separation at the structural level (separate context partitions, instruction provenance tagging, sandboxed tool outputs) address the actual failure mode. The paper provides concrete architectural patterns for building injection-resistant agent pipelines.</p>
-    <a class="src-link" href="https://simonwillison.net/2026/Jun/22/prompt-injection-as-role-confusion/#atom-everything" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sb">6</span>
-    <span class="sd sb">.7</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank" rel="noopener">nextlevelbuilder/ui-ux-pro-max-skill: An AI SKILL providing design intelligence for professional UI/UX</a></h2>
-    <div class="byline">
-      <span class="b-src">GitHub</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">AI-Assisted Dev</span><span class="tag">Tools</span>
-    </div>
-    <p>At 95,813 GitHub stars, ui-ux-pro-max-skill is the highest-starred AI skill module in the current ecosystem, providing structured design intelligence — component selection, layout reasoning, accessibility decisions, and cross-platform adaptation — as a composable skill layer for AI coding assistants. The star count reflects substantial adoption for a skill-type artifact, confirming that the composable-skill pattern for augmenting coding agents has moved from experimental to mainstream. Teams doing significant UI/UX work with AI coding assistants should evaluate this as a replacement for ad-hoc design prompting.</p>
-    <a class="src-link" href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">6</span>
-    <span class="sd sm">.4</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ue51uk/unlimitedocr_is_now_on_modelscope_a_33b/" target="_blank" rel="noopener">Unlimited-OCR: 3.3B multilingual OCR model for one-shot full-document parsing, MIT license</a></h2>
-    <div class="byline">
-      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">AI-Assisted Dev</span><span class="tag">Tools</span>
-    </div>
-    <p>Unlimited-OCR is a 3.3B multilingual OCR model (MIT license) on ModelScope that performs full-document parsing — not cropped-region extraction — with 32K output length for long OCR sequences, base and &ldquo;gundam&rdquo; image modes for different document layouts, and Transformers-compatible inference with SGLang serving support. The technical differentiation from PaddleOCR (covered in Run 13) is the 32K output window and full-document orientation: the model is designed to produce complete structured document outputs rather than page-level text blocks, reducing the chunking and reconstruction overhead in RAG pipelines handling dense or lengthy documents.</p>
-    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ue51uk/unlimitedocr_is_now_on_modelscope_a_33b/" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">5</span>
-    <span class="sd sm">.5</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.lesswrong.com/posts/R43jFiHaaaK3eMQJ6/preventative-steering-has-advantages-over-inoculation-2" target="_blank" rel="noopener">Preventative Steering has advantages over Inoculation Prompting</a></h2>
-    <div class="byline">
-      <span class="b-src">LessWrong</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">24 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Prompt Engineering</span><span class="tag">Security</span>
-    </div>
-    <p>Research from the SPAR fellowship benchmarks Inoculation Prompting (few-shot refusal examples in the system prompt) against Preventative Steering (adjusting model representations before harmful patterns activate) across multiple attack categories. Preventative Steering outperforms on transfer to unseen attacks, with the performance gap widening as model capability increases, and does not require retraining the base model. For teams fine-tuning models for production deployment with safety requirements, this provides evidence to prioritise activation-level intervention over prompt-level inoculation when defending against a broad attack surface.</p>
-    <a class="src-link" href="https://www.lesswrong.com/posts/R43jFiHaaaK3eMQJ6/preventative-steering-has-advantages-over-inoculation-2" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<!-- CLOUD AND INFRASTRUCTURE -->
-<div class="sec-head"><span class="sec-label">Cloud &amp; Infrastructure</span><div class="sec-rule"></div></div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">6</span>
-    <span class="sd sm">.2</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://blog.pragmaticengineer.com/coinbase-fail/" target="_blank" rel="noopener">Reliability fail: No automated zone failover for Coinbase&rsquo;s global trading service</a></h2>
-    <div class="byline">
-      <span class="b-src">Pragmatic Engineer</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">23 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Cloud Infrastructure</span>
-    </div>
-    <p>Gergely Orosz&rsquo;s post-mortem of Coinbase&rsquo;s June 2026 global trading outage reveals the root architectural failure: no automated zone failover for a business-critical service handling billions in daily volume, with manual failover too slow to prevent extended downtime. The lesson is not about zone redundancy being theoretically required (that&rsquo;s understood) but about why automated failover is consistently deferred: teams treat manual failover as &ldquo;good enough until needed&rdquo; and don&rsquo;t discover the gap until production pressure makes it irreversible. For platform architects designing AI-served trading, payments, or latency-sensitive services, this is a current-year, production-scale example of the compounding cost of infrastructure automation debt.</p>
-    <a class="src-link" href="https://blog.pragmaticengineer.com/coinbase-fail/" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<!-- TOOLS AND FRAMEWORKS -->
-<div class="sec-head"><span class="sec-label">Tools &amp; Frameworks</span><div class="sec-rule"></div></div>
-
-<div class="item">
-  <div class="score-col">
-    <span class="si sm">5</span>
-    <span class="sd sm">.2</span>
-  </div>
-  <div class="item-body">
-    <h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1udwabh/mimo_25_is_fast_at_large_context_dual_rtx_pro_6000/" target="_blank" rel="noopener">Mimo 2.5 is fast at large context (dual RTX Pro 6000)</a></h2>
-    <div class="byline">
-      <span class="b-src">r/LocalLLaMA</span><span class="b-sep">&#9679;</span>
-      <span class="b-date">23 Jun 2026</span><span class="b-sep">&#9679;</span>
-      <span class="tag">Local Inference</span><span class="tag">Performance</span>
-    </div>
-    <p>A practitioner benchmark on dual RTX Pro 6000 (96GB VRAM total) documents Mimo 2.5 maintaining competitive generation speed at 150K context depth — a context window where most tested models degraded severely. The context is agentic coding workflows where tools like OpenCode fill context windows rapidly; at those depths, per-token latency dominates end-to-end task time. For teams running local agentic coding with long-horizon task contexts, Mimo 2.5&rsquo;s large-context speed profile warrants evaluation specifically in that regime rather than as a general-purpose model replacement.</p>
-    <a class="src-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1udwabh/mimo_25_is_fast_at_large_context_dual_rtx_pro_6000/" target="_blank" rel="noopener">Source &rarr;</a>
-  </div>
-</div>
-
-<!-- EXCLUDED -->
-<div class="excl">
-  <details>
-    <summary>Excluded items (35 discarded)</summary>
-    <div class="excl-wrap">
-      <table>
-        <thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead>
-        <tbody>
-          <tr><td>Significant-Gravitas/AutoGPT</td><td>GitHub</td><td>Established project, no novel technique</td></tr>
-          <tr><td>n8n-io/n8n</td><td>GitHub</td><td>Established automation platform</td></tr>
-          <tr><td>lobehub/lobehub</td><td>GitHub</td><td>Covered in prior run</td></tr>
-          <tr><td>CherryHQ/cherry-studio</td><td>GitHub</td><td>Covered in prior run</td></tr>
-          <tr><td>langgenius/dify</td><td>GitHub</td><td>Covered in prior run</td></tr>
-          <tr><td>huggingface/transformers</td><td>GitHub</td><td>Core library, not novel this period</td></tr>
-          <tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Covered in prior run</td></tr>
-          <tr><td>f/prompts.chat</td><td>GitHub</td><td>Covered in prior run</td></tr>
-          <tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Covered in prior run</td></tr>
-          <tr><td>ollama/ollama</td><td>GitHub</td><td>Covered in prior run</td></tr>
-          <tr><td>langchain-ai/langchain</td><td>GitHub</td><td>Established framework, no new technique</td></tr>
-          <tr><td>open-webui/open-webui</td><td>GitHub</td><td>Established tool, no new technique</td></tr>
-          <tr><td>asgeirtj/system_prompts_leaks</td><td>GitHub</td><td>Covered in prior run; update adds models but no new practitioner insight</td></tr>
-          <tr><td>ZhuLinsen/daily_stock_analysis</td><td>GitHub</td><td>Finance domain-specific, not general AI engineering</td></tr>
-          <tr><td>D4Vinci/Scrapling</td><td>GitHub</td><td>Web scraping framework, off-topic</td></tr>
-          <tr><td>Qwen-AgentWorld-397B-A17B</td><td>r/LocalLLaMA</td><td>Dedup with Qwen-AgentWorld-35B-A3B</td></tr>
-          <tr><td>GitHub - QwenLM/Qwen-AgentWorld (link post)</td><td>r/LocalLLaMA</td><td>Dedup with Qwen-AgentWorld-35B-A3B</td></tr>
-          <tr><td>PCIE 5.0 16x split into 2x8 with riser cable</td><td>r/LocalLLaMA</td><td>Hardware-only, not AI engineering</td></tr>
-          <tr><td>Chinese supercomputer displaces US machines</td><td>r/LocalLLaMA</td><td>Geopolitics, not actionable technique</td></tr>
-          <tr><td>Reasoning and injected concepts in LMs</td><td>LessWrong</td><td>ML interpretability research, off-topic</td></tr>
-          <tr><td>Toy transformers and belief-state geometry</td><td>LessWrong</td><td>Pure ML research, not practitioner-actionable</td></tr>
-          <tr><td>How might outsiders make things go well?</td><td>LessWrong</td><td>AI governance, off-topic</td></tr>
-          <tr><td>Superintelligence vs. The Second Strike</td><td>LessWrong</td><td>Nuclear/AI governance, off-topic</td></tr>
-          <tr><td>Anthropic updates terms for age/identity verification</td><td>Hacker News</td><td>Policy change, not a practitioner technique</td></tr>
-          <tr><td>Ask HN: Anthropic banned me from Claude Code</td><td>Hacker News</td><td>Community discussion, not actionable</td></tr>
-          <tr><td>[AINews] SpaceX is already a $28B/yr Neocloud</td><td>Latent Space</td><td>Off-topic (cloud finance)</td></tr>
-          <tr><td>datasette 1.0a35</td><td>Simon Willison</td><td>Off-topic (web app framework)</td></tr>
-          <tr><td>What are the top Chinese GPU rental platforms?</td><td>r/LocalLLaMA</td><td>Discussion question, no content</td></tr>
-          <tr><td>MiniMax2.7 @47tg 1200pp</td><td>r/LocalLLaMA</td><td>Hardware-specific benchmark, below threshold</td></tr>
-          <tr><td>Krea 2 released on Hugging Face</td><td>r/LocalLLaMA</td><td>Image generation model, off-topic</td></tr>
-          <tr><td>I mapped KLD of KV cache quantization</td><td>r/LocalLLaMA</td><td>Niche local inference tuning</td></tr>
-          <tr><td>Baidu: One-shot Long-horizon Parsing</td><td>r/LocalLLaMA</td><td>Insufficient content in snippet</td></tr>
-          <tr><td>V100 4-card AI large model, Tesla 128G server</td><td>r/LocalLLaMA</td><td>Hardware listing/purchase thread</td></tr>
-          <tr><td>I benchmarked 8 LLMs for medical scribing</td><td>r/LocalLLaMA</td><td>Domain-specific benchmark, not general</td></tr>
-          <tr><td>Speaking of those chinese chips... (supercomputer)</td><td>r/LocalLLaMA</td><td>Dedup / geopolitics</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </details>
-</div>
-
-</div><!-- /wrap -->
 </body>
 </html>

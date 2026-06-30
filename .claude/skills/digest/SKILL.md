@@ -256,3 +256,100 @@ Render each classification (**Rising**, **New this period**, **Steady**, **Cooli
 - Article cards: subtle border `#1e293b`, `border-radius: 6px`, padding, bottom margin
 - Source link: muted, small, no underline until hover
 - Excluded items `<details>` styled as collapsible, closed by default
+
+## Step 9 — Write and publish Slack summary
+
+Write a condensed, copy-pasteable Slack message and publish it as a Claude Artifact with a one-click copy button.
+
+### 9a — Compose the message text
+
+Use only Unicode characters and emoji — no Slack markdown (`*bold*`, `_italic_`). The message must look clean as raw text before it is posted.
+
+**Structure** (use this exact skeleton):
+
+```
+🔬  AI Tool Digest  ·  {D Month YYYY}
+
+Coverage: {since date D Mon} → {fetched date D Mon}  ·  {item_count} items from {total fetched} fetched
+
+────────────────────────────────────────
+
+📈  HEADLINE
+
+{Title of the single highest-scoring retained item. One short paragraph: what it is, why it matters, one concrete implication. 3–4 sentences max.}
+{full https:// URL on its own line}
+
+────────────────────────────────────────
+
+TOP PICKS
+
+{emoji}  {Title}  ·  {N}K ★   ← include star count only for GitHub items
+{2 sentences: what it is and what a practitioner should do with it.}
+{full https:// URL on its own line}
+
+{repeat for up to 6 more items, ordered by signal score descending}
+
+────────────────────────────────────────
+
+📌  TREND
+
+{2–3 sentences. Which tags are rising or resurfaced. Which tags are notably absent this run compared to recent history.}
+```
+
+Rules:
+- The `────────────────────────────────────────` divider is exactly 40 `─` characters.
+- Omit the HEADLINE item from TOP PICKS (it is already covered).
+- TOP PICKS: include up to 7 items total (excluding the headline). If fewer than 7 were retained, include all of them.
+- Star counts: round to one decimal and append K (e.g. `53K ★`, `223K ★`). Omit for non-GitHub items.
+- URLs: always full `https://` so Slack auto-links them. One URL per item, on its own line immediately after the item text.
+- No trailing blank lines inside item blocks.
+
+**Emoji selection by primary tag** (pick the best fit; use the first match):
+
+| Tag | Emoji |
+|---|---|
+| Security | 🔒 |
+| Evaluation / MLOps | 📊 |
+| Agent Engineering (loop/control) | 🔁 |
+| Agent Engineering (harness/framework) | 🔧 |
+| Context Management / Performance | ⚡ |
+| Memory | 💾 |
+| AI-Assisted Dev / Claude Code | 🛠️ |
+| LLM Models / Anthropic | 🌐 |
+| Prompt Engineering | 🧠 |
+| Cloud Infrastructure | ☁️ |
+| Growth metric / adoption data | 📈 |
+| Policy / regulatory | 🏛️ |
+| Incident / failure analysis | 💥 |
+| Anything else | 🔹 |
+
+### 9b — Write the HTML artifact file
+
+Write a self-contained HTML file to the session scratchpad at:
+`{scratchpad}/slack-digest.html`
+
+The file must contain:
+1. A read-only monospace preview pane showing the exact message text from 9a.
+2. A single "Copy message" button. On click: copies the text to the clipboard, changes its label to "Copied ✓" for 2 seconds, then resets.
+3. A one-line note below the button: `URLs auto-link in Slack. Separator lines and emoji render correctly on desktop and mobile Slack.`
+
+**CSS spec** (derive all colours from these tokens):
+- `--bg: #0f1117` — page background
+- `--surface: #161b27` — preview pane background
+- `--border: #252d3d` — preview pane border
+- `--text: #cbd5e1` — preview pane text
+- `--dim: #64748b` — label and note colour
+- `--green: #34d399` — copy button border and text (transparent background, fills on hover)
+- Font for preview pane: `'JetBrains Mono','Fira Code','Cascadia Code',ui-monospace,monospace`
+- Preview pane: `white-space: pre-wrap`, `word-break: break-word`, `font-size: 0.82rem`, `line-height: 1.75`
+- Page layout: single column, centred, max-width 680px
+- A small ALL-CAPS dim label above the preview reading `Slack message · Run {N} · {D Month YYYY}`
+
+### 9c — Publish as Artifact
+
+Call the Artifact tool:
+- `file_path`: the scratchpad path from 9b
+- `favicon`: `📋`
+- `label`: `slack-{DD}{mon}` (e.g. `slack-29jun`)
+
+Report the artifact URL to the user alongside the run summary.
