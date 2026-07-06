@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Tool Digest — 2 July 2026</title>
-<meta name="description" content="Run 18 · 12 items · Coverage 1 Jul → 2 Jul 2026. Headline: headroom 60–95% token compression. RLMs for context rot, OpenWiki for agent codebase docs, Fable 5→Opus 4.8 routing revealed.">
+<title>AI Tool Digest — 6 July 2026</title>
+<meta name="description" content="Run 19 · 8 items · Coverage 2 Jul → 6 Jul 2026. Headline: Let Fable use its own judgement — direct Claude Code team tip from AIE. DSPy for agent prompts, long-context benchmarks, Vercel eve framework.">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -151,28 +151,25 @@
 
 <header>
   <h1>AI Tool Digest</h1>
-  <p class="meta">2 July 2026 &nbsp;·&nbsp; 12 items &nbsp;·&nbsp; Coverage: 1 July 2026 → 2 July 2026 &nbsp;·&nbsp; Run 18</p>
+  <p class="meta">6 July 2026 &nbsp;·&nbsp; 8 items &nbsp;·&nbsp; Coverage: 2 July 2026 → 6 July 2026 &nbsp;·&nbsp; Run 19</p>
   <div class="trends">
     <div class="trend-group">
       <span class="trend-label">Steady</span>
-      <span class="pill pill-steady">Agent Engineering</span>
       <span class="pill pill-steady">Claude Code</span>
-      <span class="pill pill-steady">Evaluation</span>
-      <span class="pill pill-steady">Context Management</span>
-      <span class="pill pill-steady">Anthropic</span>
-      <span class="pill pill-steady">LLM Models</span>
+      <span class="pill pill-steady">Agent Engineering</span>
       <span class="pill pill-steady">AI-Assisted Dev</span>
+      <span class="pill pill-steady">LLM Models</span>
+      <span class="pill pill-steady">Evaluation</span>
       <span class="pill pill-steady">Prompt Engineering</span>
+      <span class="pill pill-steady">Anthropic</span>
       <span class="pill pill-steady">Performance</span>
-      <span class="pill pill-steady">MCP</span>
       <span class="pill pill-steady">MLOps</span>
-      <span class="pill pill-steady">Tools</span>
     </div>
   </div>
 </header>
 
 <div class="overview">
-  This run is dominated by a <strong>trio of context management advances</strong>: headroomlabs/headroom compresses tool outputs and RAG chunks by 60–95% before they hit the LLM; LangChain's RLMs fix context rot in long-running agents by delegating context chunks to subagents; and <strong>OpenWiki</strong> auto-generates agent-readable codebase documentation so coding agents don't exhaust their window on broad file reads. On the Anthropic side, <strong>Fable 5 routes coding tasks to Opus 4.8 by default</strong> — a critical operational detail for teams building coding agents on the new model tier. Evaluation sees a concentrated update with two new benchmarks: SWE-rebench adds GLM-5.2 and Gemma 4 31B results, and a new "Senior SWE Bench" targets realistically underspecified feature tasks that existing benchmarks miss. All 12 tags are Steady against the 17-run baseline.
+  This run spans four days (2–6 July) and centres on insights from the AI Engineer World's Fair, combined with a cluster of Fable 5 production experiments. The <strong>headline finding is from the Claude Code team directly</strong>: let Fable and Opus use their own judgment on discretionary calls rather than over-prescribing in CLAUDE.md — a counterintuitive but team-verified inversion of the "specify everything" instinct. Two economics data points emerge: Simon Willison's <strong>$149.25 cost report</strong> for driving a production Python library release with Fable 5, and LangChain's guide to tracing and governing coding agent spend across Claude Code, Cursor, and Copilot. A structured <strong>13-model long-context benchmark</strong> finds prefill speed and KV head count predict agentic performance better than parameter count — reframing which spec sheet numbers matter. <strong>Smart model routing</strong> crystallizes as an operational discipline, with Vercel's eve framework and Pragmatic Engineer's routing survey both landing in the same window.
 </div>
 
 <!-- Claude and Anthropic -->
@@ -180,142 +177,15 @@
   <h2>Claude and Anthropic</h2>
 
   <article>
-    <div class="score-col"><span class="score score-green">7.3</span></div>
+    <div class="score-col"><span class="score score-green">8.2</span></div>
     <div class="card-body">
-      <h3><a href="https://xcancel.com/AnthropicAI/status/2072163884430229756" target="_blank" rel="noopener">Fable 5 Routes Coding Tasks to Opus 4.8 by Default</a></h3>
+      <h3><a href="https://simonwillison.net/2026/Jul/3/judgement/#atom-everything" target="_blank" rel="noopener">Let Fable (and Opus) Use Their Own Judgement — Don't Over-Specify in CLAUDE.md</a></h3>
       <p class="item-meta">
-        <span>Hacker News</span><span>·</span><span>1 Jul 2026</span>
-        <span class="tag">Anthropic</span><span class="tag">Claude Code</span>
+        <span>Simon Willison</span><span>·</span><span>3 Jul 2026</span>
+        <span class="tag">Claude Code</span><span class="tag">Anthropic</span>
       </p>
-      <p>Anthropic has confirmed that Fable 5 uses Opus 4.8 as its default model for coding tasks, meaning API calls to Fable 5 on coding workloads are actually served by the Opus 4.8 architecture. This changes the expected behaviour for teams building coding agents on top of the Fable 5 API — latency, pricing, and capability characteristics will reflect Opus 4.8 rather than a homogeneous Fable 5 model across all task types. Teams that assumed Fable 5 would deliver uniform model behaviour should audit their agent configurations and cost models: the routing behaviour means coding-heavy pipelines are billed against Opus 4.8 rates.</p>
-      <a class="source-link" href="https://xcancel.com/AnthropicAI/status/2072163884430229756" target="_blank" rel="noopener">xcancel.com →</a>
-    </div>
-  </article>
-
-  <article>
-    <div class="score-col"><span class="score score-muted">5.8</span></div>
-    <div class="card-body">
-      <h3><a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener">asgeirtj/system_prompts_leaks Updated: Fable 5, Opus 4.8, ChatGPT 5.5</a></h3>
-      <p class="item-meta">
-        <span>GitHub</span><span>·</span><span>2 Jul 2026</span>
-        <span class="tag">Anthropic</span><span class="tag">Claude Code</span>
-      </p>
-      <p>The community repository tracking extracted system prompts from major AI products has been updated to include Claude Fable 5, Opus 4.8, Claude Code, Claude Design, ChatGPT 5.5 Thinking, GPT 5.5 Instant, Codex, and Gemini 3.5 Flash. For practitioners designing prompts for use with Fable 5 or Opus 4.8, the extracted system prompts reveal the behavioural defaults, constraints, and framing each model is given out of the box — context otherwise opaque but material to how models interpret instructions. Teams calibrating interaction patterns for the newly released model tier should review these before assuming identical behaviour to prior Claude versions.</p>
-      <a class="source-link" href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener">github.com →</a>
-    </div>
-  </article>
-</section>
-
-<!-- Agent Engineering -->
-<section>
-  <h2>Agent Engineering</h2>
-
-  <article>
-    <div class="score-col"><span class="score score-green">7.3</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.langchain.com/blog/how-to-use-rlms-in-deep-agents" target="_blank" rel="noopener">Recursive Language Models Fix Context Rot in Long-Running Agents</a></h3>
-      <p class="item-meta">
-        <span>LangChain Blog</span><span>·</span><span>1 Jul 2026</span>
-        <span class="tag">Agent Engineering</span><span class="tag">Context Management</span>
-      </p>
-      <p>LangChain's Deep Agents now supports Recursive Language Models (RLMs) — a pattern where agents emit code that dispatches subagents to process individual context chunks, preventing the "context rot" that accumulates as long-running agents grow their tool output and reasoning history. Instead of appending growing context to a single model call, the parent agent spawns subagents focused on specific sub-windows, with only their summaries returning to the parent. For teams running agents that handle large codebases, long conversation histories, or multi-step research tasks, this is a production-tested solution to the problem where agent quality degrades after the first 20–30% of context is consumed.</p>
-      <a class="source-link" href="https://www.langchain.com/blog/how-to-use-rlms-in-deep-agents" target="_blank" rel="noopener">langchain.com →</a>
-    </div>
-  </article>
-
-  <article>
-    <div class="score-col"><span class="score score-blue">7.0</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.latent.space/p/autoresearch-introspection" target="_blank" rel="noopener">Autoresearch: The Feedback Loop Behind Self-Improving Agents</a></h3>
-      <p class="item-meta">
-        <span>Latent Space</span><span>·</span><span>1 Jul 2026</span>
-        <span class="tag">Agent Engineering</span>
-      </p>
-      <p>Introspection co-founder Roland Gavrilescu outlines autoresearch — the architecture pattern behind agents that iteratively improve through self-directed research, structured "recipes" (reusable agent workflows), and evaluation-driven refinement loops. The key distinction from conventional pipelines is the evaluation feedback: autoresearch agents assess their own outputs, identify gaps, and generate new research tasks rather than stopping at a single pass. For teams building research automation or technical report generation agents, the recipe pattern and self-evaluation loop are transferable techniques that reduce reliance on human-in-the-loop feedback cycles at the cost of more complex orchestration.</p>
-      <a class="source-link" href="https://www.latent.space/p/autoresearch-introspection" target="_blank" rel="noopener">latent.space →</a>
-    </div>
-  </article>
-
-  <article>
-    <div class="score-col"><span class="score score-muted">5.7</span></div>
-    <div class="card-body">
-      <h3><a href="https://github.com/Panniantong/Agent-Reach" target="_blank" rel="noopener">Panniantong/Agent-Reach — Multi-Platform Agent Web Access Without API Fees</a></h3>
-      <p class="item-meta">
-        <span>GitHub</span><span>·</span><span>2 Jul 2026</span>
-        <span class="tag">Agent Engineering</span><span class="tag">Tools</span>
-      </p>
-      <p>Agent-Reach (48.9K ★) is an open-source CLI that gives AI agents the ability to read and search Twitter, Reddit, YouTube, GitHub, Bilibili, and XiaoHongShu without platform API access or API fees. For teams building research agents, content aggregation pipelines, or competitive intelligence tools that need to access social data across platforms, this removes the per-API-access cost and rate-limit friction that makes multi-platform social data impractical at scale. The zero-fee approach likely uses scraping; teams should validate platform terms of service compliance before production deployment.</p>
-      <a class="source-link" href="https://github.com/Panniantong/Agent-Reach" target="_blank" rel="noopener">github.com →</a>
-    </div>
-  </article>
-</section>
-
-<!-- AI-Assisted Software Development -->
-<section>
-  <h2>AI-Assisted Software Development</h2>
-
-  <article>
-    <div class="score-col"><span class="score score-green">7.5</span></div>
-    <div class="card-body">
-      <h3><a href="https://github.com/headroomlabs-ai/headroom" target="_blank" rel="noopener">headroomlabs-ai/headroom — 60–95% Token Reduction for LLM Tool Outputs</a></h3>
-      <p class="item-meta">
-        <span>GitHub</span><span>·</span><span>2 Jul 2026</span>
-        <span class="tag">Context Management</span><span class="tag">Performance</span><span class="tag">MCP</span>
-      </p>
-      <p>Headroom is a compression library, transparent proxy, and MCP server that intercepts tool outputs, logs, files, and RAG chunks before they reach the LLM — reducing token usage by 60–95% while maintaining equivalent answer quality. Deployment is flexible: use it as a Python library embedded in existing agent code, as a drop-in proxy that compresses outputs from any tool call, or as an MCP server for Claude Code, Cursor, and other MCP-capable agents. For production agent deployments where context budgets are a hard cost constraint, this is a direct path to cost reduction that does not require changing agent logic or replacing tools.</p>
-      <a class="source-link" href="https://github.com/headroomlabs-ai/headroom" target="_blank" rel="noopener">github.com →</a>
-    </div>
-  </article>
-
-  <article>
-    <div class="score-col"><span class="score score-green">7.4</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.langchain.com/blog/introducing-openwiki-an-open-source-agent-for-repo-documentation" target="_blank" rel="noopener">OpenWiki: Open-Source Agent for Generating and Maintaining Codebase Documentation</a></h3>
-      <p class="item-meta">
-        <span>LangChain Blog</span><span>·</span><span>1 Jul 2026</span>
-        <span class="tag">AI-Assisted Dev</span><span class="tag">Agent Engineering</span><span class="tag">Claude Code</span>
-      </p>
-      <p>LangChain has open-sourced OpenWiki, an agent that automatically generates and maintains codebase documentation specifically structured for coding agents — allowing agents to find relevant context without loading entire source files into their context window. Unlike static README files, OpenWiki generates navigable documentation that maps what agents need: how components relate, where to find specific logic, what interfaces exist. For teams running Claude Code, Cursor, or any coding agent on a large repo, this is a direct path to more accurate first-pass code changes by giving agents targeted context rather than broad file reads.</p>
-      <a class="source-link" href="https://www.langchain.com/blog/introducing-openwiki-an-open-source-agent-for-repo-documentation" target="_blank" rel="noopener">langchain.com →</a>
-    </div>
-  </article>
-
-  <article>
-    <div class="score-col"><span class="score score-blue">6.8</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ulatl7/a_cheap_trick_for_reliable_structured_output_feed/" target="_blank" rel="noopener">Feed Validation Errors Back Into the Retry Prompt for Reliable Structured Output</a></h3>
-      <p class="item-meta">
-        <span>r/LocalLLaMA</span><span>·</span><span>2 Jul 2026</span>
-        <span class="tag">Prompt Engineering</span>
-      </p>
-      <p>A practitioner documents a concrete fix for LLM structured output failures: when schema validation fails, include the exact validation error in the retry prompt rather than repeating the original request. The result is that the model corrects the specific field that failed rather than regenerating from scratch, dramatically improving success rates on retry. The technique requires only a try/catch around the validation call and one line of prompt construction — trivially implementable in any codebase that already does structured output. Any production pipeline using JSON schema validation on LLM outputs and retrying on failure should apply this today.</p>
-      <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ulatl7/a_cheap_trick_for_reliable_structured_output_feed/" target="_blank" rel="noopener">reddit.com →</a>
-    </div>
-  </article>
-
-  <article>
-    <div class="score-col"><span class="score score-muted">5.8</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.langchain.com/blog/how-pendo-used-langsmith-to-trace-novus-from-user-behavior-to-code-fixes" target="_blank" rel="noopener">How Pendo Uses LangSmith to Trace AI Agents from User Behavior to Code Fixes</a></h3>
-      <p class="item-meta">
-        <span>LangChain Blog</span><span>·</span><span>1 Jul 2026</span>
-        <span class="tag">Evaluation</span><span class="tag">MLOps</span>
-      </p>
-      <p>Pendo's engineering team has published a case study on using LangSmith to trace Novus — their AI product agent that converts user behavioral data and session feedback into automated code fixes. The tracing architecture documents the full observability path: from agent invocation through tool calls, intermediate reasoning, and final output, enabling post-hoc debugging when agent-generated code is wrong. For teams operating production AI agents that make real changes, this documents the observability stack needed to maintain reliability over time.</p>
-      <a class="source-link" href="https://www.langchain.com/blog/how-pendo-used-langsmith-to-trace-novus-from-user-behavior-to-code-fixes" target="_blank" rel="noopener">langchain.com →</a>
-    </div>
-  </article>
-
-  <article>
-    <div class="score-col"><span class="score score-muted">5.7</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.latent.space/p/cursor-forward-deployed-engineers" target="_blank" rel="noopener">How Cursor Deploys AI Inside the Enterprise with Forward Deployed Engineers</a></h3>
-      <p class="item-meta">
-        <span>Latent Space</span><span>·</span><span>1 Jul 2026</span>
-        <span class="tag">AI-Assisted Dev</span>
-      </p>
-      <p>Cursor's Forward Deployed Engineer lead Pauline Brunet details the operational model Cursor uses when deploying AI coding tools in large enterprises — embedding FDEs directly with customer engineering teams to handle integration, workflow customisation, and change management. The specific insight is that enterprise AI coding adoption fails primarily in the last mile: model capability is sufficient, but matching the tool to existing CI/CD, security policies, and code review flows requires dedicated human effort. For engineering leaders planning enterprise AI tool rollouts, this documents what the gap between "we have access to the tool" and "engineers are using it effectively" actually looks like in practice.</p>
-      <a class="source-link" href="https://www.latent.space/p/cursor-forward-deployed-engineers" target="_blank" rel="noopener">latent.space →</a>
+      <p>The Claude Code team at the AI Engineer World's Fair (via Willison's hosted fireside chat with Cat Wu and Thariq Shihipar) gave a concrete operational tip: let Fable 5 and Opus 4.8 exercise their own judgment rather than prescribing explicit decision rules in CLAUDE.md. The testing example is direct — instead of "always run tests after every change," write "only use automated testing for larger features" and let the model determine what constitutes larger. This is a deliberate inversion of the common instinct to maximally specify agent behaviour, and the claim is that Fable's judgment on discretionary decisions is often better than a hard rule. Teams should audit their CLAUDE.md files for over-specified instructions that could be replaced with goal-oriented framing that gives Fable room to decide.</p>
+      <a class="source-link" href="https://simonwillison.net/2026/Jul/3/judgement/#atom-everything" target="_blank" rel="noopener">simonwillison.net →</a>
     </div>
   </article>
 </section>
@@ -325,96 +195,193 @@
   <h2>LLM Models and Capabilities</h2>
 
   <article>
-    <div class="score-col"><span class="score score-blue">6.4</span></div>
+    <div class="score-col"><span class="score score-blue">7.3</span></div>
     <div class="card-body">
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1uknx14/swerebench_leaderboard_update_glm52_qwen3627b/" target="_blank" rel="noopener">SWE-rebench Updated: GLM-5.2, Qwen3.6-27B, Qwen3.6-35B-A3B, Gemma 4 31B</a></h3>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1unrse9/i_benchmarked_13_models_at_65k128k_context_to/" target="_blank" rel="noopener">Prefill Dominates: Long-Context Benchmark Across 13 Models for Agentic Workloads</a></h3>
       <p class="item-meta">
-        <span>r/LocalLLaMA</span><span>·</span><span>1 Jul 2026</span>
-        <span class="tag">Evaluation</span><span class="tag">LLM Models</span>
+        <span>r/LocalLLaMA</span><span>·</span><span>5 Jul 2026</span>
+        <span class="tag">LLM Models</span><span class="tag">Evaluation</span><span class="tag">Performance</span>
       </p>
-      <p>The SWE-rebench leaderboard has been updated with results for GLM-5.2, Qwen3.6-27B, Qwen3.6-35B-A3B, and Gemma 4 31B, alongside a reworked UI. This provides current comparative data on open model coding performance at a moment when both GLM-5.2 and Gemma 4 31B have just been released. Teams evaluating local coding agent models should check this before committing to a model — the relative rankings between Qwen3.6 variants and GLM-5.2 are not obvious from parameter counts alone.</p>
-      <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1uknx14/swerebench_leaderboard_update_glm52_qwen3627b/" target="_blank" rel="noopener">reddit.com →</a>
+      <p>A practitioner benchmarks 13 local models at 65K-128K context specifically for agentic workloads (tool use, coding agents, RAG) and finds that prefill throughput dominates real-world agent latency — not tg128 (token generation speed), which most model comparisons lead with. KV head count also outperforms raw parameter count as a predictor of long-context agent performance. For teams selecting models for coding agents or multi-step tool use pipelines, this reframes which spec sheet numbers to optimise for: a model with high KV head density and fast prefill will outperform a parameter-heavy but slow-to-process model, and standard leaderboard rankings will not show this.</p>
+      <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1unrse9/i_benchmarked_13_models_at_65k128k_context_to/" target="_blank" rel="noopener">reddit.com →</a>
     </div>
   </article>
 
   <article>
-    <div class="score-col"><span class="score score-blue">6.4</span></div>
+    <div class="score-col"><span class="score score-blue">6.8</span></div>
     <div class="card-body">
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ukzavr/senior_swe_bench_a_new_benchmark_focussed_on/" target="_blank" rel="noopener">Senior SWE Bench: A Benchmark for Realistically Underspecified Coding Tasks</a></h3>
+      <h3><a href="https://blog.pragmaticengineer.com/the-pulse-a-new-trend-smart-model-routing/" target="_blank" rel="noopener">The Pulse: Smart Model Routing Is Emerging as a Standard Practice</a></h3>
       <p class="item-meta">
-        <span>r/LocalLLaMA</span><span>·</span><span>1 Jul 2026</span>
-        <span class="tag">Evaluation</span><span class="tag">LLM Models</span>
+        <span>Pragmatic Engineer</span><span>·</span><span>2 Jul 2026</span>
+        <span class="tag">LLM Models</span><span class="tag">Agent Engineering</span>
       </p>
-      <p>A new benchmark evaluates coding agents on tasks that are realistically underspecified — mirroring the feature requests engineers actually receive rather than the cleanly scoped tasks that existing SWE benchmarks use. The argument is that existing benchmarks overfit to well-defined problems, making top-ranked models appear more capable than they are on real-world work where requirements are ambiguous and success criteria are implicit. For teams selecting coding models or evaluating whether agent investments are delivering in practice, this benchmark is a better predictor of real-world performance than SWE-Bench Verified or similar.</p>
-      <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1ukzavr/senior_swe_bench_a_new_benchmark_focussed_on/" target="_blank" rel="noopener">reddit.com →</a>
+      <p>The Pragmatic Engineer surveys the emerging category of intelligent model routing — systems that automatically select the appropriate LLM for each request based on task type, cost, or capability — and documents the current options: dedicated routing models, rule-based dispatchers, and hybrid approaches. The context extends Run 18's finding that Fable 5 already routes coding tasks to Opus 4.8 by default; this survey shows the same pattern is now being deliberately architected rather than discovered incidentally. For teams running multi-model deployments, the routing options documented here are a practical starting point for intentional routing architecture before the implicit defaults become a cost or quality problem.</p>
+      <a class="source-link" href="https://blog.pragmaticengineer.com/the-pulse-a-new-trend-smart-model-routing/" target="_blank" rel="noopener">blog.pragmaticengineer.com →</a>
+    </div>
+  </article>
+</section>
+
+<!-- Agent Engineering -->
+<section>
+  <h2>Agent Engineering</h2>
+
+  <article>
+    <div class="score-col"><span class="score score-blue">6.9</span></div>
+    <div class="card-body">
+      <h3><a href="https://www.latent.space/p/vercel-agents-new-software" target="_blank" rel="noopener">Vercel's eve Framework: Agents Need Skills, Sandboxes, and Agent-Readable Websites</a></h3>
+      <p class="item-meta">
+        <span>Latent Space</span><span>·</span><span>3 Jul 2026</span>
+        <span class="tag">Agent Engineering</span>
+      </p>
+      <p>Vercel Chief of Software Andrew Qu explains how Vercel's agent framework "eve" was designed around three concepts: skills (composable, reusable capabilities), sandboxes (isolated execution environments), and agent-readable websites (pages structured for machine consumption rather than human rendering). The agent-readable website concept is the most novel — Qu's argument is that websites need a parallel machine-facing representation, just as mobile required a separate UX discipline, and that the current web is only incidentally navigable by agents. Engineering teams planning agent-based web integrations should treat this as an early signal that a new interface contract between web services and agents is forming, distinct from REST APIs.</p>
+      <a class="source-link" href="https://www.latent.space/p/vercel-agents-new-software" target="_blank" rel="noopener">latent.space →</a>
+    </div>
+  </article>
+
+  <article>
+    <div class="score-col"><span class="score score-blue">6.7</span></div>
+    <div class="card-body">
+      <h3><a href="https://www.latent.space/p/skill-engineering-design" target="_blank" rel="noopener">Skill Engineering and the Case Against One-Shot AI Design</a></h3>
+      <p class="item-meta">
+        <span>Latent Space</span><span>·</span><span>2 Jul 2026</span>
+        <span class="tag">Agent Engineering</span><span class="tag">Prompt Engineering</span>
+      </p>
+      <p>Paul Bakaus (Impeccable) argues against one-shot AI design — single-prompt agents that attempt to produce complete outputs in a single pass — in favour of skill engineering: modular, tested, reusable skills that agents select and chain. The framing is a response to "loopmaxxing" — the pressure to maximise agent autonomy and minimise human touchpoints. His counter-argument is that human judgment at key decision points consistently produces better outcomes, and that composable skill libraries are the mechanism that makes it practical to route those decisions appropriately rather than delegating everything to one long prompt. For teams whose agents are failing at the long-tail of edge cases, this is a practitioner case for refactoring monolithic prompts into a skill architecture.</p>
+      <a class="source-link" href="https://www.latent.space/p/skill-engineering-design" target="_blank" rel="noopener">latent.space →</a>
+    </div>
+  </article>
+</section>
+
+<!-- AI-Assisted Software Development -->
+<section>
+  <h2>AI-Assisted Software Development</h2>
+
+  <article>
+    <div class="score-col"><span class="score score-blue">7.1</span></div>
+    <div class="card-body">
+      <h3><a href="https://simonwillison.net/2026/Jul/2/dspy-datasette-agent-prompts/#atom-everything" target="_blank" rel="noopener">Using DSPy to Automatically Optimise an Agent's System Prompt</a></h3>
+      <p class="item-meta">
+        <span>Simon Willison</span><span>·</span><span>2 Jul 2026</span>
+        <span class="tag">Prompt Engineering</span><span class="tag">Evaluation</span>
+      </p>
+      <p>After an AIE keynote on DSPy, Willison delegates an asynchronous task to Claude Code/Fable 5: use DSPy to evaluate and improve the SQL generation system prompt for Datasette Agent. DSPy is a framework for automatic prompt optimisation — it evaluates the current prompt against test cases, proposes and tests variants, and surfaces improved versions without manual rewriting. For any team with a production agent that has a fixed system prompt and evaluable inputs/outputs (SQL generation, extraction, classification), this demonstrates a path to improvement that bypasses the manual prompt engineering cycle. The DSPy evaluate → optimise → measure loop is reproducible on any agent where success criteria can be defined.</p>
+      <a class="source-link" href="https://simonwillison.net/2026/Jul/2/dspy-datasette-agent-prompts/#atom-everything" target="_blank" rel="noopener">simonwillison.net →</a>
+    </div>
+  </article>
+
+  <article>
+    <div class="score-col"><span class="score score-blue">6.9</span></div>
+    <div class="card-body">
+      <h3><a href="https://www.langchain.com/blog/fix-your-coding-agent-bill" target="_blank" rel="noopener">Your Coding Agent Bill Doubled — How to Trace and Govern Spend Across Tools</a></h3>
+      <p class="item-meta">
+        <span>LangChain Blog</span><span>·</span><span>2 Jul 2026</span>
+        <span class="tag">AI-Assisted Dev</span><span class="tag">Claude Code</span><span class="tag">MLOps</span>
+      </p>
+      <p>LangChain documents why coding agent costs scale super-linearly once teams move from individual use to shared infrastructure: Claude Code, Cursor, Copilot, and similar tools each expose separate billing surfaces with no unified spend view. The recommended approach instruments agent sessions via LangSmith to enable cost comparison across tools, surface high-cost patterns (full-repo context loads vs targeted lookups), and apply governance policies that flag runaway sessions. For engineering teams with approved coding agent subscriptions but no visibility into actual consumption, this is the operational starting point — cost accountability needs to be designed in rather than bolted on after the first surprising invoice.</p>
+      <a class="source-link" href="https://www.langchain.com/blog/fix-your-coding-agent-bill" target="_blank" rel="noopener">langchain.com →</a>
+    </div>
+  </article>
+
+  <article>
+    <div class="score-col"><span class="score score-blue">6.8</span></div>
+    <div class="card-body">
+      <h3><a href="https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything" target="_blank" rel="noopener">sqlite-utils 4.0 Mostly Written by Claude Fable 5 — for $149.25</a></h3>
+      <p class="item-meta">
+        <span>Simon Willison</span><span>·</span><span>5 Jul 2026</span>
+        <span class="tag">AI-Assisted Dev</span><span class="tag">Claude Code</span>
+      </p>
+      <p>Simon Willison documents using Claude Fable 5 via Claude Code to drive the majority of work on sqlite-utils 4.0, a production Python library, at a total cost of $149.25. The post includes prompts, approach, and a post-hoc evaluation of where Fable handled work well and where human judgment was still required. The significance is the economic transparency on a real SemVer major release with intentional incompatible changes — not a toy project, but a maintained library with real users. For teams evaluating whether Fable 5 access justifies the cost for production maintenance work, this is one of the clearest first-principles data points from an elite practitioner.</p>
+      <a class="source-link" href="https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything" target="_blank" rel="noopener">simonwillison.net →</a>
     </div>
   </article>
 </section>
 
 <!-- Excluded -->
 <details>
-  <summary>Excluded items (58 discarded)</summary>
+  <summary>Excluded items (80 discarded)</summary>
   <div class="excluded-wrap">
     <table>
       <thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead>
       <tbody>
+        <tr><td>langgenius/dify</td><td>GitHub</td><td>Established platform, no novel update</td></tr>
         <tr><td>n8n-io/n8n</td><td>GitHub</td><td>Established workflow tool, no novel signal</td></tr>
-        <tr><td>lobehub/lobehub</td><td>GitHub</td><td>Established tool, no novel update</td></tr>
-        <tr><td>Best coding model for 3x Spark setup?</td><td>r/LocalLLaMA</td><td>Discussion question, no technique</td></tr>
+        <tr><td>infiniflow/ragflow</td><td>GitHub</td><td>Established RAG engine, no novel update</td></tr>
         <tr><td>CherryHQ/cherry-studio</td><td>GitHub</td><td>Established, covered prior runs</td></tr>
         <tr><td>Significant-Gravitas/AutoGPT</td><td>GitHub</td><td>Established, no novel signal</td></tr>
-        <tr><td>Saving Gemini: The 9-Min Road to Recovery</td><td>LessWrong</td><td>Off-topic — AI safety/mental health</td></tr>
-        <tr><td>ChromeDevTools/chrome-devtools-mcp</td><td>GitHub</td><td>Dedup — covered Run 16</td></tr>
-        <tr><td>infiniflow/ragflow</td><td>GitHub</td><td>Established RAG engine, no novel update</td></tr>
-        <tr><td>langgenius/dify</td><td>GitHub</td><td>Established platform, no novel signal</td></tr>
-        <tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Dedup — covered Run 14</td></tr>
-        <tr><td>huggingface/transformers</td><td>GitHub</td><td>Established, no novel signal</td></tr>
-        <tr><td>AI #175: The Fable Continues</td><td>LessWrong</td><td>Dedup — Fable 5 covered Run 17</td></tr>
-        <tr><td>mem0ai/mem0</td><td>GitHub</td><td>Established, no novel update</td></tr>
-        <tr><td>NousResearch/hermes-agent</td><td>GitHub</td><td>Dedup — covered Run 15</td></tr>
-        <tr><td>Talking with Gemma 4 31B!</td><td>r/LocalLLaMA</td><td>Demo post, no technique</td></tr>
-        <tr><td>safishamsi/graphify</td><td>GitHub</td><td>Dedup — covered Run 16</td></tr>
-        <tr><td>Karp: Anthropic/OpenAI stealing customer IP</td><td>Hacker News</td><td>Unverified Twitter claim, 16 pts</td></tr>
-        <tr><td>The AFFINE Alignment Seminar Retrospective</td><td>LessWrong</td><td>Off-topic — AI safety</td></tr>
-        <tr><td>ZhuLinsen/daily_stock_analysis</td><td>GitHub</td><td>Finance domain, off-topic</td></tr>
-        <tr><td>I built a local LLM NPC backend</td><td>r/LocalLLaMA</td><td>Gaming domain, off-topic</td></tr>
-        <tr><td>London rationalish meetup</td><td>LessWrong</td><td>Meetup announcement, off-topic</td></tr>
-        <tr><td>Z.ai launches ZCode</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient evidence</td></tr>
-        <tr><td>sansan0/TrendRadar</td><td>GitHub</td><td>Chinese-market tool, insufficient signal</td></tr>
-        <tr><td>santifer/career-ops</td><td>GitHub</td><td>Low signal, narrow use case</td></tr>
-        <tr><td>What's in your RAG?</td><td>r/LocalLLaMA</td><td>Discussion question, no technique</td></tr>
-        <tr><td>J.D. Vance's Communion of Saints</td><td>LessWrong</td><td>Off-topic — political</td></tr>
-        <tr><td>Agentic AI on Windows XP update</td><td>r/LocalLLaMA</td><td>Legacy platform, insufficient signal</td></tr>
-        <tr><td>AIEWF Daily Dispatch: Autoresearch tension</td><td>Latent Space</td><td>Subsumed by Autoresearch item</td></tr>
-        <tr><td>github/awesome-copilot</td><td>GitHub</td><td>Dedup — covered Run 16</td></tr>
-        <tr><td>f/prompts.chat</td><td>GitHub</td><td>Established resource, no novel signal</td></tr>
-        <tr><td>SenseNova-U1-8b-MoT-Infographic-V2</td><td>r/LocalLLaMA</td><td>Off-topic — image generation</td></tr>
-        <tr><td>[Benchmark] Kimi K2.7 Mac+RTX PRO 6000</td><td>r/LocalLLaMA</td><td>Niche hardware, insufficient signal</td></tr>
-        <tr><td>They fit! 2x 3090 build photos</td><td>r/LocalLLaMA</td><td>Hardware post, off-topic</td></tr>
-        <tr><td>Practical connection with past lives</td><td>LessWrong</td><td>Off-topic — philosophy</td></tr>
-        <tr><td>microsoft/generative-ai-for-beginners</td><td>GitHub</td><td>Established educational resource</td></tr>
-        <tr><td>Career Choice: Researcher vs Startup</td><td>LessWrong</td><td>Off-topic — career advice</td></tr>
-        <tr><td>Making LLMs Better at Creative Writing</td><td>r/LocalLLaMA</td><td>Off-topic — creative writing</td></tr>
-        <tr><td>Singapore AI Safety Fellowship</td><td>LessWrong</td><td>Off-topic — AI safety fellowship</td></tr>
-        <tr><td>ollama/ollama</td><td>GitHub</td><td>Established, new model additions only</td></tr>
-        <tr><td>nextlevelbuilder/ui-ux-pro-max-skill</td><td>GitHub</td><td>Low signal, narrow use case</td></tr>
+        <tr><td>affaan-m/ECC</td><td>GitHub</td><td>Established, covered prior runs</td></tr>
+        <tr><td>NousResearch/hermes-agent</td><td>GitHub</td><td>Established, covered prior runs</td></tr>
+        <tr><td>langchain-ai/langchain</td><td>GitHub</td><td>Established framework, no novel update</td></tr>
+        <tr><td>ollama/ollama: new models</td><td>GitHub</td><td>New model additions only, no technique</td></tr>
         <tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Established, covered prior runs</td></tr>
-        <tr><td>I added MTP to Ornith 35B FP8</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient evidence</td></tr>
-        <tr><td>[AINews] not much happened today</td><td>Latent Space</td><td>Explicitly no content this issue</td></tr>
-        <tr><td>I'm opening VSCode less and less</td><td>Hacker News</td><td>Opinion, no technique, 18 pts</td></tr>
-        <tr><td>I extended Gemma4-31B to 44B</td><td>r/LocalLLaMA</td><td>Methodology unclear from sparse snippet</td></tr>
-        <tr><td>My reasons to run local models</td><td>r/LocalLLaMA</td><td>Opinion post, no technique</td></tr>
-        <tr><td>End of an Agony (production LLM postmortem)</td><td>r/LocalLLaMA</td><td>Anecdote, insufficient evidence</td></tr>
-        <tr><td>ZCode: New Agentic Code Editor from GLM</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient evidence</td></tr>
-        <tr><td>The Coolest Diffusion Research Isn't in LLMs</td><td>Latent Space</td><td>Off-topic — drug discovery</td></tr>
-        <tr><td>Warp CEO: software factories are next</td><td>Latent Space</td><td>Below threshold, conceptual only</td></tr>
-        <tr><td>Deepseek V4 Flash GGUFs</td><td>r/LocalLLaMA</td><td>Model weights release, no technique</td></tr>
-        <tr><td>Non US Ally should be afraid</td><td>r/LocalLLaMA</td><td>Unverified claim, off-topic</td></tr>
-        <tr><td>Open Models - June 2026 (roundup)</td><td>r/LocalLLaMA</td><td>Below threshold, monthly recap only</td></tr>
-        <tr><td>Gap between open and closed models</td><td>r/LocalLLaMA</td><td>Opinion, hard to verify</td></tr>
-        <tr><td>Modeling Concepts Probabilistically</td><td>LessWrong</td><td>Off-topic — AI theory</td></tr>
-        <tr><td>AI Safety Is Testing the Wrong Environment</td><td>LessWrong</td><td>Off-topic — AI safety philosophy</td></tr>
-        <tr><td>Practical connection with past lives</td><td>LessWrong</td><td>Off-topic — philosophy</td></tr>
+        <tr><td>santifer/career-ops</td><td>GitHub</td><td>Career domain tool, off-topic for audience</td></tr>
+        <tr><td>thedotmack/claude-mem</td><td>GitHub</td><td>Dedup — covered Run 15</td></tr>
+        <tr><td>JuliusBrussee/caveman</td><td>GitHub</td><td>Viral/gimmick, insufficient production signal</td></tr>
+        <tr><td>Graphify-Labs/graphify</td><td>GitHub</td><td>Dedup — safishamsi/graphify covered Run 16</td></tr>
+        <tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Dedup — covered Run 14</td></tr>
+        <tr><td>f/prompts.chat</td><td>GitHub</td><td>Established resource, no novel signal</td></tr>
+        <tr><td>D4Vinci/Scrapling</td><td>GitHub</td><td>Web scraping tool, off-topic</td></tr>
+        <tr><td>microsoft/generative-ai-for-beginners</td><td>GitHub</td><td>Established educational resource</td></tr>
+        <tr><td>nextlevelbuilder/ui-ux-pro-max-skill</td><td>GitHub</td><td>Narrow UI/UX domain, low signal</td></tr>
+        <tr><td>ZhuLinsen/daily_stock_analysis</td><td>GitHub</td><td>Finance domain, off-topic</td></tr>
+        <tr><td>koala73/worldmonitor</td><td>GitHub</td><td>Finance/geo monitoring, off-topic</td></tr>
+        <tr><td>ggml-hip -ffast-math HIP PR</td><td>r/LocalLLaMA</td><td>Build system internals, insufficient signal</td></tr>
+        <tr><td>AIEWF Daily Dispatch: great loops debate</td><td>Latent Space</td><td>Subsumed by Vercel agents + skill engineering items</td></tr>
+        <tr><td>llm-coding-agent 0.1a0</td><td>Simon Willison</td><td>Early alpha, subsumed by sqlite-utils Fable item</td></tr>
+        <tr><td>sqlite-utils 4.0rc2 (release notes)</td><td>Simon Willison</td><td>Dedup — subsumed by Fable cost report item</td></tr>
+        <tr><td>sqlite-utils 4.0rc3</td><td>Simon Willison</td><td>Dedup — subsumed by Fable cost report item</td></tr>
+        <tr><td>Better Models: Worse Tools</td><td>Simon Willison</td><td>Conceptual opinion, insufficient evidence</td></tr>
+        <tr><td>Open Source AI Gap Map</td><td>Simon Willison</td><td>Mapping tool, low technique signal</td></tr>
+        <tr><td>Building a World Map with 500 bytes</td><td>Simon Willison</td><td>Off-topic — SVG/graphics</td></tr>
+        <tr><td>Quoting Josh W. Comeau</td><td>Simon Willison</td><td>Quote post, no technique</td></tr>
+        <tr><td>June 2026 newsletter</td><td>Simon Willison</td><td>Monthly recap, subsumed by individual items</td></tr>
+        <tr><td>Understand to participate</td><td>Simon Willison</td><td>Opinion essay, no technique</td></tr>
+        <tr><td>Launch HN: Manufact (YC S25) – MCP Cloud</td><td>Hacker News</td><td>No snippet, insufficient description</td></tr>
+        <tr><td>Ask HN: experimenting with LLMs for coding?</td><td>Hacker News</td><td>Discussion thread, no technique</td></tr>
+        <tr><td>Tell HN: don't trust Bigco AI with IP</td><td>Hacker News</td><td>Unverified opinion, 22 points</td></tr>
+        <tr><td>Anthropic performing prompt injection</td><td>Hacker News</td><td>Unverified claim, no evidence</td></tr>
+        <tr><td>Possible evidence of prompt injection</td><td>Hacker News</td><td>Unverified claim, 14 points</td></tr>
+        <tr><td>Fable 5. Safety Taken to an Extreme</td><td>Hacker News</td><td>Anecdote, 10 points, no technique</td></tr>
+        <tr><td>Show HN: Enola — deterministic arch graph</td><td>Hacker News</td><td>Early-stage, insufficient signal</td></tr>
+        <tr><td>Show HN: KiCad in the Browser</td><td>Hacker News</td><td>Off-topic — EDA/hardware</td></tr>
+        <tr><td>Show HN: Roblox FPS</td><td>Hacker News</td><td>Off-topic — gaming</td></tr>
+        <tr><td>AI coding is a nightmare (HN)</td><td>Hacker News</td><td>Vague opinion, no technique</td></tr>
+        <tr><td>Best Local VLMs - July 2026</td><td>r/LocalLLaMA</td><td>Model roundup, no technique</td></tr>
+        <tr><td>[RELEASE] Supra-Router-51M</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient evidence</td></tr>
+        <tr><td>longcat 2.0 (1.6T, MIT)</td><td>r/LocalLLaMA</td><td>Model weights release, no technique</td></tr>
+        <tr><td>Qwen 3.6 27B VLLM Benchmark</td><td>r/LocalLLaMA</td><td>Single benchmark, insufficient context</td></tr>
+        <tr><td>I wrote a GGUF inferencer from scratch</td><td>r/LocalLLaMA</td><td>AMA format, no reproducible technique</td></tr>
+        <tr><td>Qualcomm launches GenieX</td><td>r/LocalLLaMA</td><td>Hardware platform, off-topic</td></tr>
+        <tr><td>Qwen 3.7 9B discussion</td><td>r/LocalLLaMA</td><td>Discussion question, no technique</td></tr>
+        <tr><td>Is open weight LLM viable long term?</td><td>r/LocalLLaMA</td><td>Opinion, no technique</td></tr>
+        <tr><td>DeepSeek v4 Flash VRAM cost question</td><td>r/LocalLLaMA</td><td>Discussion question, no technique</td></tr>
+        <tr><td>Who Has The Jankiest Local LLM Setup?</td><td>r/LocalLLaMA</td><td>Off-topic — fun contest</td></tr>
+        <tr><td>I asked Codex to optimize DeepSeek V4 Flash</td><td>r/LocalLLaMA</td><td>Single anecdote, insufficient evidence</td></tr>
+        <tr><td>100% local voice-to-voice assistant</td><td>r/LocalLLaMA</td><td>Consumer voice domain, off-topic</td></tr>
+        <tr><td>LivePortrait distilled model browser</td><td>r/LocalLLaMA</td><td>Off-topic — image/video</td></tr>
+        <tr><td>Llama-Server KV cache fix</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient signal</td></tr>
+        <tr><td>SK-Hynix / Mythos hardware projections</td><td>r/LocalLLaMA</td><td>Speculative, off-topic</td></tr>
+        <tr><td>Tencent Hy3 295B model release</td><td>r/LocalLLaMA</td><td>Model weights only, no technique</td></tr>
+        <tr><td>What do you use local models for?</td><td>r/LocalLLaMA</td><td>Discussion, no technique</td></tr>
+        <tr><td>Qwen & Gemma benchmark deadlock?</td><td>r/LocalLLaMA</td><td>Discussion question, no technique</td></tr>
+        <tr><td>New toy to test.</td><td>r/LocalLLaMA</td><td>Vague post, insufficient context</td></tr>
+        <tr><td>I developed a 270M parameter LM from scratch</td><td>r/LocalLLaMA</td><td>Academic exercise, no practitioner signal</td></tr>
+        <tr><td>Legal doc hallucination question</td><td>r/LocalLLaMA</td><td>Domain-specific question, no technique</td></tr>
+        <tr><td>If trends hold — SK-Hynix dyson spheres</td><td>r/LocalLLaMA</td><td>Speculative extrapolation, off-topic</td></tr>
+        <tr><td>DeepSeek-V4-Flash 8-bit MLX optimization</td><td>r/LocalLLaMA</td><td>Single anecdote, niche toolchain</td></tr>
+        <tr><td>Distributed training democratization</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient evidence</td></tr>
+        <tr><td>Claude's malicious compliance</td><td>LessWrong</td><td>Alignment topic, off-topic for audience</td></tr>
+        <tr><td>Computation enables Action</td><td>LessWrong</td><td>Philosophy, off-topic</td></tr>
+        <tr><td>Counterfactual mugging</td><td>LessWrong</td><td>Philosophy, off-topic</td></tr>
+        <tr><td>Getting an Oura ring improved my sleep</td><td>LessWrong</td><td>Off-topic — health/lifestyle</td></tr>
+        <tr><td>Reflections on The Scout Mindset</td><td>LessWrong</td><td>Off-topic — philosophy</td></tr>
+        <tr><td>When Gemma Thinks About Resources</td><td>LessWrong</td><td>Alignment research, off-topic</td></tr>
+        <tr><td>Probing loss-band sparsity assumption</td><td>LessWrong</td><td>ML theory, off-topic for audience</td></tr>
+        <tr><td>Book Review: The God Test</td><td>LessWrong</td><td>Off-topic — book review</td></tr>
+        <tr><td>We need 3rd party Training-Run Assessments</td><td>LessWrong</td><td>Policy/safety, off-topic</td></tr>
+        <tr><td>Fealty to Fidelity</td><td>LessWrong</td><td>Philosophy, off-topic</td></tr>
+        <tr><td>Vercel's Andrew Qu (podcast)</td><td>Latent Space</td><td>Subsumed by eve framework item</td></tr>
+        <tr><td>The website of the future assembles itself</td><td>Latent Space</td><td>Below threshold, conceptual only</td></tr>
+        <tr><td>Warp CEO: software factories</td><td>Latent Space</td><td>Below threshold, conceptual only</td></tr>
       </tbody>
     </table>
   </div>
