@@ -46,4 +46,4 @@ __MACOSX/
 scripts/debug/
 *_stderr.txt
 *_stdout.txt
-
+*.log

@@ -257,9 +257,9 @@ Render each classification (**Rising**, **New this period**, **Steady**, **Cooli
 - Source link: muted, small, no underline until hover
 - Excluded items `<details>` styled as collapsible, closed by default
 
-## Step 9 — Write and publish Slack summary
+## Step 9 — Write, publish, and post the Slack summary
 
-Write a condensed, copy-pasteable Slack message and publish it as a Claude Artifact with a one-click copy button.
+Write a condensed Slack message, publish it as a Claude Artifact with a one-click copy button (9a–9c), then post it automatically to the configured Slack channel (9d).
 
 ### 9a — Compose the message text
 
@@ -352,4 +352,44 @@ Call the Artifact tool:
 - `favicon`: `📋`
 - `label`: `slack-{DD}{mon}` (e.g. `slack-29jun`)
 
-Report the artifact URL to the user alongside the run summary.
+### 9d — Post to the Slack channel
+
+Write the exact message text from 9a to a UTF-8 file in the scratchpad (e.g. `{scratchpad}/slack-message.txt`) — write it verbatim, identical to what the artifact preview shows. Then run the posting script from the project root:
+
+```
+uv run scripts/post_to_slack.py --message-file {scratchpad}/slack-message.txt
+```
+
+The script chooses its delivery mechanism automatically from credentials in the environment or the project-root `.env` file (see **Slack configuration** below):
+
+- **Bot token** — used when `SLACK_BOT_TOKEN` and a channel are set (`SLACK_CHANNEL`, or pass `--channel "#name"`). Posts via `chat.postMessage`.
+- **Incoming webhook** — used when only `SLACK_WEBHOOK_URL` is set. Posts to that webhook's fixed channel.
+- **Skip** — if neither is configured, the script prints a warning and exits 0. This is expected and NOT a failure: the artifact from 9c still stands. Do not treat a skip as an error.
+
+Interpret the result:
+- Exit 0 with `"delivered": true` on stdout → posted. Report the channel/method in the run summary.
+- Exit 0 with `"delivered": false, "reason": "not_configured"` → skipped; tell the user Slack posting is not yet configured and point them at **Slack configuration**.
+- Exit 1 → a delivery was attempted and failed. Report the stderr message (common causes: `not_in_channel` → invite the bot to the channel; `invalid_auth`/`missing_scope` → token needs `chat:write`; webhook HTTP error). The artifact still stands.
+
+Add `--dry-run` to validate configuration without posting.
+
+Report the artifact URL AND the Slack post outcome (posted to which channel, skipped, or failed) to the user alongside the run summary.
+
+### Slack configuration (one-time setup)
+
+Credentials live in a gitignored `.env` file at the project root (`.env` and `*_api_key*` are already in `.gitignore`). Never commit them. Choose one:
+
+**Option A — Incoming webhook (simplest, one fixed channel):**
+```
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/xxxxxxxxxxxxxxxx
+```
+Create at api.slack.com → your app → *Incoming Webhooks* → *Add New Webhook to Workspace*, selecting the target channel.
+
+**Option B — Bot token (flexible channel, threading):**
+```
+SLACK_BOT_TOKEN=xoxb-your-bot-token
+SLACK_CHANNEL=#ai-digest
+```
+Create a Slack app with the `chat:write` bot scope, install it to the workspace, and invite the bot to the channel (`/invite @your-bot`). If both a bot token and a webhook are present, the bot token wins.
+
+Real environment variables take precedence over `.env`, so CI/cron can inject credentials without a file.

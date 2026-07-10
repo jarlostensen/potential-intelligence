@@ -1,392 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Tool Digest — 6 July 2026</title>
-<meta name="description" content="Run 19 · 8 items · Coverage 2 Jul → 6 Jul 2026. Headline: Let Fable use its own judgement — direct Claude Code team tip from AIE. DSPy for agent prompts, long-context benchmarks, Vercel eve framework.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Tool Digest — 10 July 2026</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg:      #0f1117;
-    --surface: #141922;
-    --card:    #161c28;
-    --border:  #1e293b;
-    --text:    #e2e8f0;
-    --dim:     #64748b;
-    --accent:  #7c3aed;
-    --green:   #34d399;
-    --blue:    #60a5fa;
-    --muted:   #94a3b8;
-    --amber:   #f59e0b;
-    --pink:    #f472b6;
-    --mono:    'JetBrains Mono','Fira Code',ui-monospace,monospace;
-  }
-
+  * { box-sizing: border-box; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    font-size: 15px;
-    line-height: 1.65;
-    min-height: 100vh;
+    margin: 0; background: #0f1117; color: #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6; font-size: 16px;
   }
-
-  a { color: inherit; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  .page { max-width: 900px; margin: 0 auto; padding: 0 20px 80px; }
-
-  header {
-    padding: 48px 0 32px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 40px;
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 80px; }
+  header { margin-bottom: 36px; }
+  h1 { font-size: 1.9rem; margin: 0 0 6px; letter-spacing: -0.02em; }
+  .meta { color: #94a3b8; font-size: 0.9rem; margin: 0 0 18px; }
+  .trends { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .trend-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .trend-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; min-width: 92px; }
+  .pill { font-size: 0.76rem; padding: 2px 10px; border-radius: 999px; background: #1e293b; font-weight: 600; }
+  .pill.rising { color: #34d399; } .pill.new { color: #60a5fa; }
+  .pill.steady { color: #94a3b8; } .pill.cooling { color: #f59e0b; }
+  .pill.resurfaced { color: #f472b6; }
+  section { margin-bottom: 40px; }
+  section > h2 {
+    font-size: 1.25rem; border-left: 3px solid #7c3aed; padding-left: 12px;
+    margin: 0 0 18px; letter-spacing: -0.01em;
   }
-
-  header h1 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 6px;
-  }
-
-  .meta {
-    font-size: 0.82rem;
-    color: var(--dim);
-    margin-bottom: 20px;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .trends { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-  .trend-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .trend-label {
-    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--dim);
-  }
-  .pill {
-    font-size: 0.72rem; font-weight: 600; padding: 2px 9px;
-    border-radius: 20px; letter-spacing: 0.01em;
-  }
-  .pill-steady { background: rgba(148,163,184,0.12); color: var(--muted); }
-
-  section { margin-bottom: 48px; }
-  section h2 {
-    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--accent);
-    border-left: 3px solid var(--accent); padding-left: 10px;
-    margin-bottom: 24px;
-  }
-
+  .overview p, .trend-note { color: #cbd5e1; }
   article {
-    display: grid;
-    grid-template-columns: 62px 1fr;
-    gap: 0 16px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 18px 20px;
-    margin-bottom: 14px;
+    border: 1px solid #1e293b; border-radius: 6px; padding: 16px 18px;
+    margin-bottom: 16px; background: #12151d;
   }
-
-  .score-col { display: flex; align-items: flex-start; padding-top: 2px; }
-  .score {
-    font-family: var(--mono); font-size: 1.45rem; font-weight: 700;
-    line-height: 1; font-variant-numeric: tabular-nums;
-  }
-  .score-green { color: var(--green); }
-  .score-blue  { color: var(--blue); }
-  .score-muted { color: var(--muted); }
-
-  .card-body h3 { font-size: 0.97rem; font-weight: 600; line-height: 1.35; margin-bottom: 6px; }
-  .card-body h3 a:hover { color: var(--blue); }
-
-  .item-meta {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
-    margin-bottom: 10px; font-size: 0.74rem; color: var(--dim);
-  }
-  .tag {
-    background: #1a2236; color: #a78bfa; padding: 1px 7px;
-    border-radius: 4px; font-size: 0.7rem; font-weight: 500;
-  }
-  .card-body p { font-size: 0.87rem; color: #c4cedf; line-height: 1.6; margin-bottom: 10px; }
-  .source-link {
-    font-size: 0.75rem; color: var(--dim);
-    border-bottom: 1px dotted var(--border); padding-bottom: 2px; transition: color 0.15s;
-  }
-  .source-link:hover { color: var(--blue); text-decoration: none; }
-
-  .overview {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 7px; padding: 20px 24px;
-    font-size: 0.88rem; color: #b8c5d8; line-height: 1.7; margin-bottom: 40px;
-  }
-  .overview strong { color: var(--text); }
-
-  details { border: 1px solid var(--border); border-radius: 6px; margin-top: 40px; }
-  summary {
-    cursor: pointer; padding: 12px 16px; font-size: 0.8rem; font-weight: 600;
-    color: var(--dim); user-select: none; letter-spacing: 0.04em; text-transform: uppercase;
-  }
-  summary:hover { color: var(--text); }
-  .excluded-wrap { overflow-x: auto; padding: 0 16px 16px; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
-  th {
-    text-align: left; padding: 6px 12px; font-size: 0.7rem;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    color: var(--dim); border-bottom: 1px solid var(--border);
-  }
-  td { padding: 6px 12px; color: #8899aa; border-bottom: 1px solid #141922; vertical-align: top; }
-  td:first-child { color: var(--muted); }
-
-  @media (max-width: 560px) {
-    article { grid-template-columns: 1fr; }
-    .score-col { padding-top: 0; margin-bottom: 8px; }
-    .score { font-size: 1.1rem; }
-  }
+  article h3 { margin: 0 0 8px; font-size: 1.05rem; line-height: 1.35; }
+  article h3 a { color: #e2e8f0; text-decoration: none; }
+  article h3 a:hover { color: #a78bfa; text-decoration: underline; }
+  .item-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 10px; font-size: 0.8rem; }
+  .signal { font-family: ui-monospace, "Cascadia Code", monospace; font-weight: 700; background: #1e293b; padding: 1px 8px; border-radius: 4px; }
+  .signal.high { color: #34d399; } .signal.mid { color: #60a5fa; } .signal.low { color: #94a3b8; }
+  .source { color: #94a3b8; } .date { color: #64748b; }
+  .tag { background: #1e293b; color: #a78bfa; font-size: 0.72rem; padding: 1px 8px; border-radius: 4px; }
+  article p:last-of-type { margin: 8px 0 10px; color: #cbd5e1; }
+  .src-link { font-size: 0.78rem; }
+  .src-link a { color: #64748b; text-decoration: none; }
+  .src-link a:hover { color: #a78bfa; text-decoration: underline; }
+  details { margin-top: 24px; border: 1px solid #1e293b; border-radius: 6px; padding: 0 16px; }
+  summary { cursor: pointer; padding: 14px 0; font-weight: 600; color: #94a3b8; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 16px; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #1e293b; vertical-align: top; }
+  th { color: #64748b; font-weight: 600; }
+  td { color: #cbd5e1; }
+  .tablescroll { overflow-x: auto; }
 </style>
 </head>
 <body>
-<div class="page">
-
+<div class="wrap">
 <header>
   <h1>AI Tool Digest</h1>
-  <p class="meta">6 July 2026 &nbsp;·&nbsp; 8 items &nbsp;·&nbsp; Coverage: 2 July 2026 → 6 July 2026 &nbsp;·&nbsp; Run 19</p>
+  <p class="meta">10 July 2026 · 25 items · Coverage: 8 July 2026 → 10 July 2026</p>
   <div class="trends">
-    <div class="trend-group">
-      <span class="trend-label">Steady</span>
-      <span class="pill pill-steady">Claude Code</span>
-      <span class="pill pill-steady">Agent Engineering</span>
-      <span class="pill pill-steady">AI-Assisted Dev</span>
-      <span class="pill pill-steady">LLM Models</span>
-      <span class="pill pill-steady">Evaluation</span>
-      <span class="pill pill-steady">Prompt Engineering</span>
-      <span class="pill pill-steady">Anthropic</span>
-      <span class="pill pill-steady">Performance</span>
-      <span class="pill pill-steady">MLOps</span>
-    </div>
+    <div class="trend-row"><span class="trend-label">Rising</span><span class="pill rising">Evaluation</span><span class="pill rising">Context Management</span><span class="pill rising">MLOps</span></div>
+    <div class="trend-row"><span class="trend-label">New</span><span class="pill new">RAG</span></div>
+    <div class="trend-row"><span class="trend-label">Steady</span><span class="pill steady">Agent Engineering</span><span class="pill steady">LLM Models</span><span class="pill steady">AI-Assisted Dev</span><span class="pill steady">Anthropic</span><span class="pill steady">Tools</span><span class="pill steady">Performance</span><span class="pill steady">Memory</span><span class="pill steady">Cloud Infrastructure</span><span class="pill steady">MCP</span></div>
+    <div class="trend-row"><span class="trend-label">Cooling</span><span class="pill cooling">Local Inference</span><span class="pill cooling">Security</span></div>
   </div>
 </header>
 
-<div class="overview">
-  This run spans four days (2–6 July) and centres on insights from the AI Engineer World's Fair, combined with a cluster of Fable 5 production experiments. The <strong>headline finding is from the Claude Code team directly</strong>: let Fable and Opus use their own judgment on discretionary calls rather than over-prescribing in CLAUDE.md — a counterintuitive but team-verified inversion of the "specify everything" instinct. Two economics data points emerge: Simon Willison's <strong>$149.25 cost report</strong> for driving a production Python library release with Fable 5, and LangChain's guide to tracing and governing coding agent spend across Claude Code, Cursor, and Copilot. A structured <strong>13-model long-context benchmark</strong> finds prefill speed and KV head count predict agentic performance better than parameter count — reframing which spec sheet numbers matter. <strong>Smart model routing</strong> crystallizes as an operational discipline, with Vercel's eve framework and Pragmatic Engineer's routing survey both landing in the same window.
-</div>
+<main>
+<section class="overview">
+  <h2>Overview</h2>
+  <p>Two threads dominate this period: OpenAI's GPT-5.6 launch (Luna/Terra/Sol, with Codex repositioned as a ChatGPT "superapp") on the model side, and a sharpening consensus that the agent <em>harness</em>, not the model, is where the leverage now sits. The standout is LangChain's Nemotron 3 Ultra playbook, which claims to match Opus 4.8's best agent run at ~8× lower cost by changing only the scaffolding — echoed by the ECC harness-optimization repo (228K★) and Modal's "Agent Experience" infrastructure argument. Alongside this, coding-agent economics went mainstream: Cursor usage data (power users at 10× median LOC, ~half of AI changes merged without review), a LangChain spend-governance piece, and policy-enforcement tooling (Kastra, NemoClaw's deny-by-default agents). Local-inference and quantization content remains heavy in volume but is cooling against its own high baseline, and Security is notably quieter than recent runs. Absent versus 8 July: the memory-tool flurry (claude-mem, hermes-agent) did not resurface with new signal.</p>
+  <p class="trend-note" style="font-size:0.82rem;color:#64748b;">Based on 20 prior runs. Trend window: recent = last 7 runs, baseline = last 30 runs.</p>
+</section>
 
-<!-- Claude and Anthropic -->
 <section>
   <h2>Claude and Anthropic</h2>
-
   <article>
-    <div class="score-col"><span class="score score-green">8.2</span></div>
-    <div class="card-body">
-      <h3><a href="https://simonwillison.net/2026/Jul/3/judgement/#atom-everything" target="_blank" rel="noopener">Let Fable (and Opus) Use Their Own Judgement — Don't Over-Specify in CLAUDE.md</a></h3>
-      <p class="item-meta">
-        <span>Simon Willison</span><span>·</span><span>3 Jul 2026</span>
-        <span class="tag">Claude Code</span><span class="tag">Anthropic</span>
-      </p>
-      <p>The Claude Code team at the AI Engineer World's Fair (via Willison's hosted fireside chat with Cat Wu and Thariq Shihipar) gave a concrete operational tip: let Fable 5 and Opus 4.8 exercise their own judgment rather than prescribing explicit decision rules in CLAUDE.md. The testing example is direct — instead of "always run tests after every change," write "only use automated testing for larger features" and let the model determine what constitutes larger. This is a deliberate inversion of the common instinct to maximally specify agent behaviour, and the claim is that Fable's judgment on discretionary decisions is often better than a hard rule. Teams should audit their CLAUDE.md files for over-specified instructions that could be replaced with goal-oriented framing that gives Fable room to decide.</p>
-      <a class="source-link" href="https://simonwillison.net/2026/Jul/3/judgement/#atom-everything" target="_blank" rel="noopener">simonwillison.net →</a>
-    </div>
+    <h3><a href="https://combine-lab.github.io/blog/2026/07/07/fable-is-not-a-useful-model.html" target="_blank" rel="noopener">The classifiers Anthropic puts in front of Fable are too zealous</a></h3>
+    <p class="item-meta"><span class="signal low">6.3</span><span class="source">Hacker News</span><span class="date">8 Jul 2026</span><span class="tag">Anthropic</span><span class="tag">Evaluation</span></p>
+    <p>A widely-discussed critique (214 points, 189 comments) arguing that Fable's safety classifiers produce enough false refusals to undermine the model for legitimate technical work. For an architect evaluating Fable in an agent loop, over-refusal is a concrete reliability tax — a single spurious block can derail an autonomous chain. Worth building refusal-rate probes into your eval harness before committing Fable to production agents, rather than trusting headline capability numbers.</p>
+    <p class="src-link"><a href="https://combine-lab.github.io/blog/2026/07/07/fable-is-not-a-useful-model.html" target="_blank" rel="noopener">Source →</a></p>
   </article>
 </section>
 
-<!-- LLM Models and Capabilities -->
 <section>
   <h2>LLM Models and Capabilities</h2>
-
   <article>
-    <div class="score-col"><span class="score score-blue">7.3</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1unrse9/i_benchmarked_13_models_at_65k128k_context_to/" target="_blank" rel="noopener">Prefill Dominates: Long-Context Benchmark Across 13 Models for Agentic Workloads</a></h3>
-      <p class="item-meta">
-        <span>r/LocalLLaMA</span><span>·</span><span>5 Jul 2026</span>
-        <span class="tag">LLM Models</span><span class="tag">Evaluation</span><span class="tag">Performance</span>
-      </p>
-      <p>A practitioner benchmarks 13 local models at 65K-128K context specifically for agentic workloads (tool use, coding agents, RAG) and finds that prefill throughput dominates real-world agent latency — not tg128 (token generation speed), which most model comparisons lead with. KV head count also outperforms raw parameter count as a predictor of long-context agent performance. For teams selecting models for coding agents or multi-step tool use pipelines, this reframes which spec sheet numbers to optimise for: a model with high KV head density and fast prefill will outperform a parameter-heavy but slow-to-process model, and standard leaderboard rankings will not show this.</p>
-      <a class="source-link" href="https://www.reddit.com/r/LocalLLaMA/comments/1unrse9/i_benchmarked_13_models_at_65k128k_context_to/" target="_blank" rel="noopener">reddit.com →</a>
-    </div>
+    <h3><a href="https://simonwillison.net/2026/Jul/9/gpt-5-6/" target="_blank" rel="noopener">The new GPT-5.6 family: Luna, Terra, Sol</a></h3>
+    <p class="item-meta"><span class="signal mid">6.8</span><span class="source">Simon Willison</span><span class="date">9 Jul 2026</span><span class="tag">LLM Models</span></p>
+    <p>OpenAI's new flagship shipped in three sizes (Luna smallest → Sol largest) with per-token pricing, and Codex is being repositioned as a ChatGPT "superapp." For teams standardizing an agent stack, the three-tier split is the actionable part: route cheap high-volume steps to Luna and reserve Sol for hard reasoning, rather than paying flagship rates uniformly. Benchmark each tier on your own agent tasks — the pricing spread only pays off if the small tier holds quality on your workload.</p>
+    <p class="src-link"><a href="https://simonwillison.net/2026/Jul/9/gpt-5-6/" target="_blank" rel="noopener">Source →</a></p>
   </article>
-
   <article>
-    <div class="score-col"><span class="score score-blue">6.8</span></div>
-    <div class="card-body">
-      <h3><a href="https://blog.pragmaticengineer.com/the-pulse-a-new-trend-smart-model-routing/" target="_blank" rel="noopener">The Pulse: Smart Model Routing Is Emerging as a Standard Practice</a></h3>
-      <p class="item-meta">
-        <span>Pragmatic Engineer</span><span>·</span><span>2 Jul 2026</span>
-        <span class="tag">LLM Models</span><span class="tag">Agent Engineering</span>
-      </p>
-      <p>The Pragmatic Engineer surveys the emerging category of intelligent model routing — systems that automatically select the appropriate LLM for each request based on task type, cost, or capability — and documents the current options: dedicated routing models, rule-based dispatchers, and hybrid approaches. The context extends Run 18's finding that Fable 5 already routes coding tasks to Opus 4.8 by default; this survey shows the same pattern is now being deliberately architected rather than discovered incidentally. For teams running multi-model deployments, the routing options documented here are a practical starting point for intentional routing architecture before the implicit defaults become a cost or quality problem.</p>
-      <a class="source-link" href="https://blog.pragmaticengineer.com/the-pulse-a-new-trend-smart-model-routing/" target="_blank" rel="noopener">blog.pragmaticengineer.com →</a>
-    </div>
+    <h3><a href="https://www.latent.space/p/ainews-spacexai-launches-grok-45" target="_blank" rel="noopener">Grok 4.5 — first Opus-class model post Cursor acquisition</a></h3>
+    <p class="item-meta"><span class="signal low">6.0</span><span class="source">Latent Space</span><span class="date">9 Jul 2026</span><span class="tag">LLM Models</span></p>
+    <p>SpaceXAI released Grok 4.5, positioned as its first Opus-class frontier model following the Cursor acquisition. The Cursor tie-in matters: a frontier lab that owns a leading coding harness can co-design model and scaffolding, which is exactly the advantage the harness-engineering items below are chasing. Track whether Grok-in-Cursor produces measurably better agent runs than model-agnostic setups.</p>
+    <p class="src-link"><a href="https://www.latent.space/p/ainews-spacexai-launches-grok-45" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://simonwillison.net/2026/Jul/9/muse-spark-1-1/" target="_blank" rel="noopener">Introducing Muse Spark 1.1</a></h3>
+    <p class="item-meta"><span class="signal low">5.8</span><span class="source">Simon Willison</span><span class="date">9 Jul 2026</span><span class="tag">LLM Models</span></p>
+    <p>Meta's Muse Spark 1.1 is the first Spark model to offer an API, with claimed improvements in agentic tool calling and computer use. The API availability is the unlock — it moves Spark from a closed demo to something you can actually wire into an agent. Verify the tool-calling reliability against your schema before depending on it; "improved" claims on computer use are notoriously workload-specific.</p>
+    <p class="src-link"><a href="https://simonwillison.net/2026/Jul/9/muse-spark-1-1/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usdn4c/paper_sparse_delta_memory_scaling_the_state_of/" target="_blank" rel="noopener">Sparse Delta Memory: scaling linear-RNN state through sparsity</a></h3>
+    <p class="item-meta"><span class="signal low">5.8</span><span class="source">r/LocalLLaMA</span><span class="date">10 Jul 2026</span><span class="tag">LLM Models</span><span class="tag">Memory</span></p>
+    <p>A paper addressing linear-attention models' core weakness — fixed state size limiting long-context recall — by introducing sparse delta updates to scale effective state without proportional compute. Relevant to anyone weighing linear/RNN architectures for long-context serving where KV-cache growth is the bottleneck. Research-stage; watch for an open implementation and independent long-context recall numbers.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usdn4c/paper_sparse_delta_memory_scaling_the_state_of/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://simonwillison.net/2026/Jul/8/introducing-gptlive/" target="_blank" rel="noopener">Introducing GPT-Live</a></h3>
+    <p class="item-meta"><span class="signal low">5.3</span><span class="source">Simon Willison</span><span class="date">8 Jul 2026</span><span class="tag">LLM Models</span></p>
+    <p>OpenAI upgraded the model behind ChatGPT voice mode, with notably improved latency and interactivity in the iPhone app. Of interest to anyone building voice-first agent interfaces where perceived responsiveness gates adoption. Product announcement rather than a technique, but the latency bar it sets is worth measuring your own voice stack against.</p>
+    <p class="src-link"><a href="https://simonwillison.net/2026/Jul/8/introducing-gptlive/" target="_blank" rel="noopener">Source →</a></p>
   </article>
 </section>
 
-<!-- Agent Engineering -->
 <section>
   <h2>Agent Engineering</h2>
-
   <article>
-    <div class="score-col"><span class="score score-blue">6.9</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.latent.space/p/vercel-agents-new-software" target="_blank" rel="noopener">Vercel's eve Framework: Agents Need Skills, Sandboxes, and Agent-Readable Websites</a></h3>
-      <p class="item-meta">
-        <span>Latent Space</span><span>·</span><span>3 Jul 2026</span>
-        <span class="tag">Agent Engineering</span>
-      </p>
-      <p>Vercel Chief of Software Andrew Qu explains how Vercel's agent framework "eve" was designed around three concepts: skills (composable, reusable capabilities), sandboxes (isolated execution environments), and agent-readable websites (pages structured for machine consumption rather than human rendering). The agent-readable website concept is the most novel — Qu's argument is that websites need a parallel machine-facing representation, just as mobile required a separate UX discipline, and that the current web is only incidentally navigable by agents. Engineering teams planning agent-based web integrations should treat this as an early signal that a new interface contract between web services and agents is forming, distinct from REST APIs.</p>
-      <a class="source-link" href="https://www.latent.space/p/vercel-agents-new-software" target="_blank" rel="noopener">latent.space →</a>
-    </div>
+    <h3><a href="https://www.langchain.com/blog/tuning-the-harness-not-the-model-a-nemotron-3-ultra-playbook" target="_blank" rel="noopener">Tuning the harness, not the model: a Nemotron 3 Ultra playbook</a></h3>
+    <p class="item-meta"><span class="signal high">8.1</span><span class="source">LangChain Blog</span><span class="date">8 Jul 2026</span><span class="tag">Agent Engineering</span><span class="tag">Evaluation</span></p>
+    <p>LangChain reports matching Opus 4.8's best agent run using Nemotron 3 Ultra at roughly 8× lower cost by changing only the scaffolding around the model — tool design, retries, verification, and context shaping. This is the single highest-signal item this period and a concrete instance of the run's dominant thesis: for agentic tasks, harness quality can substitute for raw model capability. The actionable move is to treat your harness as the primary optimization target and re-benchmark a cheaper model with a better-tuned loop before paying frontier rates.</p>
+    <p class="src-link"><a href="https://www.langchain.com/blog/tuning-the-harness-not-the-model-a-nemotron-3-ultra-playbook" target="_blank" rel="noopener">Source →</a></p>
   </article>
-
   <article>
-    <div class="score-col"><span class="score score-blue">6.7</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.latent.space/p/skill-engineering-design" target="_blank" rel="noopener">Skill Engineering and the Case Against One-Shot AI Design</a></h3>
-      <p class="item-meta">
-        <span>Latent Space</span><span>·</span><span>2 Jul 2026</span>
-        <span class="tag">Agent Engineering</span><span class="tag">Prompt Engineering</span>
-      </p>
-      <p>Paul Bakaus (Impeccable) argues against one-shot AI design — single-prompt agents that attempt to produce complete outputs in a single pass — in favour of skill engineering: modular, tested, reusable skills that agents select and chain. The framing is a response to "loopmaxxing" — the pressure to maximise agent autonomy and minimise human touchpoints. His counter-argument is that human judgment at key decision points consistently produces better outcomes, and that composable skill libraries are the mechanism that makes it practical to route those decisions appropriately rather than delegating everything to one long prompt. For teams whose agents are failing at the long-tail of edge cases, this is a practitioner case for refactoring monolithic prompts into a skill architecture.</p>
-      <a class="source-link" href="https://www.latent.space/p/skill-engineering-design" target="_blank" rel="noopener">latent.space →</a>
-    </div>
+    <h3><a href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener">ECC — agent-harness performance optimization system</a></h3>
+    <p class="item-meta"><span class="signal mid">6.5</span><span class="source">GitHub</span><span class="date">9 Jul 2026</span><span class="tag">Agent Engineering</span><span class="tag">Tools</span></p>
+    <p>The highest-starred repo in this fetch (228K★): a system bundling skills, instincts, memory, security, and research-first development for Claude Code, Codex, OpenCode, and Cursor. It productizes the "optimize the harness" thesis into reusable scaffolding across multiple CLIs. Star velocity outpaces documented benchmarks, so treat it as a source of harness patterns to study rather than a proven drop-in.</p>
+    <p class="src-link"><a href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usg4cq/i_built_barebrowse_give_a_localmodel_agent_a/" target="_blank" rel="noopener">barebrowse — browser tool for local agents via pruned ARIA snapshots</a></h3>
+    <p class="item-meta"><span class="signal mid">6.5</span><span class="source">r/LocalLLaMA</span><span class="date">10 Jul 2026</span><span class="tag">Agent Engineering</span><span class="tag">Context Management</span></p>
+    <p>Instead of feeding a whole page as raw HTML (which burns context fast), barebrowse turns a URL into a pruned ARIA accessibility snapshot — the semantic structure at a fraction of the tokens, no Playwright required. A clean context-engineering pattern for browser agents, especially on local models with tight context budgets. Directly applicable: swap raw-DOM scraping for a pruned semantic view and measure the token/accuracy trade-off on your tasks.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usg4cq/i_built_barebrowse_give_a_localmodel_agent_a/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.latent.space/p/modal2026" target="_blank" rel="noopener">Why AI infrastructure must evolve for Agent Experience (Modal CTO)</a></h3>
+    <p class="item-meta"><span class="signal low">6.0</span><span class="source">Latent Space</span><span class="date">8 Jul 2026</span><span class="tag">Agent Engineering</span><span class="tag">Cloud Infrastructure</span></p>
+    <p>Modal's cofounder argues that "Agent Experience" — infrastructure designed around how agents actually run (fast cold starts, statefulness, sandboxed execution) — is now working, and explains what they learned building an agent cloud. Relevant to platform teams whose current serving stack was designed for request/response, not long-running autonomous agents. Read for the infrastructure requirements checklist rather than the product pitch.</p>
+    <p class="src-link"><a href="https://www.latent.space/p/modal2026" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.langchain.com/blog/build-an-auditable-vc-research-agent-with-the-perplexity-agent-api-langgraph-and-langsmith" target="_blank" rel="noopener">Building an auditable VC research agent (Perplexity Agent API + LangGraph)</a></h3>
+    <p class="item-meta"><span class="signal low">5.5</span><span class="source">LangChain Blog</span><span class="date">9 Jul 2026</span><span class="tag">Agent Engineering</span></p>
+    <p>A build walkthrough combining the Perplexity Agent API, LangGraph, and LangSmith to produce a research agent whose steps are auditable end-to-end. The auditability angle is the reusable idea: for any agent making consequential outputs, traceable intermediate steps are what make review and debugging tractable. A useful reference architecture for research/analysis agents where you must show your work.</p>
+    <p class="src-link"><a href="https://www.langchain.com/blog/build-an-auditable-vc-research-agent-with-the-perplexity-agent-api-langgraph-and-langsmith" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1us8x06/the_untuned_27b_beat_the_tuned_75b_as_an_agent/" target="_blank" rel="noopener">The untuned 27B beat the tuned 75B as an agent</a></h3>
+    <p class="item-meta"><span class="signal low">5.3</span><span class="source">r/LocalLLaMA</span><span class="date">10 Jul 2026</span><span class="tag">Agent Engineering</span><span class="tag">Local Inference</span></p>
+    <p>A practitioner report that a smaller untuned 27B model passed every agentic task on a neutral system prompt in 6–9 tool calls, outperforming a tuned 75B. Anecdotal, but it reinforces the harness-over-model theme: prompt/scaffolding fit can dominate parameter count on agentic workloads. Treat as a hypothesis to test on your own task suite, not a general ranking.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1us8x06/the_untuned_27b_beat_the_tuned_75b_as_an_agent/" target="_blank" rel="noopener">Source →</a></p>
   </article>
 </section>
 
-<!-- AI-Assisted Software Development -->
 <section>
   <h2>AI-Assisted Software Development</h2>
-
   <article>
-    <div class="score-col"><span class="score score-blue">7.1</span></div>
-    <div class="card-body">
-      <h3><a href="https://simonwillison.net/2026/Jul/2/dspy-datasette-agent-prompts/#atom-everything" target="_blank" rel="noopener">Using DSPy to Automatically Optimise an Agent's System Prompt</a></h3>
-      <p class="item-meta">
-        <span>Simon Willison</span><span>·</span><span>2 Jul 2026</span>
-        <span class="tag">Prompt Engineering</span><span class="tag">Evaluation</span>
-      </p>
-      <p>After an AIE keynote on DSPy, Willison delegates an asynchronous task to Claude Code/Fable 5: use DSPy to evaluate and improve the SQL generation system prompt for Datasette Agent. DSPy is a framework for automatic prompt optimisation — it evaluates the current prompt against test cases, proposes and tests variants, and surfaces improved versions without manual rewriting. For any team with a production agent that has a fixed system prompt and evaluable inputs/outputs (SQL generation, extraction, classification), this demonstrates a path to improvement that bypasses the manual prompt engineering cycle. The DSPy evaluate → optimise → measure loop is reproducible on any agent where success criteria can be defined.</p>
-      <a class="source-link" href="https://simonwillison.net/2026/Jul/2/dspy-datasette-agent-prompts/#atom-everything" target="_blank" rel="noopener">simonwillison.net →</a>
-    </div>
+    <h3><a href="https://blog.pragmaticengineer.com/the-pulse-interesting-ai-coding-stats-from-cursor/" target="_blank" rel="noopener">Interesting AI coding stats from Cursor</a></h3>
+    <p class="item-meta"><span class="signal mid">7.3</span><span class="source">Pragmatic Engineer</span><span class="date">9 Jul 2026</span><span class="tag">AI-Assisted Dev</span><span class="tag">Evaluation</span></p>
+    <p>Cursor usage data: power users generate ~10× the lines of the median developer, most AI spend is input (not output) tokens, and nearly half of AI-produced changes are accepted without manual review. Each figure has a direct management implication — the input-token skew says context bloat is your main cost lever, and the no-review acceptance rate is a real quality-control risk worth policy attention. This is rare, quantified adoption data rather than anecdote; use it to calibrate your own team's guardrails.</p>
+    <p class="src-link"><a href="https://blog.pragmaticengineer.com/the-pulse-interesting-ai-coding-stats-from-cursor/" target="_blank" rel="noopener">Source →</a></p>
   </article>
-
   <article>
-    <div class="score-col"><span class="score score-blue">6.9</span></div>
-    <div class="card-body">
-      <h3><a href="https://www.langchain.com/blog/fix-your-coding-agent-bill" target="_blank" rel="noopener">Your Coding Agent Bill Doubled — How to Trace and Govern Spend Across Tools</a></h3>
-      <p class="item-meta">
-        <span>LangChain Blog</span><span>·</span><span>2 Jul 2026</span>
-        <span class="tag">AI-Assisted Dev</span><span class="tag">Claude Code</span><span class="tag">MLOps</span>
-      </p>
-      <p>LangChain documents why coding agent costs scale super-linearly once teams move from individual use to shared infrastructure: Claude Code, Cursor, Copilot, and similar tools each expose separate billing surfaces with no unified spend view. The recommended approach instruments agent sessions via LangSmith to enable cost comparison across tools, surface high-cost patterns (full-repo context loads vs targeted lookups), and apply governance policies that flag runaway sessions. For engineering teams with approved coding agent subscriptions but no visibility into actual consumption, this is the operational starting point — cost accountability needs to be designed in rather than bolted on after the first surprising invoice.</p>
-      <a class="source-link" href="https://www.langchain.com/blog/fix-your-coding-agent-bill" target="_blank" rel="noopener">langchain.com →</a>
-    </div>
+    <h3><a href="https://www.langchain.com/blog/fix-your-coding-agent-bill" target="_blank" rel="noopener">Your coding agent bill doubled. Here's how to fix it.</a></h3>
+    <p class="item-meta"><span class="signal mid">6.5</span><span class="source">LangChain Blog</span><span class="date">8 Jul 2026</span><span class="tag">AI-Assisted Dev</span><span class="tag">MLOps</span></p>
+    <p>A practical guide to tracing, comparing, and governing coding-agent spend across Claude Code, Cursor, and Copilot from one place. Pairs naturally with the Cursor stats above: if input tokens dominate spend, cost control is a context-engineering and observability problem, not a model-choice one. Actionable for platform teams that have deployed coding agents but have no per-team spend visibility yet.</p>
+    <p class="src-link"><a href="https://www.langchain.com/blog/fix-your-coding-agent-bill" target="_blank" rel="noopener">Source →</a></p>
   </article>
-
   <article>
-    <div class="score-col"><span class="score score-blue">6.8</span></div>
-    <div class="card-body">
-      <h3><a href="https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything" target="_blank" rel="noopener">sqlite-utils 4.0 Mostly Written by Claude Fable 5 — for $149.25</a></h3>
-      <p class="item-meta">
-        <span>Simon Willison</span><span>·</span><span>5 Jul 2026</span>
-        <span class="tag">AI-Assisted Dev</span><span class="tag">Claude Code</span>
-      </p>
-      <p>Simon Willison documents using Claude Fable 5 via Claude Code to drive the majority of work on sqlite-utils 4.0, a production Python library, at a total cost of $149.25. The post includes prompts, approach, and a post-hoc evaluation of where Fable handled work well and where human judgment was still required. The significance is the economic transparency on a real SemVer major release with intentional incompatible changes — not a toy project, but a maintained library with real users. For teams evaluating whether Fable 5 access justifies the cost for production maintenance work, this is one of the clearest first-principles data points from an elite practitioner.</p>
-      <a class="source-link" href="https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything" target="_blank" rel="noopener">simonwillison.net →</a>
-    </div>
+    <h3><a href="https://simonwillison.net/2026/Jul/8/kenton-varda/" target="_blank" rel="noopener">Moratorium on AI-written change descriptions (Kenton Varda)</a></h3>
+    <p class="item-meta"><span class="signal low">5.8</span><span class="source">Simon Willison</span><span class="date">8 Jul 2026</span><span class="tag">AI-Assisted Dev</span></p>
+    <p>Kenton Varda declared a ban on AI-generated PR/commit/issue descriptions from his team, finding them "worse than useless" — plausible-sounding text that omits the actual reasoning a reviewer needs. A useful counter-signal to blanket automation: descriptions of <em>intent</em> are exactly where human context beats generated prose. Worth codifying in team norms — automate the mechanical, keep the "why" human-authored.</p>
+    <p class="src-link"><a href="https://simonwillison.net/2026/Jul/8/kenton-varda/" target="_blank" rel="noopener">Source →</a></p>
   </article>
 </section>
 
-<!-- Excluded -->
+<section>
+  <h2>Cloud and Infrastructure</h2>
+  <article>
+    <h3><a href="https://www.langchain.com/blog/deep-agents-code-on-nemoclaw-a-governed-blueprint-for-your-most-sensitive-code" target="_blank" rel="noopener">Deep Agents Code on NVIDIA NemoClaw — a governed blueprint</a></h3>
+    <p class="item-meta"><span class="signal low">6.2</span><span class="source">LangChain Blog</span><span class="date">8 Jul 2026</span><span class="tag">Cloud Infrastructure</span><span class="tag">Security</span></p>
+    <p>A blueprint for running coding agents on sensitive code with deny-by-default networking, human approval gates, and audit logs. This is the emerging shape of enterprise agent deployment: capability wrapped in explicit, auditable guardrails rather than open-ended autonomy. Relevant to platform and security teams designing how agents touch production code — the deny-by-default posture is the reusable principle regardless of the specific stack.</p>
+    <p class="src-link"><a href="https://www.langchain.com/blog/deep-agents-code-on-nemoclaw-a-governed-blueprint-for-your-most-sensitive-code" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+</section>
+
+<section>
+  <h2>Client and Systems Engineering</h2>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usclcz/qwen_36_q2fp8_terminal_bench_2_and_gpqa_scores/" target="_blank" rel="noopener">Qwen 3.6 Q2-FP8 — quantization hits agentic ability, not knowledge</a></h3>
+    <p class="item-meta"><span class="signal mid">6.5</span><span class="source">r/LocalLLaMA</span><span class="date">10 Jul 2026</span><span class="tag">Performance</span><span class="tag">Local Inference</span></p>
+    <p>Benchmarks from a university HPC cluster on Qwen 3.6 show quantization markedly degrades agentic performance (Terminal Bench 2) while barely affecting knowledge scores (GPQA). The practical takeaway is important and non-obvious: aggregate benchmark scores hide that low-bit quants can quietly break tool-use reliability. If you serve quantized models for agents, benchmark on agentic tasks specifically — knowledge evals will mislead you.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usclcz/qwen_36_q2fp8_terminal_bench_2_and_gpqa_scores/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1uru9ja/nvidia_puzzle75ba9b_nvfp4_at_132_ts_on_33090_why/" target="_blank" rel="noopener">NVIDIA Puzzle-75B-A9B NVFP4 — 132 t/s on 3×3090</a></h3>
+    <p class="item-meta"><span class="signal low">6.3</span><span class="source">r/LocalLLaMA</span><span class="date">9 Jul 2026</span><span class="tag">Local Inference</span><span class="tag">Performance</span></p>
+    <p>A worked report showing the 75B-total/9B-active MoE running at 132 tokens/sec on three 24GB 3090s with NVFP4, plus an argument that this size class is an underserved sweet spot for multi-24GB rigs. Concrete and reproducible for anyone speccing cost-effective local serving. The broader signal — that 75B/9B MoE fits consumer multi-GPU boxes well — is a useful planning heuristic.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1uru9ja/nvidia_puzzle75ba9b_nvfp4_at_132_ts_on_33090_why/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1uskb1g/speculative_cache_warming_warms_your_cache_while/" target="_blank" rel="noopener">Speculative cache warming — warm the KV cache while the user types</a></h3>
+    <p class="item-meta"><span class="signal low">6.0</span><span class="source">r/LocalLLaMA</span><span class="date">10 Jul 2026</span><span class="tag">Performance</span><span class="tag">Context Management</span></p>
+    <p>An MIT-licensed technique (OpenFox) that begins warming the prompt cache speculatively as the user types, reclaiming 10–20s of perceived wait before submission. A clean latency win for interactive local inference that costs nothing at model level — it just moves work earlier. Directly applicable to any chat/agent UI with a text-entry step; measure the speculative-work waste against the latency saved.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1uskb1g/speculative_cache_warming_warms_your_cache_while/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usiino/how_fast_can_i_get_a_voice_assistant_to_respond/" target="_blank" rel="noopener">Low-latency voice assistant on CPU — Qwen3-ASR + Kokoro-TTS ONNX</a></h3>
+    <p class="item-meta"><span class="signal low">5.8</span><span class="source">r/LocalLLaMA</span><span class="date">10 Jul 2026</span><span class="tag">Local Inference</span><span class="tag">Performance</span></p>
+    <p>A latency experiment running ASR and TTS as ONNX models on CPU (tested on a 2022 MacBook) to keep the GPU free for the LLM. A practical architecture pattern for voice agents on constrained hardware: offload the speech front/back-end to CPU so the accelerator serves only generation. Useful reference numbers for anyone budgeting a local voice stack.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usiino/how_fast_can_i_get_a_voice_assistant_to_respond/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usacge/deepseek_v4_flash_on_a_single_rtx_6000_pro/" target="_blank" rel="noopener">Deepseek V4 Flash on a single RTX 6000 Pro (vLLM-Moet)</a></h3>
+    <p class="item-meta"><span class="signal low">5.6</span><span class="source">r/LocalLLaMA</span><span class="date">10 Jul 2026</span><span class="tag">Local Inference</span></p>
+    <p>A customized vLLM Docker image (vLLM-Moet) that runs Deepseek V4 Flash on a single RTX 6000 Pro — and reportedly a single 5090. Lowers the hardware bar for serving a capable MoE locally. Verify throughput and context limits on your own card, but the single-GPU claim is a meaningful accessibility step for a model this size.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1usacge/deepseek_v4_flash_on_a_single_rtx_6000_pro/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1urymln/6x_mi50s_96gb_vs_6_p40s_144gb_running_minimax_m27/" target="_blank" rel="noopener">6×MI50 vs 6×P40 running MiniMax M2.7 REAP 139B Q3_K_L</a></h3>
+    <p class="item-meta"><span class="signal low">5.4</span><span class="source">r/LocalLLaMA</span><span class="date">9 Jul 2026</span><span class="tag">Local Inference</span><span class="tag">Performance</span></p>
+    <p>A head-to-head llama-bench comparison of two budget multi-GPU configurations (96GB of MI50s vs 144GB of P40s) on a quantized 139B MoE. Niche but genuinely reproducible data for anyone assembling a cheap high-VRAM inference rig from used accelerators. The memory-vs-throughput trade-off it surfaces is the kind rarely documented for older cards.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1urymln/6x_mi50s_96gb_vs_6_p40s_144gb_running_minimax_m27/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+</section>
+
+<section>
+  <h2>Tools and Frameworks</h2>
+  <article>
+    <h3><a href="https://github.com/upstash/context7" target="_blank" rel="noopener">context7 — up-to-date code documentation for LLMs and AI editors</a></h3>
+    <p class="item-meta"><span class="signal low">5.8</span><span class="source">GitHub</span><span class="date">10 Jul 2026</span><span class="tag">Tools</span><span class="tag">MCP</span></p>
+    <p>A platform (with an MCP server) that feeds current, version-accurate library documentation to coding agents, targeting the stale-knowledge failure mode where models hallucinate outdated APIs. Directly useful in any coding-agent setup that works with fast-moving libraries. Evaluate coverage for your specific dependencies — the value is entirely in whether <em>your</em> libraries are indexed and current.</p>
+    <p class="src-link"><a href="https://github.com/upstash/context7" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://kastra.ai/" target="_blank" rel="noopener">Kastra — policy enforcement for Claude Code, Cursor, and Codex</a></h3>
+    <p class="item-meta"><span class="signal low">5.8</span><span class="source">Hacker News</span><span class="date">9 Jul 2026</span><span class="tag">Security</span><span class="tag">Tools</span></p>
+    <p>A Show HN tool that applies policy enforcement across the major coding agents — the governance layer that the NemoClaw and coding-agent-spend items imply teams now need. As agents gain filesystem and network reach, centralized policy (what they may run, touch, or exfiltrate) becomes a real requirement rather than a nicety. Worth evaluating for teams running agents against sensitive repos; assess how enforcement holds under adversarial prompts.</p>
+    <p class="src-link"><a href="https://kastra.ai/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+  <article>
+    <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1us3li5/if_you_already_pay_for_an_llm_service_running/" target="_blank" rel="noopener">Local embeddings and rerankers may beat local LLMs in value</a></h3>
+    <p class="item-meta"><span class="signal low">5.3</span><span class="source">r/LocalLLaMA</span><span class="date">9 Jul 2026</span><span class="tag">RAG</span><span class="tag">Local Inference</span></p>
+    <p>An argument that if you already pay for a hosted LLM, self-hosting <em>embeddings and rerankers</em> delivers more practical value than self-hosting the generator — lower latency, data locality, and cost on the retrieval path. A sensible RAG architecture heuristic: split the stack, keeping generation hosted while owning the retrieval components. Applies broadly to teams with existing LLM subscriptions and privacy-sensitive corpora.</p>
+    <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1us3li5/if_you_already_pay_for_an_llm_service_running/" target="_blank" rel="noopener">Source →</a></p>
+  </article>
+</section>
+
 <details>
-  <summary>Excluded items (80 discarded)</summary>
-  <div class="excluded-wrap">
-    <table>
-      <thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead>
-      <tbody>
-        <tr><td>langgenius/dify</td><td>GitHub</td><td>Established platform, no novel update</td></tr>
-        <tr><td>n8n-io/n8n</td><td>GitHub</td><td>Established workflow tool, no novel signal</td></tr>
-        <tr><td>infiniflow/ragflow</td><td>GitHub</td><td>Established RAG engine, no novel update</td></tr>
-        <tr><td>CherryHQ/cherry-studio</td><td>GitHub</td><td>Established, covered prior runs</td></tr>
-        <tr><td>Significant-Gravitas/AutoGPT</td><td>GitHub</td><td>Established, no novel signal</td></tr>
-        <tr><td>affaan-m/ECC</td><td>GitHub</td><td>Established, covered prior runs</td></tr>
-        <tr><td>NousResearch/hermes-agent</td><td>GitHub</td><td>Established, covered prior runs</td></tr>
-        <tr><td>langchain-ai/langchain</td><td>GitHub</td><td>Established framework, no novel update</td></tr>
-        <tr><td>ollama/ollama: new models</td><td>GitHub</td><td>New model additions only, no technique</td></tr>
-        <tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Established, covered prior runs</td></tr>
-        <tr><td>santifer/career-ops</td><td>GitHub</td><td>Career domain tool, off-topic for audience</td></tr>
-        <tr><td>thedotmack/claude-mem</td><td>GitHub</td><td>Dedup — covered Run 15</td></tr>
-        <tr><td>JuliusBrussee/caveman</td><td>GitHub</td><td>Viral/gimmick, insufficient production signal</td></tr>
-        <tr><td>Graphify-Labs/graphify</td><td>GitHub</td><td>Dedup — safishamsi/graphify covered Run 16</td></tr>
-        <tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Dedup — covered Run 14</td></tr>
-        <tr><td>f/prompts.chat</td><td>GitHub</td><td>Established resource, no novel signal</td></tr>
-        <tr><td>D4Vinci/Scrapling</td><td>GitHub</td><td>Web scraping tool, off-topic</td></tr>
-        <tr><td>microsoft/generative-ai-for-beginners</td><td>GitHub</td><td>Established educational resource</td></tr>
-        <tr><td>nextlevelbuilder/ui-ux-pro-max-skill</td><td>GitHub</td><td>Narrow UI/UX domain, low signal</td></tr>
-        <tr><td>ZhuLinsen/daily_stock_analysis</td><td>GitHub</td><td>Finance domain, off-topic</td></tr>
-        <tr><td>koala73/worldmonitor</td><td>GitHub</td><td>Finance/geo monitoring, off-topic</td></tr>
-        <tr><td>ggml-hip -ffast-math HIP PR</td><td>r/LocalLLaMA</td><td>Build system internals, insufficient signal</td></tr>
-        <tr><td>AIEWF Daily Dispatch: great loops debate</td><td>Latent Space</td><td>Subsumed by Vercel agents + skill engineering items</td></tr>
-        <tr><td>llm-coding-agent 0.1a0</td><td>Simon Willison</td><td>Early alpha, subsumed by sqlite-utils Fable item</td></tr>
-        <tr><td>sqlite-utils 4.0rc2 (release notes)</td><td>Simon Willison</td><td>Dedup — subsumed by Fable cost report item</td></tr>
-        <tr><td>sqlite-utils 4.0rc3</td><td>Simon Willison</td><td>Dedup — subsumed by Fable cost report item</td></tr>
-        <tr><td>Better Models: Worse Tools</td><td>Simon Willison</td><td>Conceptual opinion, insufficient evidence</td></tr>
-        <tr><td>Open Source AI Gap Map</td><td>Simon Willison</td><td>Mapping tool, low technique signal</td></tr>
-        <tr><td>Building a World Map with 500 bytes</td><td>Simon Willison</td><td>Off-topic — SVG/graphics</td></tr>
-        <tr><td>Quoting Josh W. Comeau</td><td>Simon Willison</td><td>Quote post, no technique</td></tr>
-        <tr><td>June 2026 newsletter</td><td>Simon Willison</td><td>Monthly recap, subsumed by individual items</td></tr>
-        <tr><td>Understand to participate</td><td>Simon Willison</td><td>Opinion essay, no technique</td></tr>
-        <tr><td>Launch HN: Manufact (YC S25) – MCP Cloud</td><td>Hacker News</td><td>No snippet, insufficient description</td></tr>
-        <tr><td>Ask HN: experimenting with LLMs for coding?</td><td>Hacker News</td><td>Discussion thread, no technique</td></tr>
-        <tr><td>Tell HN: don't trust Bigco AI with IP</td><td>Hacker News</td><td>Unverified opinion, 22 points</td></tr>
-        <tr><td>Anthropic performing prompt injection</td><td>Hacker News</td><td>Unverified claim, no evidence</td></tr>
-        <tr><td>Possible evidence of prompt injection</td><td>Hacker News</td><td>Unverified claim, 14 points</td></tr>
-        <tr><td>Fable 5. Safety Taken to an Extreme</td><td>Hacker News</td><td>Anecdote, 10 points, no technique</td></tr>
-        <tr><td>Show HN: Enola — deterministic arch graph</td><td>Hacker News</td><td>Early-stage, insufficient signal</td></tr>
-        <tr><td>Show HN: KiCad in the Browser</td><td>Hacker News</td><td>Off-topic — EDA/hardware</td></tr>
-        <tr><td>Show HN: Roblox FPS</td><td>Hacker News</td><td>Off-topic — gaming</td></tr>
-        <tr><td>AI coding is a nightmare (HN)</td><td>Hacker News</td><td>Vague opinion, no technique</td></tr>
-        <tr><td>Best Local VLMs - July 2026</td><td>r/LocalLLaMA</td><td>Model roundup, no technique</td></tr>
-        <tr><td>[RELEASE] Supra-Router-51M</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient evidence</td></tr>
-        <tr><td>longcat 2.0 (1.6T, MIT)</td><td>r/LocalLLaMA</td><td>Model weights release, no technique</td></tr>
-        <tr><td>Qwen 3.6 27B VLLM Benchmark</td><td>r/LocalLLaMA</td><td>Single benchmark, insufficient context</td></tr>
-        <tr><td>I wrote a GGUF inferencer from scratch</td><td>r/LocalLLaMA</td><td>AMA format, no reproducible technique</td></tr>
-        <tr><td>Qualcomm launches GenieX</td><td>r/LocalLLaMA</td><td>Hardware platform, off-topic</td></tr>
-        <tr><td>Qwen 3.7 9B discussion</td><td>r/LocalLLaMA</td><td>Discussion question, no technique</td></tr>
-        <tr><td>Is open weight LLM viable long term?</td><td>r/LocalLLaMA</td><td>Opinion, no technique</td></tr>
-        <tr><td>DeepSeek v4 Flash VRAM cost question</td><td>r/LocalLLaMA</td><td>Discussion question, no technique</td></tr>
-        <tr><td>Who Has The Jankiest Local LLM Setup?</td><td>r/LocalLLaMA</td><td>Off-topic — fun contest</td></tr>
-        <tr><td>I asked Codex to optimize DeepSeek V4 Flash</td><td>r/LocalLLaMA</td><td>Single anecdote, insufficient evidence</td></tr>
-        <tr><td>100% local voice-to-voice assistant</td><td>r/LocalLLaMA</td><td>Consumer voice domain, off-topic</td></tr>
-        <tr><td>LivePortrait distilled model browser</td><td>r/LocalLLaMA</td><td>Off-topic — image/video</td></tr>
-        <tr><td>Llama-Server KV cache fix</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient signal</td></tr>
-        <tr><td>SK-Hynix / Mythos hardware projections</td><td>r/LocalLLaMA</td><td>Speculative, off-topic</td></tr>
-        <tr><td>Tencent Hy3 295B model release</td><td>r/LocalLLaMA</td><td>Model weights only, no technique</td></tr>
-        <tr><td>What do you use local models for?</td><td>r/LocalLLaMA</td><td>Discussion, no technique</td></tr>
-        <tr><td>Qwen & Gemma benchmark deadlock?</td><td>r/LocalLLaMA</td><td>Discussion question, no technique</td></tr>
-        <tr><td>New toy to test.</td><td>r/LocalLLaMA</td><td>Vague post, insufficient context</td></tr>
-        <tr><td>I developed a 270M parameter LM from scratch</td><td>r/LocalLLaMA</td><td>Academic exercise, no practitioner signal</td></tr>
-        <tr><td>Legal doc hallucination question</td><td>r/LocalLLaMA</td><td>Domain-specific question, no technique</td></tr>
-        <tr><td>If trends hold — SK-Hynix dyson spheres</td><td>r/LocalLLaMA</td><td>Speculative extrapolation, off-topic</td></tr>
-        <tr><td>DeepSeek-V4-Flash 8-bit MLX optimization</td><td>r/LocalLLaMA</td><td>Single anecdote, niche toolchain</td></tr>
-        <tr><td>Distributed training democratization</td><td>r/LocalLLaMA</td><td>Sparse snippet, insufficient evidence</td></tr>
-        <tr><td>Claude's malicious compliance</td><td>LessWrong</td><td>Alignment topic, off-topic for audience</td></tr>
-        <tr><td>Computation enables Action</td><td>LessWrong</td><td>Philosophy, off-topic</td></tr>
-        <tr><td>Counterfactual mugging</td><td>LessWrong</td><td>Philosophy, off-topic</td></tr>
-        <tr><td>Getting an Oura ring improved my sleep</td><td>LessWrong</td><td>Off-topic — health/lifestyle</td></tr>
-        <tr><td>Reflections on The Scout Mindset</td><td>LessWrong</td><td>Off-topic — philosophy</td></tr>
-        <tr><td>When Gemma Thinks About Resources</td><td>LessWrong</td><td>Alignment research, off-topic</td></tr>
-        <tr><td>Probing loss-band sparsity assumption</td><td>LessWrong</td><td>ML theory, off-topic for audience</td></tr>
-        <tr><td>Book Review: The God Test</td><td>LessWrong</td><td>Off-topic — book review</td></tr>
-        <tr><td>We need 3rd party Training-Run Assessments</td><td>LessWrong</td><td>Policy/safety, off-topic</td></tr>
-        <tr><td>Fealty to Fidelity</td><td>LessWrong</td><td>Philosophy, off-topic</td></tr>
-        <tr><td>Vercel's Andrew Qu (podcast)</td><td>Latent Space</td><td>Subsumed by eve framework item</td></tr>
-        <tr><td>The website of the future assembles itself</td><td>Latent Space</td><td>Below threshold, conceptual only</td></tr>
-        <tr><td>Warp CEO: software factories</td><td>Latent Space</td><td>Below threshold, conceptual only</td></tr>
-      </tbody>
-    </table>
+  <summary>Excluded items (39)</summary>
+  <div class="tablescroll">
+  <table>
+    <thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr><td>Improving Agents is a Data Mining Problem</td><td>LangChain Blog</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>How Schneider Electric Built LLMOps With LangSmith</td><td>LangChain Blog</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>headroom (compress tool outputs)</td><td>GitHub</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>thedotmack/claude-mem</td><td>GitHub</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>NousResearch/hermes-agent</td><td>GitHub</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>DietrichGebert/ponytail</td><td>GitHub</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>asgeirtj/system_prompts_leaks</td><td>GitHub</td><td>Featured in 8 Jul digest</td></tr>
+      <tr><td>[AINews] OpenAI launches GPT 5.6 Sol/Terra/Luna</td><td>Latent Space</td><td>Duplicate of GPT-5.6 launch coverage</td></tr>
+      <tr><td>Has anyone tested how quantization hits capabilities</td><td>r/LocalLLaMA</td><td>Duplicate of Qwen Q2-FP8 quant item</td></tr>
+      <tr><td>LangChain and NVIDIA Launch NemoClaw Blueprint</td><td>LangChain Blog</td><td>Marketing overlap with governed-agent item</td></tr>
+      <tr><td>Tuning-the-harness marketing variants</td><td>LangChain Blog</td><td>Kept the playbook version only</td></tr>
+      <tr><td>Ben Bernanke Joins Anthropic Oversight Trust</td><td>Hacker News</td><td>Governance news, no technique</td></tr>
+      <tr><td>Maybe Anthropic and OpenAI Are Not the Future</td><td>Hacker News</td><td>Opinion/editorial, no technique</td></tr>
+      <tr><td>n8n-io/n8n</td><td>GitHub</td><td>Mainstream staple</td></tr>
+      <tr><td>langgenius/dify</td><td>GitHub</td><td>Established platform, low novelty</td></tr>
+      <tr><td>Significant-Gravitas/AutoGPT</td><td>GitHub</td><td>Mainstream staple</td></tr>
+      <tr><td>ollama/ollama</td><td>GitHub</td><td>Mainstream staple</td></tr>
+      <tr><td>open-webui/open-webui</td><td>GitHub</td><td>Mainstream UI staple</td></tr>
+      <tr><td>microsoft/generative-ai-for-beginners</td><td>GitHub</td><td>Course, low novelty</td></tr>
+      <tr><td>Shubhamsaboo/awesome-llm-apps</td><td>GitHub</td><td>List repo, no technique</td></tr>
+      <tr><td>f/prompts.chat</td><td>GitHub</td><td>Prompt-collection staple</td></tr>
+      <tr><td>CherryHQ/cherry-studio</td><td>GitHub</td><td>Product, no technique</td></tr>
+      <tr><td>HKUDS/nanobot</td><td>GitHub</td><td>Product, no demonstrated technique</td></tr>
+      <tr><td>zhayujie/CowAgent</td><td>GitHub</td><td>Product marketing</td></tr>
+      <tr><td>koala73/worldmonitor</td><td>GitHub</td><td>Application, off-topic</td></tr>
+      <tr><td>santifer/career-ops</td><td>GitHub</td><td>Application, narrow</td></tr>
+      <tr><td>llm 0.31.1 / llm-meta-ai 0.1</td><td>Simon Willison</td><td>Minor point releases</td></tr>
+      <tr><td>Rewriting Bun in Rust</td><td>Simon Willison</td><td>Not AI-specific</td></tr>
+      <tr><td>Quoting OpenAI (Work cloud/desktop)</td><td>Simon Willison</td><td>Product note, no technique</td></tr>
+      <tr><td>Producing Structured Outputs with Constrained Sampling</td><td>r/LocalLLaMA</td><td>Link-only, no detail</td></tr>
+      <tr><td>GLM-5.2 744B MoE on 25GB-RAM machine</td><td>r/LocalLLaMA</td><td>Link-only, no detail</td></tr>
+      <tr><td>GLM-5.2 fearmongering in the press</td><td>r/LocalLLaMA</td><td>Editorial, off-topic</td></tr>
+      <tr><td>Koboldcpp v1.117 released</td><td>r/LocalLLaMA</td><td>Release note, link-only</td></tr>
+      <tr><td>Initial ET backend (llama.cpp PR)</td><td>r/LocalLLaMA</td><td>Very niche hardware backend</td></tr>
+      <tr><td>Beliefs and position mid 2026 + other LessWrong</td><td>LessWrong</td><td>AI-safety/philosophy, off-topic</td></tr>
+      <tr><td>Show HN: Devthropology (GitHub insights)</td><td>Hacker News</td><td>Off-topic analytics product</td></tr>
+    </tbody>
+  </table>
   </div>
 </details>
-
+</main>
 </div>
 </body>
 </html>
