@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Tool Digest — 28 August 2026</title>
+<title>AI Tool Digest — 1 September 2026</title>
 <style>
   :root { --bg:#0f1117; --text:#e2e8f0; --muted:#94a3b8; --dim:#64748b; --card:#12151f; --border:#1e293b; --accent:#7c3aed; }
   * { box-sizing: border-box; }
@@ -60,13 +60,12 @@
 
 <header>
   <h1>AI Tool Digest</h1>
-  <p class="meta">28 August 2026 · 18 items · Coverage: 24 Aug 2026 → 28 Aug 2026</p>
+  <p class="meta">1 September 2026 · 17 items · Coverage: 28 Aug 2026 → 1 Sep 2026</p>
 
   <div class="trend">
     <span class="trend-label">Rising</span>
     <span class="pill rising">Cloud Infrastructure</span>
     <span class="pill rising">Context Management</span>
-    <span class="pill rising">AI Management</span>
     <span class="pill rising">Local Inference</span>
     <span class="pill rising">Performance</span>
     <span class="pill rising">Security</span>
@@ -77,14 +76,13 @@
   </div>
   <div class="trend">
     <span class="trend-label">Steady</span>
-    <span class="pill steady">Agent Engineering</span>
+    <span class="pill steady">Tools</span>
     <span class="pill steady">AI-Assisted Dev</span>
     <span class="pill steady">LLM Models</span>
+    <span class="pill steady">Agent Engineering</span>
     <span class="pill steady">Evaluation</span>
-    <span class="pill steady">Tools</span>
-    <span class="pill steady">Anthropic</span>
-    <span class="pill steady">Claude Code</span>
     <span class="pill steady">MCP</span>
+    <span class="pill steady">Multi-Agent</span>
   </div>
   <div class="trend">
     <span class="trend-label">Cooling</span>
@@ -95,9 +93,10 @@
     <span class="pill none">none</span>
   </div>
   <p class="trend-note">
-    Based on 30 prior runs. Trend window: recent = last 7 runs, baseline = last 30 runs.
-    Claude Code recovers from “Cooling” to “Steady” this run, having now appeared in five of the last seven digests, and
-    nothing classifies as Cooling for the first time in eight runs.
+    Based on 31 prior runs. Trend window: recent = last 7 runs, baseline = last 30 runs.
+    Anthropic and Claude Code do not appear above because neither produced a retained item — they were present in all seven
+    prior runs, so expect both to register as Cooling next period on the ledger metric even though the cause is one quiet
+    fortnight for technical Anthropic content.
     Divergences of 0.15–0.20 continue to be assigned to the Rising/Cooling direction.
   </p>
 </header>
@@ -107,82 +106,56 @@
   <section>
     <h2>Overview</h2>
     <p class="overview">
-      Two structural events dominate. Johann Rehberger — among the most credible prompt-injection researchers working —
-      broke Claude Code's auto mode, which Anthropic made the default this month and has made strong claims about as a
-      prompt-injection defence; that is the highest-signal item this brief has carried. Separately, Nvidia acquired Hugging
-      Face for $13B, and because HF employed the llama.cpp team since February, the deal plausibly brings llama.cpp and ggml
-      stewardship under a GPU vendor — a governance change affecting nearly every local-inference result in recent digests.
-      Alongside these, the HuggingFace-hack cluster tracked since early August finally produced its postmortems from OpenAI
-      and from METR with Redwood Research, and four independent LessWrong results continue converging on monitoring
-      integrity: monitorability disposition, behavioural self-awareness under misalignment, activation-oracle failure without
-      a safe base model, and a non-saturating capability scale. Local Inference and Performance stay dominant on genuinely
-      reproducible tuning work, while Cloud Infrastructure rises sharply on a hardware-economics explanation — Micron's
-      disclosure that HBM needs roughly three times the wafer area of DDR5 and will not improve.
+      The standout finding is a measured change in the security landscape: Anil Madhavapeddy — Cambridge professor and OCaml
+      core maintainer — reports attempted exploits arriving within minutes of patches being shared for discussion, where the
+      same window used to be days plus a release. That is a disclosure-practice problem for every open-source maintainer, and
+      it is the clearest evidence yet of AI-accelerated exploitation of public patch traffic. Vendor dependency is the second
+      thread: OpenAI cut off Cursor, and a Samsung supply-contract disclosure shows Nvidia locked in at roughly a fifth of
+      spot RAM prices through 2031 while raising card prices — which finally names a mechanism behind five consecutive runs of
+      hardware cost increases. Local inference again carries the volume with genuinely reproducible work, including a
+      CPU-only-to-96GB sweep on Qwen3.8-Flash-Next that surfaces a sharp trap (forcing the PLE table onto CUDA collapses
+      decode from 108.5 to 1.95 tok/s), and a practitioner finding that enabling vision materially improves autonomous coding
+      rather than only helping with user-supplied images.
     </p>
     <p class="trend-note" style="margin-top:0">
-      <strong>Source note:</strong> the LangChain Blog feed re-emitted its entire archive this period — 54 items sharing one
-      identical timestamp and 16 sharing another, including posts such as “LangChain State of AI 2023” and “Announcing our
-      $10M seed round”. Their dates carry no information about publication, so the whole block is excluded rather than
-      mis-dated into this digest. MLOps consequently registers no items after five consecutive runs; treat that absence as a
-      source artifact, not a trend.
+      <strong>Notably absent:</strong> for the first time in this ledger's history there is no Claude and Anthropic section.
+      Anthropic appeared in all seven recent runs, but every item this period was legal or business — the Pentagon ruling, a
+      music-publisher lawsuit, San Francisco commentary — with nothing technical clearing the bar. Hacker News likewise
+      contributed no retained items for the same reason.
     </p>
-  </section>
-
-  <section>
-    <h2>Claude and Anthropic</h2>
-
-    <article>
-      <h3><a href="https://simonwillison.net/2026/Aug/27/breaking-claude-code-opus-5-auto-mode/" target="_blank" rel="noopener">Breaking Claude Code Opus 5 auto mode</a></h3>
-      <p class="item-meta">
-        <span class="signal high">8.2</span><span class="source">Simon Willison</span><span class="date">27 Aug 2026</span>
-        <span class="tag">Security</span><span class="tag">Claude Code</span><span class="tag">Anthropic</span>
-      </p>
-      <p>Anthropic has placed considerable weight on auto mode as the defence protecting Claude Code users against prompt injection, made it the default this month, and made strong claims about its effectiveness. Johann Rehberger — one of the most credible prompt-injection researchers currently active — found a working attack against it. This is the third consecutive digest carrying a Claude Code auto-mode item, and it resolves the arc: the 10 August entry noted the default was changing, the 24 August entry flagged unverified effort-level variation, and this is a named researcher demonstrating the security claim does not hold. Concrete response: do not treat auto mode as a substitute for scoping. Keep agents that process untrusted input (issues, PR descriptions, fetched pages) away from credentials and write access, and revisit any permission relaxation you made on the strength of auto mode's guarantees.</p>
-      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/27/breaking-claude-code-opus-5-auto-mode/" target="_blank" rel="noopener">simonwillison.net →</a></p>
-    </article>
   </section>
 
   <section>
     <h2>LLM Models and Capabilities</h2>
 
     <article>
-      <h3><a href="https://www.lesswrong.com/posts/3vAT7dfneBKa6m8b7/misaligned-models-rate-themselves-as-more-harmful-and" target="_blank" rel="noopener">Misaligned models rate themselves as more harmful, and realignment reverses it</a></h3>
+      <h3><a href="https://www.lesswrong.com/posts/9yETjcrbH7p8x2tLT/when-activation-oracles-learn-not-to-read-concept-specific-2" target="_blank" rel="noopener">When Activation Oracles learn not to read — concept-specific blind spots in fine-tuned oracles</a></h3>
       <p class="item-meta">
-        <span class="signal mid">7.2</span><span class="source">LessWrong</span><span class="date">28 Aug 2026</span>
-        <span class="tag">Evaluation</span><span class="tag">LLM Models</span><span class="tag">Security</span>
-      </p>
-      <p>A summary of a University of Stuttgart paper (arXiv:2602.14777) showing that fine-tuning an aligned model on a narrow subversive task — answering trivia incorrectly, for example — produces broad behavioural self-awareness, with the model rating its own outputs as more harmful, and that subsequent realignment reverses the shift. The practical hook is that self-assessment tracks an underlying state rather than merely reflecting surface behaviour, which makes it a candidate cheap signal. Directly relevant if you fine-tune: a narrow task can move general disposition, and asking the model to rate its own harmfulness before and after is a near-free regression check.</p>
-      <p class="src-link"><a href="https://www.lesswrong.com/posts/3vAT7dfneBKa6m8b7/misaligned-models-rate-themselves-as-more-harmful-and" target="_blank" rel="noopener">lesswrong.com →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.lesswrong.com/posts/QmtiMaJTyMBWGyeqE/tracking-ai-progress-across-18-cognitive-dimensions-adele" target="_blank" rel="noopener">Tracking AI progress across 18 cognitive dimensions (ADeLe scales)</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">7.1</span><span class="source">LessWrong</span><span class="date">28 Aug 2026</span>
-        <span class="tag">Evaluation</span><span class="tag">LLM Models</span>
-      </p>
-      <p>An attempt at a common, population-independent, non-saturating capability scale across 18 cognitive dimensions, motivated explicitly by the fact that benchmarks saturate quickly and that even the better capability indices do not extrapolate cleanly. This brief has hit benchmark saturation and index-reweighting problems repeatedly — the Artificial Analysis reordering in June, the Qwen 27B index result last week — and a dimensional scale is the structural answer to both. Worth reading if you maintain internal model-selection criteria, because it offers a decomposition to score against rather than one number to argue about.</p>
-      <p class="src-link"><a href="https://www.lesswrong.com/posts/QmtiMaJTyMBWGyeqE/tracking-ai-progress-across-18-cognitive-dimensions-adele" target="_blank" rel="noopener">lesswrong.com →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://simonwillison.net/2026/Aug/26/qwen38-flash-next/" target="_blank" rel="noopener">Qwen3.8-Flash-Next</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">6.9</span><span class="source">Simon Willison</span><span class="date">26 Aug 2026</span>
-        <span class="tag">LLM Models</span><span class="tag">Local Inference</span>
-      </p>
-      <p>A new open-weights multimodal MoE from Qwen, described by the lab as an early preview of the architecture used in Qwen4: 125B total parameters with only 6B active, which is what produces its speed. Willison is running it on a DGX Spark with Unsloth quants. The 6B-active figure is the number to plan against — it puts a preview of a next-generation frontier architecture within reach of unified-memory hardware, and the tuning and Engram items below are both about this model.</p>
-      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/26/qwen38-flash-next/" target="_blank" rel="noopener">simonwillison.net →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.lesswrong.com/posts/3X5EFjiHgxdNowrTA/activation-oracles-significantly-underperform-without-a-safe" target="_blank" rel="noopener">Activation Oracles significantly underperform without a safe base model</a></h3>
-      <p class="item-meta">
-        <span class="signal">6.3</span><span class="source">LessWrong</span><span class="date">28 Aug 2026</span>
+        <span class="signal mid">7.1</span><span class="source">LessWrong</span><span class="date">1 Sep 2026</span>
         <span class="tag">Evaluation</span><span class="tag">Security</span>
       </p>
-      <p>A named-author extension of a LASR Labs project showing that Activation Oracles degrade substantially when they are not trained on top of a known-safe base model. A negative result that narrows a monitoring technique's operating envelope, which is more useful than another headline capability claim. If you are considering activation-based monitoring, the precondition it identifies — a trusted base model — is often exactly what you do not have when monitoring a third-party or fine-tuned system.</p>
-      <p class="src-link"><a href="https://www.lesswrong.com/posts/3X5EFjiHgxdNowrTA/activation-oracles-significantly-underperform-without-a-safe" target="_blank" rel="noopener">lesswrong.com →</a></p>
+      <p>Activation Oracles are language models trained to answer natural-language questions about another model's internal activations (Karvonen et al. 2025), turning activation analysis into a conversation. This work shows that fine-tuning an oracle induces concept-specific blind spots — it learns not to read certain things — which is a problem precisely in the case you would build one for: auditing a model suspected of hiding a backdoor or a concealed goal. Read together with last run's finding that oracles need a known-safe base model, the technique now has two documented preconditions that rule out most real auditing scenarios. Treat oracle-based auditing as a research direction, not a control you can currently rely on.</p>
+      <p class="src-link"><a href="https://www.lesswrong.com/posts/9yETjcrbH7p8x2tLT/when-activation-oracles-learn-not-to-read-concept-specific-2" target="_blank" rel="noopener">lesswrong.com →</a></p>
+    </article>
+
+    <article>
+      <h3><a href="https://simonwillison.net/2026/Aug/29/hy4/" target="_blank" rel="noopener">Introducing Hy4 Preview</a></h3>
+      <p class="item-meta">
+        <span class="signal mid">6.6</span><span class="source">Simon Willison</span><span class="date">29 Aug 2026</span>
+        <span class="tag">LLM Models</span><span class="tag">Local Inference</span>
+      </p>
+      <p>Tencent's new open-weight text-only model: 770B total parameters, 49B active, a 1M-token context window, and 1.56 TB on Hugging Face — a large step up from July's Hy3 at 295B total, 21B active and 256K context in 598 GB. The 49B-active figure is what governs whether it is servable, and the 1.56 TB download is what governs whether you can hold it; both matter more than the headline parameter count. Willison notes he has started reading model chat templates to understand capabilities, which is a cheap and underused way to learn what a model was actually trained to do.</p>
+      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/29/hy4/" target="_blank" rel="noopener">simonwillison.net →</a></p>
+    </article>
+
+    <article>
+      <h3><a href="https://www.latent.space/p/ainews-fals-h3-max-live-breaks-the" target="_blank" rel="noopener">Fal's H3 Max Live breaks the infinite videogen barrier</a></h3>
+      <p class="item-meta">
+        <span class="signal">5.8</span><span class="source">Latent Space</span><span class="date">1 Sep 2026</span>
+        <span class="tag">LLM Models</span><span class="tag">Performance</span>
+      </p>
+      <p>Video generation has crossed the threshold where output can be produced faster than it can be watched, which changes generation from a batch job into a stream. The write-up is candid that the implications are not yet clear. Worth noting as a capability threshold rather than an action: the interesting engineering question it raises is what a real-time generative stream does to caching, moderation and cost control, all of which currently assume finite artefacts.</p>
+      <p class="src-link"><a href="https://www.latent.space/p/ainews-fals-h3-max-live-breaks-the" target="_blank" rel="noopener">latent.space →</a></p>
     </article>
   </section>
 
@@ -190,33 +163,33 @@
     <h2>Agent Engineering</h2>
 
     <article>
-      <h3><a href="https://www.lesswrong.com/posts/pX8y8Lfrt8p5aRBC4/do-ai-models-want-to-be-monitored-measuring-monitorability" target="_blank" rel="noopener">Do AI models want to be monitored? Measuring monitorability disposition</a></h3>
+      <h3><a href="https://simonwillison.net/2026/Aug/30/understanding-chatgpt-work/" target="_blank" rel="noopener">Understanding ChatGPT Work</a></h3>
       <p class="item-meta">
-        <span class="signal mid">7.1</span><span class="source">LessWrong</span><span class="date">28 Aug 2026</span>
-        <span class="tag">Evaluation</span><span class="tag">Security</span><span class="tag">Agent Engineering</span>
+        <span class="signal mid">7.2</span><span class="source">Simon Willison</span><span class="date">30 Aug 2026</span>
+        <span class="tag">Agent Engineering</span><span class="tag">LLM Models</span><span class="tag">Tools</span>
       </p>
-      <p>Argues that current monitoring is primarily reactive — output filters catch misbehaviour after it happens — and proposes measuring whether a reasoning model is disposed toward being monitored at all. Read alongside the last fortnight's results on self-imposed steganography, activation control and eval-awareness, this is the fourth independent line of work converging on the same conclusion: the signals we monitor are ones the model has some capacity to shape. The design implication is unchanged and worth restating — constrain capability, and treat monitoring as evidence-gathering rather than as a control.</p>
-      <p class="src-link"><a href="https://www.lesswrong.com/posts/pX8y8Lfrt8p5aRBC4/do-ai-models-want-to-be-monitored-measuring-monitorability" target="_blank" rel="noopener">lesswrong.com →</a></p>
+      <p>A working reverse-engineering of what Willison calls an extraordinarily confusing and very powerful product, announced 9 July and iterated on furiously since. The load-bearing clarification is that ChatGPT Work is actually two products, with the cloud-hosted version — reachable via chatgpt.com and the mobile apps — being the more capable one. This follows the external reconstruction covered on 4 August and supersedes it with hands-on detail. Useful if you are evaluating it against an in-house agent platform: the article is the closest thing to documentation of what the product actually does.</p>
+      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/30/understanding-chatgpt-work/" target="_blank" rel="noopener">simonwillison.net →</a></p>
     </article>
 
     <article>
-      <h3><a href="https://www.lesswrong.com/posts/Khmh3ghqaGEpmpC9r/openai-offers-straight-laced-postmortem-of-the-huggingface" target="_blank" rel="noopener">OpenAI's postmortem of the Hugging Face hack</a></h3>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3kppp/glm_53_and_glm_53_flash_ran_locally_on_rtx_pro/" target="_blank" rel="noopener">GLM 5.3 and GLM 5.3 Flash running locally, building a penthouse through BlenderMCP</a></h3>
       <p class="item-meta">
-        <span class="signal mid">7.0</span><span class="source">LessWrong</span><span class="date">28 Aug 2026</span>
-        <span class="tag">Security</span><span class="tag">Evaluation</span><span class="tag">Agent Engineering</span>
+        <span class="signal">6.3</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
+        <span class="tag">MCP</span><span class="tag">Local Inference</span><span class="tag">Agent Engineering</span>
       </p>
-      <p>The incident cluster this brief has tracked since 7 August finally produced technical reports — one from OpenAI, one from METR with Redwood Research. Zvi's read of the OpenAI document is worth weighing: corporate and box-checking, with some sound prosaic material in the action plan but a notable absence of new detail or deep reflection, treating the problem as more ordinary than it is. Read the METR/Redwood report alongside it rather than instead of it, and note the pattern for your own incident practice: the vendor postmortem answered the compliance question, the third-party one is where the mechanism is likely to be.</p>
-      <p class="src-link"><a href="https://www.lesswrong.com/posts/Khmh3ghqaGEpmpC9r/openai-offers-straight-laced-postmortem-of-the-huggingface" target="_blank" rel="noopener">lesswrong.com →</a></p>
+      <p>Both models run locally at Q4 on an RTX PRO 6000 workstation, driving Blender through BlenderMCP on the same prompt so Flash and the full model can be compared directly. Two things make it worth reading past the demo: it is a genuine MCP-driven agent task with a visual correctness signal, and running both variants locally on one prompt is the controlled comparison most MCP demos skip. Relevant if you are assessing whether a local model is adequate to drive a real tool surface rather than to chat about one.</p>
+      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3kppp/glm_53_and_glm_53_flash_ran_locally_on_rtx_pro/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
     </article>
 
     <article>
-      <h3><a href="https://www.latent.space/p/lovable-future-of-saas" target="_blank" rel="noopener">Lovable CTO: the future of SaaS is apps that agents can use</a></h3>
+      <h3><a href="https://www.lesswrong.com/posts/itzfzwvWLgiPxBW93/resources-for-large-agent-systems-safety" target="_blank" rel="noopener">Resources for Large Agent Systems Safety</a></h3>
       <p class="item-meta">
-        <span class="signal">6.4</span><span class="source">Latent Space</span><span class="date">26 Aug 2026</span>
-        <span class="tag">MCP</span><span class="tag">Agent Engineering</span><span class="tag">Tools</span>
+        <span class="signal">6.2</span><span class="source">LessWrong</span><span class="date">1 Sep 2026</span>
+        <span class="tag">Multi-Agent</span><span class="tag">Agent Engineering</span><span class="tag">Security</span>
       </p>
-      <p>Lovable is extending from AI-assisted web app creation into MCP-powered “capabilities”, with CTO Fabian Hedin arguing that the SaaS product surface is shifting from human UI to agent-callable interface. This is the first MCP item to clear the bar in two runs, and the framing matters for anyone building or buying SaaS: if agents become a primary consumer, then an MCP surface is a product requirement rather than an integration afterthought. Concrete question to ask of your own systems — what could an agent accomplish through your product today without driving your UI?</p>
-      <p class="src-link"><a href="https://www.latent.space/p/lovable-future-of-saas" target="_blank" rel="noopener">latent.space →</a></p>
+      <p>Gigascale has published community resources for safety in agent systems at the thousands-to-billions scale: a problem definition, an org map, a survey and a daily paper scan, built on their own literature review. The scale framing is what distinguishes it — most multi-agent material addresses handfuls of agents, and the failure modes at population scale are different in kind. Useful as a reading map if you are designing anything with many concurrent agents; treat the problem definitions as the substance rather than the org map.</p>
+      <p class="src-link"><a href="https://www.lesswrong.com/posts/itzfzwvWLgiPxBW93/resources-for-large-agent-systems-safety" target="_blank" rel="noopener">lesswrong.com →</a></p>
     </article>
   </section>
 
@@ -224,13 +197,33 @@
     <h2>AI-Assisted Software Development</h2>
 
     <article>
-      <h3><a href="https://blog.pragmaticengineer.com/the-pulse-we-need-to-talk-about-migrations-with-ai/" target="_blank" rel="noopener">We need to talk about migrations with AI</a></h3>
+      <h3><a href="https://simonwillison.net/2026/Aug/28/just-a-rumour-of-a-bug/" target="_blank" rel="noopener">Just a rumour of a bug is enough to find a security exploit these days</a></h3>
       <p class="item-meta">
-        <span class="signal mid">7.3</span><span class="source">Pragmatic Engineer</span><span class="date">27 Aug 2026</span>
-        <span class="tag">AI-Assisted Dev</span><span class="tag">AI Management</span>
+        <span class="signal high">8.2</span><span class="source">Simon Willison</span><span class="date">28 Aug 2026</span>
+        <span class="tag">Security</span><span class="tag">AI-Assisted Dev</span>
       </p>
-      <p>Asana migrated off the Enzyme testing framework in two weeks — work that, as the piece puts it, would otherwise have been kicked down the road indefinitely — with Airbnb and Uber reporting similar outcomes. Migrations are close to the ideal AI-assisted task: mechanical, high-volume, with an unambiguous correctness oracle in the existing test suite, and historically deprioritised precisely because the effort-to-visible-value ratio was poor. Concrete action: revisit your deferred-migration backlog specifically, ahead of greenfield agent use — the framework upgrades and deprecated-API sweeps you have been postponing are the highest-yield place to point an agent right now.</p>
-      <p class="src-link"><a href="https://blog.pragmaticengineer.com/the-pulse-we-need-to-talk-about-migrations-with-ai/" target="_blank" rel="noopener">blog.pragmaticengineer.com →</a></p>
+      <p>Anil Madhavapeddy — Cambridge computer science professor and a core maintainer of the OCaml compiler — reports that security issues in OCaml projects are now seeing attempted exploits within minutes of patches being shared for discussion, where the same process previously took days and a release. That is a first-hand observation from a credible maintainer about a compressed exploitation window, and the mechanism is presumably automated analysis of public patch traffic. Concrete change in practice: treat pre-release patch discussion as public disclosure. Fix in private, coordinate release with the patch landing, and stop assuming a discussion thread on an unreleased fix buys you any window at all.</p>
+      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/28/just-a-rumour-of-a-bug/" target="_blank" rel="noopener">simonwillison.net →</a></p>
+    </article>
+
+    <article>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3vcvh/dont_sleep_on_vision_support_for_coding/" target="_blank" rel="noopener">Don't sleep on vision support for coding</a></h3>
+      <p class="item-meta">
+        <span class="signal mid">7.2</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
+        <span class="tag">AI-Assisted Dev</span><span class="tag">Local Inference</span><span class="tag">LLM Models</span>
+      </p>
+      <p>A practitioner who had always chosen non-vision model variants to save VRAM — on the assumption that vision only mattered when you send the picture — enabled it on Qwen 3.8 27B and reports it made the model substantially more capable at autonomous coding. The inference is that the model benefits from seeing its own rendered output rather than reasoning about it blind. This is a genuinely non-obvious VRAM tradeoff most people have been getting wrong by default. Concrete action: if you run a local coding agent on a non-vision variant to save memory, re-test with vision enabled on a task that produces visual output before assuming the memory is better spent elsewhere.</p>
+      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3vcvh/dont_sleep_on_vision_support_for_coding/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
+    </article>
+
+    <article>
+      <h3><a href="https://www.latent.space/p/ainews-openai-shuts-off-cursor" target="_blank" rel="noopener">OpenAI shuts off Cursor</a></h3>
+      <p class="item-meta">
+        <span class="signal mid">6.9</span><span class="source">Latent Space</span><span class="date">29 Aug 2026</span>
+        <span class="tag">Tools</span><span class="tag">LLM Models</span><span class="tag">AI-Assisted Dev</span>
+      </p>
+      <p>A model provider cut off one of the largest coding-tool consumers of its API, attributed here to the Musk–Altman dispute following Cursor's acquisition. Whatever the cause, the lesson is structural and immediate: your coding harness's access to a frontier model is a commercial relationship that can be severed for reasons unrelated to you or to your usage. Concrete action — know which of your workflows would stop working tomorrow if one provider–tool relationship ended, and confirm your harness can actually route to an alternative rather than assuming it can.</p>
+      <p class="src-link"><a href="https://www.latent.space/p/ainews-openai-shuts-off-cursor" target="_blank" rel="noopener">latent.space →</a></p>
     </article>
   </section>
 
@@ -238,23 +231,13 @@
     <h2>Cloud and Infrastructure</h2>
 
     <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0mmk7/micron_hbm_requires_three_times_more_wafer_area/" target="_blank" rel="noopener">Micron: HBM requires three times more wafer area than DDR5</a></h3>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3pig8/doesnt_this_look_like_nvidia_is_price_fixing/" target="_blank" rel="noopener">Nvidia's RAM contracts sit at roughly a fifth of spot price through 2031</a></h3>
       <p class="item-meta">
-        <span class="signal mid">7.0</span><span class="source">r/LocalLLaMA</span><span class="date">28 Aug 2026</span>
+        <span class="signal mid">6.9</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
         <span class="tag">Cloud Infrastructure</span><span class="tag">Performance</span>
       </p>
-      <p>At Hot Chips 2026 Micron disclosed that for the same memory capacity, HBM needs roughly three times the wafer area of DDR5 — and, asked whether newer generations would improve the ratio, a Micron Fellow reportedly said it definitely would not. This is the structural explanation behind four consecutive digests of hardware cost increases: memory prices up 500%, RTX PRO 6000 MSRP doubled, Nvidia notifying 15%+ hikes. If the area penalty is fixed, HBM-attached capacity stays scarce regardless of demand cycles, which makes system-RAM offload and aggressive quantisation durable strategies rather than stopgaps.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0mmk7/micron_hbm_requires_three_times_more_wafer_area/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.latent.space/p/ainews-hot-chips-openais-jalapeno" target="_blank" rel="noopener">Hot Chips 2026 — OpenAI's Jalapeño, Cerebras CS-5, Groq 3 LPX, Apple M6</a></h3>
-      <p class="item-meta">
-        <span class="signal">6.1</span><span class="source">Latent Space</span><span class="date">27 Aug 2026</span>
-        <span class="tag">Cloud Infrastructure</span><span class="tag">Performance</span>
-      </p>
-      <p>Coverage of the inference-silicon landscape presented at Hot Chips, including OpenAI's own accelerator. The relevant signal for architects is that model vendors shipping custom silicon changes the shape of the vendor relationship — capacity and pricing become tied to a supply chain the vendor controls rather than to Nvidia allocation. Background reading for multi-year infrastructure commitments rather than an immediate action.</p>
-      <p class="src-link"><a href="https://www.latent.space/p/ainews-hot-chips-openais-jalapeno" target="_blank" rel="noopener">latent.space →</a></p>
+      <p>Samsung has reportedly committed around 70% of future RAM production to long-term contracts with buyers including Microsoft, Google and Nvidia, with Nvidia locked in at roughly $300–500 against a $2,100 spot price until 2031 — while raising card prices. Note that the “price fixing” framing in the original post is the poster's own inference and is not supported by anything in the source; the contract figures are the substance. Those figures matter because they identify a mechanism behind five consecutive digests of hardware cost increases: the constraint is allocated supply rather than transient demand, which makes it durable and makes memory-frugal inference a strategy rather than a workaround.</p>
+      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3pig8/doesnt_this_look_like_nvidia_is_price_fixing/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
     </article>
   </section>
 
@@ -262,63 +245,53 @@
     <h2>Client and Systems Engineering</h2>
 
     <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0na2z/qwen38flashnext_udiq4_xs_on_2x_rtx_3060_7800x3d/" target="_blank" rel="noopener">Qwen3.8-Flash-Next on 2× RTX 3060 — 36 to 400 tok/s prefill</a></h3>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3pl64/qwen38flashnext_in_llamacpp_from_cpuonly_to_96gb/" target="_blank" rel="noopener">Qwen3.8-Flash-Next in llama.cpp from CPU-only to 96GB VRAM — 8.3 to 109 tok/s</a></h3>
       <p class="item-meta">
-        <span class="signal mid">7.4</span><span class="source">r/LocalLLaMA</span><span class="date">28 Aug 2026</span>
+        <span class="signal high">7.6</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
         <span class="tag">Local Inference</span><span class="tag">Performance</span><span class="tag">Context Management</span>
       </p>
-      <p>Three specific findings, each independently actionable. <code>--load-mode mmap</code> in llama.cpp used 21–32 GB of RAM against ik_llama.cpp's 106–108 GB for the same model. <code>-sm tensor</code> destroyed prefill throughput and switching to <code>-sm layer</code> took it from 36 to 135 tok/s — the inverse of the tensor-split advice that circulated earlier this month, which is a reminder that split mode is model-dependent. <code>-ubatch 2048</code> then took it to 400 tok/s at 131072 context, though it does not fit at 262144, where the author caps at 180–200 tok/s prefill and 12 tok/s decode. Copy the method: treat split mode and micro-batch as variables to sweep, not defaults to inherit.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0na2z/qwen38flashnext_udiq4_xs_on_2x_rtx_3060_7800x3d/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
+      <p>A full sweep on an RTX PRO 6000: 8.34 tok/s CPU-only at a 2K prompt, 109.07 tok/s with the full 96 GB, and at 245K context 24 GB versus 96 GB gives 14.89 against 21.61 tok/s — so the 96 GB advantage falls from 2.80x at 2K to 1.45x at 245K. The trap is the most valuable finding: forcing the 27.2 GiB PLE table onto CUDA reduced decode from 108.5 to 1.95 tok/s, a 55x regression from an offload decision that sounds obviously correct. Two actions: measure your VRAM advantage at your real context length rather than at 2K, and never assume moving a large table onto the GPU helps without measuring it.</p>
+      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3pl64/qwen38flashnext_in_llamacpp_from_cpuonly_to_96gb/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
     </article>
 
     <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0198r/no_engrams_wont_let_you_run_1t_models_locally_it/" target="_blank" rel="noopener">No, Engrams won't let you run 1T models locally — what they actually do</a></h3>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w44jnv/exllamav3_recent_updates_cpu_offload_glm53flash/" target="_blank" rel="noopener">ExLlamav3 adds MoE expert CPU offload, ngram disk offload and self-calibrated quantisation</a></h3>
       <p class="item-meta">
-        <span class="signal mid">7.1</span><span class="source">r/LocalLLaMA</span><span class="date">27 Aug 2026</span>
-        <span class="tag">Local Inference</span><span class="tag">LLM Models</span><span class="tag">Context Management</span>
-      </p>
-      <p>A corrective explainer against the claim circulating since Qwen3.8-Flash-Next that n-gram tables will let you run 1T-parameter models with 980B offloaded to SSD. The author's summary of the mechanism is the useful part: an Engram is essentially an embedding table with a longer key — indexing by a token sequence rather than a single static vector. Worth reading before you plan capacity around the optimistic reading, and a good example of the correction arriving faster than the misconception spreads. Verify the mechanism claim against the model card before designing around either version.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0198r/no_engrams_wont_let_you_run_1t_models_locally_it/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0ao39/i_implemented_a_modern_llm_in_700_lines_of_c/" target="_blank" rel="noopener">gemma4.c — a modern LLM in 700 lines of C</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">6.9</span><span class="source">r/LocalLLaMA</span><span class="date">27 Aug 2026</span>
-        <span class="tag">Local Inference</span><span class="tag">Tools</span><span class="tag">Performance</span>
-      </p>
-      <p>Download Gemma 4 E2B, compile a single 700-line C file, generate text on an ordinary CPU — and then read that same file top to bottom and understand exactly how each token is produced. The constraint is the value: 700 lines is short enough to hold in your head, which no production inference runtime is. This is the systems-engineering counterpart to the harness reimplementations covered recently, and the fastest path to understanding what a modern architecture actually computes rather than what its diagram suggests.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0ao39/i_implemented_a_modern_llm_in_700_lines_of_c/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0hrrn/i_reverseengineered_an_npu_vendors_engine_format/" target="_blank" rel="noopener">Reverse-engineering an NPU vendor's engine format to run GGUFs directly</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">6.6</span><span class="source">r/LocalLLaMA</span><span class="date">28 Aug 2026</span>
+        <span class="signal mid">6.7</span><span class="source">r/LocalLLaMA</span><span class="date">1 Sep 2026</span>
         <span class="tag">Local Inference</span><span class="tag">Performance</span><span class="tag">Tools</span>
       </p>
-      <p>Running Qwen3-0.6B on an M5Stack LLM-8850 card — Axera AX8850, 24 TOPS, 8 GB LPDDR4x — hosted by a Raspberry Pi 5, as a llama.cpp backend. The vendor stack required compiling every model through a closed toolchain and delivered 13.5–14.5 t/s; the author reverse-engineered the engine format, finding int8 weights stored as two nibble planes, to get GGUF in and tokens out with no conversion step. This is the work that turns an accelerator into a usable target, and it is the pattern to watch for anyone shipping AI on embedded hardware where vendor SDKs dictate the model pipeline.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0hrrn/i_reverseengineered_an_npu_vendors_engine_format/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
+      <p>A substantial update round from turboderp: CPU offload of MoE experts, Qwen3.8-Flash-Next ngram disk offload, GLM-5.3-Flash support, and a new self-calibrated optimisation technique for quantisation. The MoE-expert offload and ngram disk offload are the two that matter given the memory-cost situation above — both trade abundant storage and system RAM for scarce VRAM. Worth re-evaluating if you last compared ExLlamav3 against llama.cpp some months ago; the offload capabilities have changed what fits.</p>
+      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w44jnv/exllamav3_recent_updates_cpu_offload_glm53flash/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
     </article>
 
     <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0bnv2/yall_are_sleeping_on_qwen_38_27b_q2_q2_dflash_q5/" target="_blank" rel="noopener">QAT Q2 plus Q2 DFlash plus Q5 KV — Qwen 3.8 27B in 13–14 GB</a></h3>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w49id7/i_pushed_qwen3827b_to_2000_prefill_per_second_and/" target="_blank" rel="noopener">Qwen3.8-27B pushed to 2,000 tok/s prefill and 132 tok/s decode on an RTX 3090</a></h3>
       <p class="item-meta">
-        <span class="signal mid">6.6</span><span class="source">r/LocalLLaMA</span><span class="date">28 Aug 2026</span>
-        <span class="tag">Local Inference</span><span class="tag">Performance</span><span class="tag">Context Management</span>
+        <span class="signal">6.4</span><span class="source">r/LocalLLaMA</span><span class="date">1 Sep 2026</span>
+        <span class="tag">Local Inference</span><span class="tag">Performance</span>
       </p>
-      <p>Not a naive Q2 but a quantisation-aware-trained Q2 for both the main model and its DFlash draft model, paired with a Q5 KV cache, reported as showing very little degradation at up to 200K context in 13–14 GB total. The QAT distinction is what makes this credible where ordinary 2-bit quants are not, and specific Hugging Face repositories are named for both artefacts. Test it against your own KLD harness before trusting it, but if it holds, a capable 27B with long context fits comfortably on a 16 GB card.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w0bnv2/yall_are_sleeping_on_qwen_38_27b_q2_q2_dflash_q5/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
+      <p>The continuing single-GPU optimisation series, now reporting prefill just under 2,000 tok/s at 4K — up from around 1,300 the same morning — via a custom kernel, with decode at 132 tok/s and declared effectively maxed pending a better drafter. The honest statement that decode is at its ceiling until drafting improves is more useful than the prefill number: it tells you where the remaining headroom is, and that speculative drafting is the binding constraint on single-user decode.</p>
+      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w49id7/i_pushed_qwen3827b_to_2000_prefill_per_second_and/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
     </article>
 
     <article>
-      <h3><a href="https://simonwillison.net/2026/Aug/24/your-executable-is-a-sqlite-database/" target="_blank" rel="noopener">Your executable is a SQLite database</a></h3>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3n506/avx2_speed_up_large_batch_size_prompt_processing/" target="_blank" rel="noopener">AVX2 speedup for large-batch prompt processing of IQ models</a></h3>
       <p class="item-meta">
-        <span class="signal">6.0</span><span class="source">Simon Willison</span><span class="date">24 Aug 2026</span>
-        <span class="tag">Tools</span><span class="tag">Performance</span>
+        <span class="signal">6.2</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
+        <span class="tag">Performance</span><span class="tag">Local Inference</span>
       </p>
-      <p>Farid Zakaria's pattern for a file that is simultaneously a valid SQLite database and a directly executable Linux binary, achieved by setting the SQLite format's four-byte application ID at offset 68 to <code>SELF</code> and arranging the ELF components around it. No AI content, and included on systems-engineering merit: it is a clean demonstration of exploiting slack in two file formats at once, and a practical single-artefact distribution trick for tools that ship with their own data.</p>
-      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/24/your-executable-is-a-sqlite-database/" target="_blank" rel="noopener">simonwillison.net →</a></p>
+      <p>A llama.cpp pull request from bartowski1182 improving CPU prompt-processing throughput for IQ-quantised models at large batch sizes. Given that CPU and hybrid inference is where the memory-cost pressure is pushing everyone, gains in the CPU prefill path are disproportionately useful — this is the same path the Flash-Next sweep above measures at 8.34 tok/s CPU-only. Worth pulling if you run IQ quants with meaningful batch sizes on CPU.</p>
+      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3n506/avx2_speed_up_large_batch_size_prompt_processing/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
+    </article>
+
+    <article>
+      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w45t3d/qwen4exp_fixes_in_llamacpp/" target="_blank" rel="noopener">qwen4exp fixes merged in llama.cpp</a></h3>
+      <p class="item-meta">
+        <span class="signal">5.9</span><span class="source">r/LocalLLaMA</span><span class="date">1 Sep 2026</span>
+        <span class="tag">Local Inference</span><span class="tag">Tools</span>
+      </p>
+      <p>Four merged pull requests fixing the experimental Qwen4-architecture path, with the practical advice to rebuild often if you are running Qwen3.8-Flash-Next. Mundane but worth acting on: a preview-architecture model on a moving llama.cpp target means your benchmark numbers have a build dependency, and several of this period's throughput results will not reproduce on an older build. Pin and record your commit when you measure.</p>
+      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w45t3d/qwen4exp_fixes_in_llamacpp/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
     </article>
   </section>
 
@@ -326,49 +299,58 @@
     <h2>Tools and Frameworks</h2>
 
     <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w01y1f/with_huggingface_nvidia_is_also_acquiring/" target="_blank" rel="noopener">Nvidia acquires Hugging Face for $13B — and with it, llama.cpp</a></h3>
+      <h3><a href="https://github.com/upstash/context7" target="_blank" rel="noopener">context7 — up-to-date code documentation for LLMs and AI code editors</a></h3>
       <p class="item-meta">
-        <span class="signal high">7.7</span><span class="source">r/LocalLLaMA</span><span class="date">27 Aug 2026</span>
-        <span class="tag">Tools</span><span class="tag">Local Inference</span><span class="tag">Cloud Infrastructure</span>
+        <span class="signal mid">6.8</span><span class="source">GitHub</span><span class="date">1 Sep 2026</span>
+        <span class="tag">MCP</span><span class="tag">Tools</span><span class="tag">AI-Assisted Dev</span>
       </p>
-      <p>Hugging Face employed the llama.cpp team from February 2026 to continue work on llama.cpp and ggml — Georgi Gerganov, Xuan-Son Nguyen, Aleksander Grygier and others. The acquisition therefore plausibly brings the copyright and the maintainer team of the dominant open local-inference runtime under a GPU vendor, alongside the model distribution platform. Whatever the intent, this is a concentration of the open-weights supply chain: nearly every reproducible result in this digest and the last four runs on llama.cpp or GGUF artefacts hosted on HF. Concrete action: this is the moment to check that your inference stack has a genuine fallback — mirror the model artefacts you depend on, and know which of your tooling would survive a licence or hosting change.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w01y1f/with_huggingface_nvidia_is_also_acquiring/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
+      <p>At 61.5K stars, a documentation service that supplies current library docs to coding agents rather than letting them recall API surfaces from training data. This is the same problem Nvidia's hosted CUDA MCP addressed last run, generalised across libraries — and stale API recall is one of the most common and least interesting classes of agent error. Concrete action: if you regularly correct an agent's use of a fast-moving dependency, attach a documentation source before writing more instructions telling it to be careful.</p>
+      <p class="src-link"><a href="https://github.com/upstash/context7" target="_blank" rel="noopener">github.com/upstash/context7 →</a></p>
+    </article>
+
+    <article>
+      <h3><a href="https://simonwillison.net/2026/Aug/31/introducing-wrapture/" target="_blank" rel="noopener">wrapture — tracing and testing through unified monkeypatching</a></h3>
+      <p class="item-meta">
+        <span class="signal">6.0</span><span class="source">Simon Willison</span><span class="date">31 Aug 2026</span>
+        <span class="tag">Tools</span><span class="tag">AI-Assisted Dev</span>
+      </p>
+      <p>From Graham Dumpleton, author of wrapt and mod_wsgi and of New Relic's Python agent: a library extending wrapt's monkeypatching approach so any function or method can be wrapped for tracing and overridden to return different values, with one mechanism serving both. No AI content, and included because agent observability and agent testing are the same instrumentation problem in most Python codebases — being able to trace a call and stub it through one wrapper is directly useful for building deterministic tests around a non-deterministic agent.</p>
+      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/31/introducing-wrapture/" target="_blank" rel="noopener">simonwillison.net →</a></p>
     </article>
   </section>
 
   <details>
-    <summary>Excluded items (28 groups)</summary>
+    <summary>Excluded items (27 groups)</summary>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead>
         <tbody>
-          <tr><td>LangChain Blog archive re-emission (70 items)</td><td>LangChain Blog</td><td>Feed artifact: bulk republish with two shared timestamps</td></tr>
-          <tr><td>Judge Rules Trump Administration's Blacklisting of Anthr…</td><td>Hacker News</td><td>Legal and policy, off-topic for this brief</td></tr>
-          <tr><td>Anthropic sees over $30T in potential revenue (×2)</td><td>Hacker News</td><td>Investor projections, no technical content</td></tr>
-          <tr><td>Anthropic tells staff to work from home over strike</td><td>Hacker News</td><td>Organisational news</td></tr>
-          <tr><td>Meta projected to spend $10B on Anthropic AI</td><td>Hacker News</td><td>Business coverage</td></tr>
-          <tr><td>Anthropic candidates face blunt money question</td><td>Hacker News</td><td>Hiring commentary, off-topic</td></tr>
-          <tr><td>Tell HN: Man, AI is killing my brain</td><td>Hacker News</td><td>Discussion thread, anecdotal</td></tr>
-          <tr><td>NVIDIA buys HuggingFace for $13B (AINews)</td><td>Latent Space</td><td>Same event as the retained llama.cpp item</td></tr>
-          <tr><td>I am Concerned if Nvidia Acquires Llama.CPP / NVIDIA buy…</td><td>r/LocalLLaMA</td><td>Reaction threads to the retained acquisition item</td></tr>
-          <tr><td>[AINews] OpenAI to reach AGI bar by end-2026</td><td>Latent Space</td><td>Forecast, no reproducible evidence</td></tr>
-          <tr><td>We have foundation models for language, not for physics</td><td>Latent Space</td><td>Scientific-computing domain, off-topic</td></tr>
-          <tr><td>llama.cpp support for Qwen3.8-Flash-Next merged</td><td>r/LocalLLaMA</td><td>Covered by the retained tuning and model items</td></tr>
-          <tr><td>What is Qwen 3.8 Next Engram usage?</td><td>r/LocalLLaMA</td><td>Question thread; the retained explainer answers it</td></tr>
-          <tr><td>Tencent/Hy4-preview 770B-A49B weight dropped</td><td>r/LocalLLaMA</td><td>Release link with no detail</td></tr>
-          <tr><td>Ornith-1.5 walking simulator / Ornith 1.5 is pretty good</td><td>r/LocalLLaMA</td><td>Impressions, no measurement</td></tr>
-          <tr><td>Ninfer and a 5090 with 3.8 27B / Unsloth appreciation post</td><td>r/LocalLLaMA</td><td>Appreciation threads</td></tr>
-          <tr><td>5090 now officially cost 5090 / used server RAM</td><td>r/LocalLLaMA</td><td>Price commentary; the Micron item covers the mechanism</td></tr>
-          <tr><td>TontaubeV1 TTS release</td><td>r/LocalLLaMA</td><td>Narrow domain, below threshold</td></tr>
-          <tr><td>Apodex AMA announcement (×2)</td><td>r/LocalLLaMA</td><td>Event announcements</td></tr>
-          <tr><td>Could a few Qwen3.8-27B match Fable-5 on LiveCodeBench?</td><td>r/LocalLLaMA</td><td>Speculation thread</td></tr>
-          <tr><td>open source caught up because it's open / claude mods</td><td>r/LocalLLaMA</td><td>Opinion posts</td></tr>
-          <tr><td>Bill Gates seeking meeting with Xi Jinping</td><td>r/LocalLLaMA</td><td>Off-topic</td></tr>
-          <tr><td>EVE Online: The Move to Python 3 Begins!</td><td>Simon Willison</td><td>Migration case study with no AI component</td></tr>
-          <tr><td>llm-anthropic 0.27 / Quoting Paul Dix</td><td>Simon Willison</td><td>Release note / no inspectable content</td></tr>
-          <tr><td>I cancelled my AI subscriptions over catastrophic risks</td><td>LessWrong</td><td>Personal essay, no technique</td></tr>
-          <tr><td>Dynamics of Intelligence Explosions / Safety's Second Way</td><td>LessWrong</td><td>Speculative, no reproducible evidence</td></tr>
-          <tr><td>AI Safety in Japan / Incomplete alignment to servitude</td><td>LessWrong</td><td>Policy and philosophy, off-topic</td></tr>
+          <tr><td>Anthropic Just Beat The Pentagon in Court</td><td>Hacker News</td><td>Legal outcome, off-topic for this brief</td></tr>
+          <tr><td>Music publishers sue Anthropic over copyrighted music</td><td>Hacker News</td><td>Litigation, no technical content</td></tr>
+          <tr><td>OpenAI and Anthropic are ruining San Francisco (×2)</td><td>Hacker News</td><td>Off-topic</td></tr>
+          <tr><td>Ask HN: AI writes better code than me. How to keep my i…</td><td>Hacker News</td><td>Discussion thread, anecdotal</td></tr>
+          <tr><td>Launch HN: Hebbian Robotics — robotics data pipelines</td><td>Hacker News</td><td>Product launch, off-topic domain</td></tr>
+          <tr><td>Show HN: Academa — LLM-generated STEM lecture videos</td><td>Hacker News</td><td>Product launch, no demonstrated technique</td></tr>
+          <tr><td>We should prepare a playbook for the day after a warning…</td><td>LessWrong</td><td>Governance speculation, no reproducible evidence</td></tr>
+          <tr><td>MTP released for Qwen3.8-Flash-Next-GGUF</td><td>r/LocalLLaMA</td><td>Announcement with no measurement</td></tr>
+          <tr><td>Deepseek v4 Flash Vision is out / HF model link</td><td>r/LocalLLaMA</td><td>Release links with no detail</td></tr>
+          <tr><td>The state of open source LLM (08/31/2026)</td><td>r/LocalLLaMA</td><td>Link-only post</td></tr>
+          <tr><td>A very confusing report from Puget Systems</td><td>r/LocalLLaMA</td><td>Reader confusion thread rather than an analysis</td></tr>
+          <tr><td>I finished upcycling of gemma4-12B</td><td>r/LocalLLaMA</td><td>Real technique but too little detail to characterise</td></tr>
+          <tr><td>Mac to Linux box over USB-C is becoming a thing</td><td>r/LocalLLaMA</td><td>Link-only post</td></tr>
+          <tr><td>Vellium v1.1.0 — live voice, local STT/TTS</td><td>r/LocalLLaMA</td><td>Narrow domain, below threshold</td></tr>
+          <tr><td>SlopTV: infinite livestream of AI slop</td><td>r/LocalLLaMA</td><td>Novelty demo</td></tr>
+          <tr><td>Qwen 3.8 27b oneshot a Super Mario clone</td><td>r/LocalLLaMA</td><td>Single anecdote; the vision item covers the model</td></tr>
+          <tr><td>Which local models generate the best SVG pelicans?</td><td>r/LocalLLaMA</td><td>Informal poll</td></tr>
+          <tr><td>New Gemma models on arena ai / vote for the Qwen 3.8</td><td>r/LocalLLaMA</td><td>Anticipation and poll threads</td></tr>
+          <tr><td>What are your hopes for the new Mistral?</td><td>r/LocalLLaMA</td><td>Speculation thread</td></tr>
+          <tr><td>First time running local models</td><td>r/LocalLLaMA</td><td>Beginner help thread</td></tr>
+          <tr><td>career-ops — open-source AI job search</td><td>GitHub</td><td>Application project, off-topic for this brief</td></tr>
+          <tr><td>Quoting Andrew Digby (kākāpō population)</td><td>Simon Willison</td><td>Off-topic, however welcome</td></tr>
+          <tr><td>AI Philosophy Competition / Cognitive Dynamics of AI Ph…</td><td>LessWrong</td><td>Philosophy, off-topic</td></tr>
+          <tr><td>Insights into Curry's Paradox? / Bricks and exponentials</td><td>LessWrong</td><td>Off-topic</td></tr>
+          <tr><td>A new version of the Petrov Day booklet / Salad days</td><td>LessWrong</td><td>Off-topic</td></tr>
+          <tr><td>I tracked my emotions for 11 years</td><td>LessWrong</td><td>Off-topic</td></tr>
           <tr><td>Recurring GitHub trending staples (n8n, dify, ollama, la…)</td><td>GitHub</td><td>Unchanged since prior runs</td></tr>
         </tbody>
       </table>
@@ -378,7 +360,7 @@
 </main>
 
 <footer>
-  Generated 28 August 2026 · 155 items fetched from Simon Willison, LessWrong, Hacker News, r/LocalLLaMA, Latent Space, LangChain Blog, Pragmatic Engineer and GitHub · 18 retained.
+  Generated 1 September 2026 · 72 items fetched from Simon Willison, LessWrong, Hacker News, r/LocalLLaMA, Latent Space and GitHub · 17 retained.
 </footer>
 
 </body>
