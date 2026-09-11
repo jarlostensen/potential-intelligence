@@ -1,367 +1,310 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Tool Digest — 1 September 2026</title>
+<title>AI Tool Digest — 11 September 2026</title>
 <style>
-  :root { --bg:#0f1117; --text:#e2e8f0; --muted:#94a3b8; --dim:#64748b; --card:#12151f; --border:#1e293b; --accent:#7c3aed; }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--text); line-height:1.6; font-size:16px;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-  header, main { max-width:860px; margin:0 auto; padding:0 1.25rem; }
-  header { padding-top:2.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border); }
-  h1 { font-size:1.85rem; margin:0 0 .35rem; letter-spacing:-0.01em; }
-  .meta { color:var(--muted); font-size:.87rem; margin:0 0 1.1rem; }
-  .trend { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; margin-bottom:.55rem; }
-  .trend-label { font-size:.7rem; text-transform:uppercase; letter-spacing:.07em; color:var(--dim); min-width:7.5rem; }
-  .pill { font-size:.74rem; padding:.16rem .55rem; border-radius:999px; background:#1e293b; border:1px solid transparent; white-space:nowrap; }
-  .pill.rising { color:#34d399; border-color:rgba(52,211,153,.3); }
-  .pill.new { color:#60a5fa; border-color:rgba(96,165,250,.3); }
-  .pill.steady { color:#94a3b8; border-color:rgba(148,163,184,.25); }
-  .pill.cooling { color:#f59e0b; border-color:rgba(245,158,11,.3); }
-  .pill.resurfaced { color:#f472b6; border-color:rgba(244,114,182,.3); }
-  .pill.none { color:var(--dim); background:transparent; }
-  .trend-note { color:var(--dim); font-size:.75rem; margin:.75rem 0 0; }
-  .overview { font-size:.95rem; margin:0 0 1.4rem; }
-  main { padding-bottom:4rem; }
-  section { margin-top:2.5rem; }
-  section > h2 { font-size:1.05rem; text-transform:uppercase; letter-spacing:.06em;
-    border-left:3px solid var(--accent); padding-left:.7rem; margin:0 0 1.1rem; }
-  article { border:1px solid var(--border); border-radius:6px; padding:1rem 1.1rem; margin-bottom:1rem; background:var(--card); }
-  article h3 { font-size:1.02rem; margin:0 0 .5rem; line-height:1.4; }
-  article h3 a { color:var(--text); text-decoration:none; }
-  article h3 a:hover { color:#a78bfa; }
-  article p { margin:0 0 .6rem; font-size:.93rem; }
-  article p:last-child { margin-bottom:0; }
-  .item-meta { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; margin-bottom:.7rem !important; }
-  .signal { font-family:ui-monospace,"Cascadia Code",Consolas,monospace; font-weight:700; font-size:.76rem;
-    background:#1e293b; padding:.12rem .45rem; border-radius:4px; color:#94a3b8; }
-  .signal.high { color:#34d399; }
-  .signal.mid { color:#60a5fa; }
-  .source, .date { font-size:.76rem; color:var(--dim); }
-  .tag { font-size:.72rem; background:#1e293b; color:#a78bfa; padding:.12rem .45rem; border-radius:4px; }
-  code { font-family:ui-monospace,"Cascadia Code",Consolas,monospace; font-size:.87em; color:#a78bfa; }
-  .src-link { font-size:.78rem; }
-  .src-link a { color:var(--dim); text-decoration:none; }
-  .src-link a:hover { color:#a78bfa; text-decoration:underline; }
-  details { margin-top:2.5rem; border:1px solid var(--border); border-radius:6px; background:var(--card); padding:.85rem 1.1rem; }
-  summary { cursor:pointer; font-size:.9rem; color:var(--muted); }
-  summary:hover { color:var(--text); }
-  .table-wrap { overflow-x:auto; margin-top:.9rem; }
-  table { border-collapse:collapse; width:100%; font-size:.8rem; min-width:520px; }
-  th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--border); vertical-align:top; }
-  th { color:var(--dim); font-weight:600; text-transform:uppercase; font-size:.7rem; letter-spacing:.05em; }
-  td { color:var(--muted); }
-  footer { max-width:860px; margin:0 auto; padding:1.5rem 1.25rem 3rem; color:var(--dim); font-size:.78rem; }
+:root { --bg:#0f1117; --text:#e2e8f0; --surface:#1e293b; --border:#1e293b; --accent:#7c3aed; --muted:#94a3b8; --dim:#64748b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+header, main { max-width:860px; margin:0 auto; padding:0 20px; }
+header { padding-top:40px; padding-bottom:12px; }
+h1 { font-size:2rem; margin:0 0 6px; letter-spacing:-0.01em; }
+.meta { color:var(--muted); margin:0 0 18px; }
+.overview p { margin:0 0 12px; }
+.trend-row { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:6px 0; }
+.trend-label { color:var(--muted); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; min-width:120px; }
+.pill { display:inline-block; padding:2px 10px; border-radius:999px; font-size:0.78rem; font-weight:600; background:var(--surface); }
+.pill.rising { color:#34d399; border:1px solid #34d39955; }
+.pill.new { color:#60a5fa; border:1px solid #60a5fa55; }
+.pill.steady { color:#94a3b8; border:1px solid #94a3b855; }
+.pill.cooling { color:#f59e0b; border:1px solid #f59e0b55; }
+.pill.resurfaced { color:#f472b6; border:1px solid #f472b655; }
+.trend-note { color:var(--dim); font-size:0.82rem; font-style:italic; margin:8px 0 0; }
+.trend-base { color:var(--dim); font-size:0.8rem; margin:10px 0 0; }
+section { margin:36px 0; }
+h2 { font-size:1.25rem; border-left:3px solid var(--accent); padding-left:12px; margin:0 0 18px; }
+article { border:1px solid var(--border); border-radius:6px; padding:16px 18px; margin-bottom:14px; background:#121620; }
+article h3 { margin:0 0 8px; font-size:1.05rem; line-height:1.4; }
+article h3 a { color:var(--text); text-decoration:none; }
+article h3 a:hover { color:#c4b5fd; text-decoration:underline; }
+article p { margin:0 0 8px; }
+.item-meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:0.8rem; color:var(--muted); margin-bottom:10px !important; }
+.signal { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-weight:700; background:var(--surface); padding:1px 8px; border-radius:4px; }
+.signal.hi { color:#34d399; } .signal.mid { color:#60a5fa; } .signal.lo { color:#94a3b8; }
+.source { color:var(--text); }
+.tag { background:var(--surface); color:#a78bfa; padding:1px 8px; border-radius:4px; font-size:0.74rem; }
+.src a { color:var(--dim); font-size:0.8rem; text-decoration:none; }
+.src a:hover { color:var(--muted); text-decoration:underline; }
+code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:0.88em; background:var(--surface); padding:1px 5px; border-radius:3px; }
+details { border:1px solid var(--border); border-radius:6px; padding:10px 16px; margin:36px 0 60px; }
+summary { cursor:pointer; color:var(--muted); font-weight:600; }
+.tablewrap { overflow-x:auto; margin-top:12px; }
+table { border-collapse:collapse; width:100%; font-size:0.82rem; }
+th, td { text-align:left; padding:6px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+th { color:var(--muted); font-weight:600; }
+td { color:#cbd5e1; }
 </style>
 </head>
 <body>
-
 <header>
   <h1>AI Tool Digest</h1>
-  <p class="meta">1 September 2026 · 17 items · Coverage: 28 Aug 2026 → 1 Sep 2026</p>
-
-  <div class="trend">
-    <span class="trend-label">Rising</span>
-    <span class="pill rising">Cloud Infrastructure</span>
-    <span class="pill rising">Context Management</span>
-    <span class="pill rising">Local Inference</span>
-    <span class="pill rising">Performance</span>
-    <span class="pill rising">Security</span>
+  <p class="meta">11 September 2026 · 20 items · Coverage: 7 September 2026 → 11 September 2026</p>
+  <div class="overview"><p>Frontier-lab news drowned out everything else this period: OpenAI claimed a resolution of the Navier–Stokes Millennium Prize problem using roughly 10,000 self-organising agents over 88 hours and 130 billion tokens, and Anthropic pretraining researcher Jacob Coxon's resignation post drew over a thousand Hacker News comments and a week of mainstream coverage. Neither is directly actionable, so the highest practitioner value sits elsewhere: DeepSeek V4.1 Flash cuts persistent KV cache to about an eighth of its predecessor while lifting Terminal-Bench 2.1 from 82.7% to 90.6%; Nvidia's SoL-Pi used auto-research loops to find four harness mechanisms that remove 45–49% of agent tokens while keeping 94% of task score; and Pragmatic Engineer documents Uber, Pinterest and AT&amp;T cutting AI bills by 34–56% through open-weight models and routing. Security runs through five items, from Willison's AI-assisted Datasette audit to Anthropic's threat-intelligence report and a zero-click WeChat worm built with AI in a week.</p><p><strong>Notably absent:</strong> MCP, Prompt Engineering, Memory, Knowledge Graph and RAG all produced no retained item after appearing last run, and Hacker News contributed only one technical item because its front page was consumed by Anthropic governance stories.</p></div>
+  <div class="trends">
+<div class="trend-row"><span class="trend-label">Rising</span><span class="pill rising">AI Management</span><span class="pill rising">Cloud Infrastructure</span><span class="pill rising">Context Management</span><span class="pill rising">Multi-Agent</span><span class="pill rising">Performance</span><span class="pill rising">Security</span></div>
+<div class="trend-row"><span class="trend-label">Steady</span><span class="pill steady">AI-Assisted Dev</span><span class="pill steady">Agent Engineering</span><span class="pill steady">Anthropic</span><span class="pill steady">Claude Code</span><span class="pill steady">Evaluation</span><span class="pill steady">LLM Models</span><span class="pill steady">Local Inference</span><span class="pill steady">MLOps</span><span class="pill steady">Tools</span></div>
+<p class="trend-note">Performance sits at a 0.17 divergence and is assigned to Rising per the convention used in prior runs for the 0.15–0.20 band. MCP (present in 5 of the last 7 runs) and Prompt Engineering (4 of 7) are absent this period and will register as Cooling next run if the gap persists.</p>
+  <p class="trend-base">Based on 33 prior runs. Trend window: recent = last 7 runs, baseline = last 30 runs.</p>
   </div>
-  <div class="trend">
-    <span class="trend-label">New this period</span>
-    <span class="pill none">none</span>
-  </div>
-  <div class="trend">
-    <span class="trend-label">Steady</span>
-    <span class="pill steady">Tools</span>
-    <span class="pill steady">AI-Assisted Dev</span>
-    <span class="pill steady">LLM Models</span>
-    <span class="pill steady">Agent Engineering</span>
-    <span class="pill steady">Evaluation</span>
-    <span class="pill steady">MCP</span>
-    <span class="pill steady">Multi-Agent</span>
-  </div>
-  <div class="trend">
-    <span class="trend-label">Cooling</span>
-    <span class="pill none">none</span>
-  </div>
-  <div class="trend">
-    <span class="trend-label">Resurfaced</span>
-    <span class="pill none">none</span>
-  </div>
-  <p class="trend-note">
-    Based on 31 prior runs. Trend window: recent = last 7 runs, baseline = last 30 runs.
-    Anthropic and Claude Code do not appear above because neither produced a retained item — they were present in all seven
-    prior runs, so expect both to register as Cooling next period on the ledger metric even though the cause is one quiet
-    fortnight for technical Anthropic content.
-    Divergences of 0.15–0.20 continue to be assigned to the Rising/Cooling direction.
-  </p>
 </header>
-
 <main>
-
-  <section>
-    <h2>Overview</h2>
-    <p class="overview">
-      The standout finding is a measured change in the security landscape: Anil Madhavapeddy — Cambridge professor and OCaml
-      core maintainer — reports attempted exploits arriving within minutes of patches being shared for discussion, where the
-      same window used to be days plus a release. That is a disclosure-practice problem for every open-source maintainer, and
-      it is the clearest evidence yet of AI-accelerated exploitation of public patch traffic. Vendor dependency is the second
-      thread: OpenAI cut off Cursor, and a Samsung supply-contract disclosure shows Nvidia locked in at roughly a fifth of
-      spot RAM prices through 2031 while raising card prices — which finally names a mechanism behind five consecutive runs of
-      hardware cost increases. Local inference again carries the volume with genuinely reproducible work, including a
-      CPU-only-to-96GB sweep on Qwen3.8-Flash-Next that surfaces a sharp trap (forcing the PLE table onto CUDA collapses
-      decode from 108.5 to 1.95 tok/s), and a practitioner finding that enabling vision materially improves autonomous coding
-      rather than only helping with user-supplied images.
-    </p>
-    <p class="trend-note" style="margin-top:0">
-      <strong>Notably absent:</strong> for the first time in this ledger's history there is no Claude and Anthropic section.
-      Anthropic appeared in all seven recent runs, but every item this period was legal or business — the Pentagon ruling, a
-      music-publisher lawsuit, San Francisco commentary — with nothing technical clearing the bar. Hacker News likewise
-      contributed no retained items for the same reason.
-    </p>
-  </section>
-
-  <section>
-    <h2>LLM Models and Capabilities</h2>
-
-    <article>
-      <h3><a href="https://www.lesswrong.com/posts/9yETjcrbH7p8x2tLT/when-activation-oracles-learn-not-to-read-concept-specific-2" target="_blank" rel="noopener">When Activation Oracles learn not to read — concept-specific blind spots in fine-tuned oracles</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">7.1</span><span class="source">LessWrong</span><span class="date">1 Sep 2026</span>
-        <span class="tag">Evaluation</span><span class="tag">Security</span>
-      </p>
-      <p>Activation Oracles are language models trained to answer natural-language questions about another model's internal activations (Karvonen et al. 2025), turning activation analysis into a conversation. This work shows that fine-tuning an oracle induces concept-specific blind spots — it learns not to read certain things — which is a problem precisely in the case you would build one for: auditing a model suspected of hiding a backdoor or a concealed goal. Read together with last run's finding that oracles need a known-safe base model, the technique now has two documented preconditions that rule out most real auditing scenarios. Treat oracle-based auditing as a research direction, not a control you can currently rely on.</p>
-      <p class="src-link"><a href="https://www.lesswrong.com/posts/9yETjcrbH7p8x2tLT/when-activation-oracles-learn-not-to-read-concept-specific-2" target="_blank" rel="noopener">lesswrong.com →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://simonwillison.net/2026/Aug/29/hy4/" target="_blank" rel="noopener">Introducing Hy4 Preview</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">6.6</span><span class="source">Simon Willison</span><span class="date">29 Aug 2026</span>
-        <span class="tag">LLM Models</span><span class="tag">Local Inference</span>
-      </p>
-      <p>Tencent's new open-weight text-only model: 770B total parameters, 49B active, a 1M-token context window, and 1.56 TB on Hugging Face — a large step up from July's Hy3 at 295B total, 21B active and 256K context in 598 GB. The 49B-active figure is what governs whether it is servable, and the 1.56 TB download is what governs whether you can hold it; both matter more than the headline parameter count. Willison notes he has started reading model chat templates to understand capabilities, which is a cheap and underused way to learn what a model was actually trained to do.</p>
-      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/29/hy4/" target="_blank" rel="noopener">simonwillison.net →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.latent.space/p/ainews-fals-h3-max-live-breaks-the" target="_blank" rel="noopener">Fal's H3 Max Live breaks the infinite videogen barrier</a></h3>
-      <p class="item-meta">
-        <span class="signal">5.8</span><span class="source">Latent Space</span><span class="date">1 Sep 2026</span>
-        <span class="tag">LLM Models</span><span class="tag">Performance</span>
-      </p>
-      <p>Video generation has crossed the threshold where output can be produced faster than it can be watched, which changes generation from a batch job into a stream. The write-up is candid that the implications are not yet clear. Worth noting as a capability threshold rather than an action: the interesting engineering question it raises is what a real-time generative stream does to caching, moderation and cost control, all of which currently assume finite artefacts.</p>
-      <p class="src-link"><a href="https://www.latent.space/p/ainews-fals-h3-max-live-breaks-the" target="_blank" rel="noopener">latent.space →</a></p>
-    </article>
-  </section>
-
-  <section>
-    <h2>Agent Engineering</h2>
-
-    <article>
-      <h3><a href="https://simonwillison.net/2026/Aug/30/understanding-chatgpt-work/" target="_blank" rel="noopener">Understanding ChatGPT Work</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">7.2</span><span class="source">Simon Willison</span><span class="date">30 Aug 2026</span>
-        <span class="tag">Agent Engineering</span><span class="tag">LLM Models</span><span class="tag">Tools</span>
-      </p>
-      <p>A working reverse-engineering of what Willison calls an extraordinarily confusing and very powerful product, announced 9 July and iterated on furiously since. The load-bearing clarification is that ChatGPT Work is actually two products, with the cloud-hosted version — reachable via chatgpt.com and the mobile apps — being the more capable one. This follows the external reconstruction covered on 4 August and supersedes it with hands-on detail. Useful if you are evaluating it against an in-house agent platform: the article is the closest thing to documentation of what the product actually does.</p>
-      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/30/understanding-chatgpt-work/" target="_blank" rel="noopener">simonwillison.net →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3kppp/glm_53_and_glm_53_flash_ran_locally_on_rtx_pro/" target="_blank" rel="noopener">GLM 5.3 and GLM 5.3 Flash running locally, building a penthouse through BlenderMCP</a></h3>
-      <p class="item-meta">
-        <span class="signal">6.3</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
-        <span class="tag">MCP</span><span class="tag">Local Inference</span><span class="tag">Agent Engineering</span>
-      </p>
-      <p>Both models run locally at Q4 on an RTX PRO 6000 workstation, driving Blender through BlenderMCP on the same prompt so Flash and the full model can be compared directly. Two things make it worth reading past the demo: it is a genuine MCP-driven agent task with a visual correctness signal, and running both variants locally on one prompt is the controlled comparison most MCP demos skip. Relevant if you are assessing whether a local model is adequate to drive a real tool surface rather than to chat about one.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3kppp/glm_53_and_glm_53_flash_ran_locally_on_rtx_pro/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.lesswrong.com/posts/itzfzwvWLgiPxBW93/resources-for-large-agent-systems-safety" target="_blank" rel="noopener">Resources for Large Agent Systems Safety</a></h3>
-      <p class="item-meta">
-        <span class="signal">6.2</span><span class="source">LessWrong</span><span class="date">1 Sep 2026</span>
-        <span class="tag">Multi-Agent</span><span class="tag">Agent Engineering</span><span class="tag">Security</span>
-      </p>
-      <p>Gigascale has published community resources for safety in agent systems at the thousands-to-billions scale: a problem definition, an org map, a survey and a daily paper scan, built on their own literature review. The scale framing is what distinguishes it — most multi-agent material addresses handfuls of agents, and the failure modes at population scale are different in kind. Useful as a reading map if you are designing anything with many concurrent agents; treat the problem definitions as the substance rather than the org map.</p>
-      <p class="src-link"><a href="https://www.lesswrong.com/posts/itzfzwvWLgiPxBW93/resources-for-large-agent-systems-safety" target="_blank" rel="noopener">lesswrong.com →</a></p>
-    </article>
-  </section>
-
-  <section>
-    <h2>AI-Assisted Software Development</h2>
-
-    <article>
-      <h3><a href="https://simonwillison.net/2026/Aug/28/just-a-rumour-of-a-bug/" target="_blank" rel="noopener">Just a rumour of a bug is enough to find a security exploit these days</a></h3>
-      <p class="item-meta">
-        <span class="signal high">8.2</span><span class="source">Simon Willison</span><span class="date">28 Aug 2026</span>
-        <span class="tag">Security</span><span class="tag">AI-Assisted Dev</span>
-      </p>
-      <p>Anil Madhavapeddy — Cambridge computer science professor and a core maintainer of the OCaml compiler — reports that security issues in OCaml projects are now seeing attempted exploits within minutes of patches being shared for discussion, where the same process previously took days and a release. That is a first-hand observation from a credible maintainer about a compressed exploitation window, and the mechanism is presumably automated analysis of public patch traffic. Concrete change in practice: treat pre-release patch discussion as public disclosure. Fix in private, coordinate release with the patch landing, and stop assuming a discussion thread on an unreleased fix buys you any window at all.</p>
-      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/28/just-a-rumour-of-a-bug/" target="_blank" rel="noopener">simonwillison.net →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3vcvh/dont_sleep_on_vision_support_for_coding/" target="_blank" rel="noopener">Don't sleep on vision support for coding</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">7.2</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
-        <span class="tag">AI-Assisted Dev</span><span class="tag">Local Inference</span><span class="tag">LLM Models</span>
-      </p>
-      <p>A practitioner who had always chosen non-vision model variants to save VRAM — on the assumption that vision only mattered when you send the picture — enabled it on Qwen 3.8 27B and reports it made the model substantially more capable at autonomous coding. The inference is that the model benefits from seeing its own rendered output rather than reasoning about it blind. This is a genuinely non-obvious VRAM tradeoff most people have been getting wrong by default. Concrete action: if you run a local coding agent on a non-vision variant to save memory, re-test with vision enabled on a task that produces visual output before assuming the memory is better spent elsewhere.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3vcvh/dont_sleep_on_vision_support_for_coding/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.latent.space/p/ainews-openai-shuts-off-cursor" target="_blank" rel="noopener">OpenAI shuts off Cursor</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">6.9</span><span class="source">Latent Space</span><span class="date">29 Aug 2026</span>
-        <span class="tag">Tools</span><span class="tag">LLM Models</span><span class="tag">AI-Assisted Dev</span>
-      </p>
-      <p>A model provider cut off one of the largest coding-tool consumers of its API, attributed here to the Musk–Altman dispute following Cursor's acquisition. Whatever the cause, the lesson is structural and immediate: your coding harness's access to a frontier model is a commercial relationship that can be severed for reasons unrelated to you or to your usage. Concrete action — know which of your workflows would stop working tomorrow if one provider–tool relationship ended, and confirm your harness can actually route to an alternative rather than assuming it can.</p>
-      <p class="src-link"><a href="https://www.latent.space/p/ainews-openai-shuts-off-cursor" target="_blank" rel="noopener">latent.space →</a></p>
-    </article>
-  </section>
-
-  <section>
-    <h2>Cloud and Infrastructure</h2>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3pig8/doesnt_this_look_like_nvidia_is_price_fixing/" target="_blank" rel="noopener">Nvidia's RAM contracts sit at roughly a fifth of spot price through 2031</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">6.9</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
-        <span class="tag">Cloud Infrastructure</span><span class="tag">Performance</span>
-      </p>
-      <p>Samsung has reportedly committed around 70% of future RAM production to long-term contracts with buyers including Microsoft, Google and Nvidia, with Nvidia locked in at roughly $300–500 against a $2,100 spot price until 2031 — while raising card prices. Note that the “price fixing” framing in the original post is the poster's own inference and is not supported by anything in the source; the contract figures are the substance. Those figures matter because they identify a mechanism behind five consecutive digests of hardware cost increases: the constraint is allocated supply rather than transient demand, which makes it durable and makes memory-frugal inference a strategy rather than a workaround.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3pig8/doesnt_this_look_like_nvidia_is_price_fixing/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-  </section>
-
-  <section>
-    <h2>Client and Systems Engineering</h2>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3pl64/qwen38flashnext_in_llamacpp_from_cpuonly_to_96gb/" target="_blank" rel="noopener">Qwen3.8-Flash-Next in llama.cpp from CPU-only to 96GB VRAM — 8.3 to 109 tok/s</a></h3>
-      <p class="item-meta">
-        <span class="signal high">7.6</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
-        <span class="tag">Local Inference</span><span class="tag">Performance</span><span class="tag">Context Management</span>
-      </p>
-      <p>A full sweep on an RTX PRO 6000: 8.34 tok/s CPU-only at a 2K prompt, 109.07 tok/s with the full 96 GB, and at 245K context 24 GB versus 96 GB gives 14.89 against 21.61 tok/s — so the 96 GB advantage falls from 2.80x at 2K to 1.45x at 245K. The trap is the most valuable finding: forcing the 27.2 GiB PLE table onto CUDA reduced decode from 108.5 to 1.95 tok/s, a 55x regression from an offload decision that sounds obviously correct. Two actions: measure your VRAM advantage at your real context length rather than at 2K, and never assume moving a large table onto the GPU helps without measuring it.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3pl64/qwen38flashnext_in_llamacpp_from_cpuonly_to_96gb/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w44jnv/exllamav3_recent_updates_cpu_offload_glm53flash/" target="_blank" rel="noopener">ExLlamav3 adds MoE expert CPU offload, ngram disk offload and self-calibrated quantisation</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">6.7</span><span class="source">r/LocalLLaMA</span><span class="date">1 Sep 2026</span>
-        <span class="tag">Local Inference</span><span class="tag">Performance</span><span class="tag">Tools</span>
-      </p>
-      <p>A substantial update round from turboderp: CPU offload of MoE experts, Qwen3.8-Flash-Next ngram disk offload, GLM-5.3-Flash support, and a new self-calibrated optimisation technique for quantisation. The MoE-expert offload and ngram disk offload are the two that matter given the memory-cost situation above — both trade abundant storage and system RAM for scarce VRAM. Worth re-evaluating if you last compared ExLlamav3 against llama.cpp some months ago; the offload capabilities have changed what fits.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w44jnv/exllamav3_recent_updates_cpu_offload_glm53flash/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w49id7/i_pushed_qwen3827b_to_2000_prefill_per_second_and/" target="_blank" rel="noopener">Qwen3.8-27B pushed to 2,000 tok/s prefill and 132 tok/s decode on an RTX 3090</a></h3>
-      <p class="item-meta">
-        <span class="signal">6.4</span><span class="source">r/LocalLLaMA</span><span class="date">1 Sep 2026</span>
-        <span class="tag">Local Inference</span><span class="tag">Performance</span>
-      </p>
-      <p>The continuing single-GPU optimisation series, now reporting prefill just under 2,000 tok/s at 4K — up from around 1,300 the same morning — via a custom kernel, with decode at 132 tok/s and declared effectively maxed pending a better drafter. The honest statement that decode is at its ceiling until drafting improves is more useful than the prefill number: it tells you where the remaining headroom is, and that speculative drafting is the binding constraint on single-user decode.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w49id7/i_pushed_qwen3827b_to_2000_prefill_per_second_and/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3n506/avx2_speed_up_large_batch_size_prompt_processing/" target="_blank" rel="noopener">AVX2 speedup for large-batch prompt processing of IQ models</a></h3>
-      <p class="item-meta">
-        <span class="signal">6.2</span><span class="source">r/LocalLLaMA</span><span class="date">31 Aug 2026</span>
-        <span class="tag">Performance</span><span class="tag">Local Inference</span>
-      </p>
-      <p>A llama.cpp pull request from bartowski1182 improving CPU prompt-processing throughput for IQ-quantised models at large batch sizes. Given that CPU and hybrid inference is where the memory-cost pressure is pushing everyone, gains in the CPU prefill path are disproportionately useful — this is the same path the Flash-Next sweep above measures at 8.34 tok/s CPU-only. Worth pulling if you run IQ quants with meaningful batch sizes on CPU.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w3n506/avx2_speed_up_large_batch_size_prompt_processing/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w45t3d/qwen4exp_fixes_in_llamacpp/" target="_blank" rel="noopener">qwen4exp fixes merged in llama.cpp</a></h3>
-      <p class="item-meta">
-        <span class="signal">5.9</span><span class="source">r/LocalLLaMA</span><span class="date">1 Sep 2026</span>
-        <span class="tag">Local Inference</span><span class="tag">Tools</span>
-      </p>
-      <p>Four merged pull requests fixing the experimental Qwen4-architecture path, with the practical advice to rebuild often if you are running Qwen3.8-Flash-Next. Mundane but worth acting on: a preview-architecture model on a moving llama.cpp target means your benchmark numbers have a build dependency, and several of this period's throughput results will not reproduce on an older build. Pin and record your commit when you measure.</p>
-      <p class="src-link"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1w45t3d/qwen4exp_fixes_in_llamacpp/" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA →</a></p>
-    </article>
-  </section>
-
-  <section>
-    <h2>Tools and Frameworks</h2>
-
-    <article>
-      <h3><a href="https://github.com/upstash/context7" target="_blank" rel="noopener">context7 — up-to-date code documentation for LLMs and AI code editors</a></h3>
-      <p class="item-meta">
-        <span class="signal mid">6.8</span><span class="source">GitHub</span><span class="date">1 Sep 2026</span>
-        <span class="tag">MCP</span><span class="tag">Tools</span><span class="tag">AI-Assisted Dev</span>
-      </p>
-      <p>At 61.5K stars, a documentation service that supplies current library docs to coding agents rather than letting them recall API surfaces from training data. This is the same problem Nvidia's hosted CUDA MCP addressed last run, generalised across libraries — and stale API recall is one of the most common and least interesting classes of agent error. Concrete action: if you regularly correct an agent's use of a fast-moving dependency, attach a documentation source before writing more instructions telling it to be careful.</p>
-      <p class="src-link"><a href="https://github.com/upstash/context7" target="_blank" rel="noopener">github.com/upstash/context7 →</a></p>
-    </article>
-
-    <article>
-      <h3><a href="https://simonwillison.net/2026/Aug/31/introducing-wrapture/" target="_blank" rel="noopener">wrapture — tracing and testing through unified monkeypatching</a></h3>
-      <p class="item-meta">
-        <span class="signal">6.0</span><span class="source">Simon Willison</span><span class="date">31 Aug 2026</span>
-        <span class="tag">Tools</span><span class="tag">AI-Assisted Dev</span>
-      </p>
-      <p>From Graham Dumpleton, author of wrapt and mod_wsgi and of New Relic's Python agent: a library extending wrapt's monkeypatching approach so any function or method can be wrapped for tracing and overridden to return different values, with one mechanism serving both. No AI content, and included because agent observability and agent testing are the same instrumentation problem in most Python codebases — being able to trace a call and stub it through one wrapper is directly useful for building deterministic tests around a non-deterministic agent.</p>
-      <p class="src-link"><a href="https://simonwillison.net/2026/Aug/31/introducing-wrapture/" target="_blank" rel="noopener">simonwillison.net →</a></p>
-    </article>
-  </section>
-
-  <details>
-    <summary>Excluded items (27 groups)</summary>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead>
-        <tbody>
-          <tr><td>Anthropic Just Beat The Pentagon in Court</td><td>Hacker News</td><td>Legal outcome, off-topic for this brief</td></tr>
-          <tr><td>Music publishers sue Anthropic over copyrighted music</td><td>Hacker News</td><td>Litigation, no technical content</td></tr>
-          <tr><td>OpenAI and Anthropic are ruining San Francisco (×2)</td><td>Hacker News</td><td>Off-topic</td></tr>
-          <tr><td>Ask HN: AI writes better code than me. How to keep my i…</td><td>Hacker News</td><td>Discussion thread, anecdotal</td></tr>
-          <tr><td>Launch HN: Hebbian Robotics — robotics data pipelines</td><td>Hacker News</td><td>Product launch, off-topic domain</td></tr>
-          <tr><td>Show HN: Academa — LLM-generated STEM lecture videos</td><td>Hacker News</td><td>Product launch, no demonstrated technique</td></tr>
-          <tr><td>We should prepare a playbook for the day after a warning…</td><td>LessWrong</td><td>Governance speculation, no reproducible evidence</td></tr>
-          <tr><td>MTP released for Qwen3.8-Flash-Next-GGUF</td><td>r/LocalLLaMA</td><td>Announcement with no measurement</td></tr>
-          <tr><td>Deepseek v4 Flash Vision is out / HF model link</td><td>r/LocalLLaMA</td><td>Release links with no detail</td></tr>
-          <tr><td>The state of open source LLM (08/31/2026)</td><td>r/LocalLLaMA</td><td>Link-only post</td></tr>
-          <tr><td>A very confusing report from Puget Systems</td><td>r/LocalLLaMA</td><td>Reader confusion thread rather than an analysis</td></tr>
-          <tr><td>I finished upcycling of gemma4-12B</td><td>r/LocalLLaMA</td><td>Real technique but too little detail to characterise</td></tr>
-          <tr><td>Mac to Linux box over USB-C is becoming a thing</td><td>r/LocalLLaMA</td><td>Link-only post</td></tr>
-          <tr><td>Vellium v1.1.0 — live voice, local STT/TTS</td><td>r/LocalLLaMA</td><td>Narrow domain, below threshold</td></tr>
-          <tr><td>SlopTV: infinite livestream of AI slop</td><td>r/LocalLLaMA</td><td>Novelty demo</td></tr>
-          <tr><td>Qwen 3.8 27b oneshot a Super Mario clone</td><td>r/LocalLLaMA</td><td>Single anecdote; the vision item covers the model</td></tr>
-          <tr><td>Which local models generate the best SVG pelicans?</td><td>r/LocalLLaMA</td><td>Informal poll</td></tr>
-          <tr><td>New Gemma models on arena ai / vote for the Qwen 3.8</td><td>r/LocalLLaMA</td><td>Anticipation and poll threads</td></tr>
-          <tr><td>What are your hopes for the new Mistral?</td><td>r/LocalLLaMA</td><td>Speculation thread</td></tr>
-          <tr><td>First time running local models</td><td>r/LocalLLaMA</td><td>Beginner help thread</td></tr>
-          <tr><td>career-ops — open-source AI job search</td><td>GitHub</td><td>Application project, off-topic for this brief</td></tr>
-          <tr><td>Quoting Andrew Digby (kākāpō population)</td><td>Simon Willison</td><td>Off-topic, however welcome</td></tr>
-          <tr><td>AI Philosophy Competition / Cognitive Dynamics of AI Ph…</td><td>LessWrong</td><td>Philosophy, off-topic</td></tr>
-          <tr><td>Insights into Curry's Paradox? / Bricks and exponentials</td><td>LessWrong</td><td>Off-topic</td></tr>
-          <tr><td>A new version of the Petrov Day booklet / Salad days</td><td>LessWrong</td><td>Off-topic</td></tr>
-          <tr><td>I tracked my emotions for 11 years</td><td>LessWrong</td><td>Off-topic</td></tr>
-          <tr><td>Recurring GitHub trending staples (n8n, dify, ollama, la…)</td><td>GitHub</td><td>Unchanged since prior runs</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </details>
-
+<section>
+<h2>Claude and Anthropic</h2>
+<article>
+  <h3><a href="https://thenextweb.com/news/anthropic-claude-misuse-threat-intelligence-report" target="_blank" rel="noopener">Anthropic details how Claude was misused for surveillance and weapons</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">6.3</span>
+    <span class="source">Hacker News</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">Anthropic</span><span class="tag">Security</span>
+  </p>
+  <p>Anthropic's September threat-intelligence report covers misuse detected between December 2025 and August 2026 across seven harm categories: malware tested against security products, state surveillance systems including one tracking 25 million SIM cards in Mali, six conventional-weapons software cases, five biological-research cases, influence operations and fraud. Two numbers matter for anyone running an API business: a single relay operation pushed 300,000 requests through 5,380 fraudulent accounts in ten days, and seven labs were targeted for illicit distillation. The uncomfortable finding is that banning accounts did not remove surveillance systems already deployed on local models, which is the concrete limit of provider-side enforcement.</p>
+  <p class="src"><a href="https://thenextweb.com/news/anthropic-claude-misuse-threat-intelligence-report" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://www.interconnects.ai/p/one-resignation-turned-the-embers" target="_blank" rel="noopener">One resignation turned the embers of AI fear into a wildfire</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">5.2</span>
+    <span class="source">Interconnects</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">AI Management</span><span class="tag">Anthropic</span>
+  </p>
+  <p>Nathan Lambert's account of the week: Anthropic pretraining researcher Jacob Coxon resigned publicly, saying both OpenAI and Anthropic are racing toward self-improving systems and proposing pacing agreements between US labs, while Joe Benton (ex-Anthropic) and Josh Engels (ex-DeepMind) left for METR citing the Hugging Face agent attack as evidence that voluntary disclosure is insufficient. Lambert's analysis is the useful part for engineering leaders: the legitimate near-term risks are cybersecurity and infrastructure compromise, not extinction, and the labs' operational-security lapses are the real story. Expect this to feed procurement and compliance questions about lab governance; have an answer ready about which vendor incidents affect your deployments.</p>
+  <p class="src"><a href="https://www.interconnects.ai/p/one-resignation-turned-the-embers" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+</section>
+<section>
+<h2>LLM Models and Capabilities</h2>
+<article>
+  <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wcagoi/deepseekaideepseekv41flash_hugging_face/" target="_blank" rel="noopener">deepseek-ai/DeepSeek-V4.1-Flash</a></h3>
+  <p class="item-meta">
+    <span class="signal hi">7.8</span>
+    <span class="source">r/LocalLLaMA</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">LLM Models</span><span class="tag">Local Inference</span><span class="tag">Performance</span>
+  </p>
+  <p>DeepSeek's MIT-licensed V4.1 Flash is a causal encoder-decoder MoE with a 552B backbone plus 196B of sparsely looked-up Engram memory (763B total in BF16, which is why community parameter counts disagreed), running 8B active parameters in prefill and 16B in decode, with native image input and a one-million-token context. The engineering is in the cache: FP4 E2M1 KV storage brings the cache to 890 bytes per token, roughly a quarter of V4 Flash, and sliding-window bounded replay reconstructs evicted state on demand, cutting persistent cache to about an eighth. Terminal-Bench 2.1 rises from 82.7% to 90.6% and reasoning effort is continuously controllable on a 1–100 scale. For local and self-hosted serving this changes the memory budget for long-context agentic sessions more than any model this year; the trade is a 512GB-class download.</p>
+  <p class="src"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wcagoi/deepseekaideepseekv41flash_hugging_face/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://www.latent.space/p/ainews-openai-reports-navier-stokes" target="_blank" rel="noopener">OpenAI reports Navier-Stokes singularity find in 88 hours using Astra-next, roughly 10,000 agents and 130B tokens</a></h3>
+  <p class="item-meta">
+    <span class="signal mid">7.3</span>
+    <span class="source">Latent Space</span>
+    <span class="date">9 Sep 2026</span>
+    <span class="tag">LLM Models</span><span class="tag">Multi-Agent</span>
+  </p>
+  <p>OpenAI says an unreleased model "significantly more capable than GPT-6 Astra", trained with about a year of multi-agent reinforcement learning, resolved the Navier–Stokes existence and smoothness problem using roughly 10,000 agents over 88 hours, 130 billion tokens and 2.7 million inter-agent messages, at an estimated cost above $40 million. The claimed innovation is "unstructured parallel test-time compute": agents organised their own division of labour rather than following a scripted orchestration graph. No theorem statement, preprint or proof sketch has been published and the human-versus-model contribution is unspecified, so treat the mathematics as unverified. The architectural signal stands regardless: the frontier is moving from hand-built orchestrator-worker graphs to agents that negotiate structure at runtime. The same issue notes Cognition's $48B valuation on near-$900M run-rate revenue and Mistral's $24B round.</p>
+  <p class="src"><a href="https://www.latent.space/p/ainews-openai-reports-navier-stokes" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://www.latent.space/p/aeo" target="_blank" rel="noopener">The Frontier AEO Tracker: What Astra Chooses (and every other frontier model)</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">6.2</span>
+    <span class="source">Latent Space</span>
+    <span class="date">7 Sep 2026</span>
+    <span class="tag">Evaluation</span><span class="tag">LLM Models</span>
+  </p>
+  <p>Latent Space's first Astra-built project measures Agent Endorsement Optimisation: which products seven frontier models recommend across 161 categories, using six prompt variants per category with every prompt-answer pair published. Models show soft self-preference (Claude favours Claude Code, OpenAI models favour Cursor) but only 28 categories show universal agreement, and Astra is markedly more confident than Sol, consulting a median of 5 sources rather than 9 and holding its answer across rephrasings. For anyone shipping developer tools, the actionable finding is that Markdown content negotiation on your docs measurably changes whether models recommend you. The methodology is also a reusable template for auditing recommendation bias in any model you route customers through.</p>
+  <p class="src"><a href="https://www.latent.space/p/aeo" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://www.interconnects.ai/p/latest-open-artifacts-24-motif-3" target="_blank" rel="noopener">Latest open artifacts (#24): Motif-3, GLM-5.3, Hy4-preview and open model licenses</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">6.1</span>
+    <span class="source">Interconnects</span>
+    <span class="date">8 Sep 2026</span>
+    <span class="tag">LLM Models</span><span class="tag">Local Inference</span>
+  </p>
+  <p>Lambert's open-model roundup flags Motif-3 as an efficient MIT-licensed release, notes that Tencent's Hy4 preview overthinks, and expects Qwen3.8-Flash-Next's sparse attention to become standard. The item with procurement consequences is licensing: Zhipu moved GLM-5.3 from MIT to a custom licence requiring a "security review" for companies above $10 billion in revenue, with undefined terms such as "affiliates", while Google and Meta are converging on Apache 2.0. The direction has reversed from a year ago, so open-model adoption now needs the same licence review discipline as any commercial dependency.</p>
+  <p class="src"><a href="https://www.interconnects.ai/p/latest-open-artifacts-24-motif-3" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://simonwillison.net/2026/Sep/8/on-navier-stokes/" target="_blank" rel="noopener">Some thoughts on the Navier–Stokes Millennium Prize Problem</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">5.9</span>
+    <span class="source">Simon Willison</span>
+    <span class="date">8 Sep 2026</span>
+    <span class="tag">AI Management</span><span class="tag">LLM Models</span>
+  </p>
+  <p>Willison's post carries the data-governance angle the launch coverage omits. Tristan Buckmaster, working with Anthropic's Levent Alpöge, reached his breakthrough on 15 August using Claude and earlier Codex sessions; OpenAI's effort launched on 1 September after rumours spread, and OpenAI states it did not see their work but "cannot rule out that de-identified data helped improve our models". GPT-6 Astra then produced a Lean formalisation in a further 17 hours. Terence Tao adds that good open problems are now being "mined in a non-renewable fashion" and that a rumour of someone working on a problem can trigger an AI effort to flatten it first. If your organisation does novel research through a vendor's coding agent, read the data-use terms with this case in mind.</p>
+  <p class="src"><a href="https://simonwillison.net/2026/Sep/8/on-navier-stokes/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wchl1x/gigachat35reasoning/" target="_blank" rel="noopener">GigaChat-3.5-Reasoning</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">5.0</span>
+    <span class="source">r/LocalLLaMA</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">LLM Models</span>
+  </p>
+  <p>Sber's GigaChat-3.5 Reasoning is a 432B-A28B MoE using Gated DeltaNet for long-context efficiency. The training recipe is the interesting part: domain experts for code, maths and general tasks were trained separately with CISPO and then merged into a single model by on-policy distillation, which the team says lands close to DeepSeek V4 Flash Preview while using 37% fewer tokens in reasoning traces. Expert-then-distil is becoming a standard recipe for token-efficient reasoning models, and the 37% figure is worth checking if your inference bill is dominated by thinking tokens.</p>
+  <p class="src"><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wchl1x/gigachat35reasoning/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+</section>
+<section>
+<h2>Agent Engineering</h2>
+<article>
+  <h3><a href="https://nvlabs.github.io/SoL-Pi/" target="_blank" rel="noopener">SoL-Pi: Scaling Auto-Research Loops for Efficient Agent Harnesses</a></h3>
+  <p class="item-meta">
+    <span class="signal mid">7.3</span>
+    <span class="source">r/LocalLLaMA</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">Agent Engineering</span><span class="tag">Context Management</span><span class="tag">Performance</span>
+  </p>
+  <p>Nvidia Labs ran Karpathy-style auto-research loops against the Pi coding-agent harness: 152 candidate directions were screened by an "oracle analysis" pass over existing trajectories before any rollout budget was spent, then implemented by one agent, reviewed by another, and validated on training and held-out tasks against a predeclared capability floor. Four mechanisms survived: Action Fusion (edit plus follow-up command in one call), Online Context Compact (compression at task boundaries rather than on cache pressure), ObservationPack (large tool outputs archived locally with paged recall) and an Evidence-Preserving Reducer (log reading delegated to a cheaper model with quoted lines verified). The packaged extension uses 45–49% fewer tokens at roughly a third lower cost while retaining about 94% of Pi's average score. Each mechanism is portable to any harness, and the method itself, efficiency search under a quality floor, is the reusable result.</p>
+  <p class="src"><a href="https://nvlabs.github.io/SoL-Pi/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://www.langchain.com/blog/organizing-context-in-a-multi-agent-harness" target="_blank" rel="noopener">Organizing Context in a Multi-Agent Harness</a></h3>
+  <p class="item-meta">
+    <span class="signal mid">7.1</span>
+    <span class="source">LangChain Blog</span>
+    <span class="date">8 Sep 2026</span>
+    <span class="tag">Agent Engineering</span><span class="tag">Context Management</span><span class="tag">Multi-Agent</span>
+  </p>
+  <p>LangChain's deepagents now exposes two subagent context modes. Isolated, the default, spawns a subagent with a fresh window holding only the task description, which suits parallel researchers on independent questions and verifiers that must judge work without the supervisor's assumptions. Fork propagates the supervisor's full state so a worker can continue an in-progress investigation, for example implementing a fix after the supervisor diagnosed the bug, and it rides the provider prompt cache so it is typically faster and cheaper than re-deriving context. No benchmark numbers are given, but the decision rule is sound and maps directly onto the fork-versus-fresh choice every orchestrator makes implicitly; make it explicit per subagent role.</p>
+  <p class="src"><a href="https://www.langchain.com/blog/organizing-context-in-a-multi-agent-harness" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://www.langchain.com/blog/connections-managed-credentials-and-per-caller-identity-for-managed-deep-agents" target="_blank" rel="noopener">Connections: managed credentials and per-caller identity for Managed Deep Agents</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">6.3</span>
+    <span class="source">LangChain Blog</span>
+    <span class="date">9 Sep 2026</span>
+    <span class="tag">Agent Engineering</span><span class="tag">Security</span>
+  </p>
+  <p>Connections separates credential ownership along two axes: agent-owned secrets for shared capabilities such as web search, and user-owned OAuth grants so an agent acts as the caller. When the agent files a GitHub issue it is opened by the person who asked rather than a service account, different callers see results filtered by their own permissions, credentials live in the workspace rather than in code or <code>.env</code> files, and rotation needs no redeploy. The shared-API-key pattern is the single largest audit gap in most production agents today; whether or not you use LangChain, per-caller identity for agent tool calls is the bar to design to.</p>
+  <p class="src"><a href="https://www.langchain.com/blog/connections-managed-credentials-and-per-caller-identity-for-managed-deep-agents" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+</section>
+<section>
+<h2>AI-Assisted Software Development</h2>
+<article>
+  <h3><a href="https://simonwillison.net/2026/Sep/11/datasette-security/" target="_blank" rel="noopener">Datasette 1.0a39 and 0.65.4 security releases</a></h3>
+  <p class="item-meta">
+    <span class="signal mid">7.1</span>
+    <span class="source">Simon Willison</span>
+    <span class="date">11 Sep 2026</span>
+    <span class="tag">Security</span><span class="tag">AI-Assisted Dev</span>
+  </p>
+  <p>Two Datasette patch releases fix subtle access-control bugs affecting instances that mix public and private tables on the open web. The bugs were found by an AI-assisted audit using Claude Fable 5.1, GPT-5.6 and GPT-6 Astra, then fixed in a shared repository with one person writing automated tests and another implementing fixes so that every issue had multiple human reviewers alongside the agents. Willison intends to make model-driven security audits a routine part of the release process. Read with last run's curl result: raw frontier models find real bugs in mature codebases when pointed at them deliberately, and the workflow that turns findings into shipped fixes is the part worth copying.</p>
+  <p class="src"><a href="https://simonwillison.net/2026/Sep/11/datasette-security/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://www.langchain.com/blog/how-credit-genie-uses-openwiki-to-keep-codebase-knowledge-fresh-searchable-and-automated" target="_blank" rel="noopener">How Credit Genie keeps codebase docs fresh with OpenWiki</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">6.2</span>
+    <span class="source">LangChain Blog</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">AI-Assisted Dev</span><span class="tag">Context Management</span>
+  </p>
+  <p>Credit Genie runs LangChain's open-source OpenWiki agent nightly across all repositories; it detects code changes, opens documentation pull requests with automated approval, and publishes to a single GitHub Pages portal. The step that matters for agent workflows is that coding agents are explicitly prompted to read the <code>openwiki/</code> folder before making changes, so generated documentation becomes agent context rather than a human-only artefact. Outcomes are qualitative (faster cross-repo context, less tribal knowledge, easier onboarding), but the pattern of documentation as a nightly, agent-maintained build output that other agents consume is cheap to adopt and compounds.</p>
+  <p class="src"><a href="https://www.langchain.com/blog/how-credit-genie-uses-openwiki-to-keep-codebase-knowledge-fresh-searchable-and-automated" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://simonwillison.net/2026/Sep/10/calif-research/" target="_blank" rel="noopener">Quoting Calif Research: WeWorm, a zero-click WeChat worm built with AI</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">6.1</span>
+    <span class="source">Simon Willison</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">Security</span>
+  </p>
+  <p>Calif Research demonstrated WeWorm, a zero-click worm spreading through WeChat calls on iOS and Android with no user interaction, and states that AI found the bug and wrote the first remote-code-execution exploit in about two days, with the full worm complete within a week; work that "used to be the kind of thing that took a larger team months". Humans provided direction and safety oversight while the model did most of the technical work. Together with last run's curl CVEs and this run's Datasette audit, the offensive and defensive sides of AI vulnerability discovery are now moving at the same pace, which shortens your patch window on anything internet-facing.</p>
+  <p class="src"><a href="https://simonwillison.net/2026/Sep/10/calif-research/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+</section>
+<section>
+<h2>Cloud and Infrastructure</h2>
+<article>
+  <h3><a href="https://blog.pragmaticengineer.com/the-pulse-tech-companies-move-to-open-ai-models/" target="_blank" rel="noopener">The Pulse: tech companies move to open AI models</a></h3>
+  <p class="item-meta">
+    <span class="signal mid">7.3</span>
+    <span class="source">Pragmatic Engineer</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">MLOps</span><span class="tag">AI Management</span><span class="tag">LLM Models</span>
+  </p>
+  <p>Gergely Orosz collects production cost data from companies dropping proprietary models: Uber cut cost per session 50% and per request 34% using open models, routing and prompt caching; Pinterest reports cost per transaction below 8% of comparable closed models; AT&amp;T cut spend 56% with a 2% quality decrease after moving off Claude; Stripe, Coinbase and Ramp confirm similar results. The common stack is open-weight models on inference providers at 2–20x lower unit cost, a router that sends simple tasks to cheap models, weekly benchmarking, caching, automatic context compaction and reduced effort settings. Aggregate AI spend at large firms is down about 10% by August while token volume is flat or up. If you have not built a routing layer with a weekly eval, this is the evidence to justify it.</p>
+  <p class="src"><a href="https://blog.pragmaticengineer.com/the-pulse-tech-companies-move-to-open-ai-models/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://simonwillison.net/2026/Sep/7/creepy-crawlies/" target="_blank" rel="noopener">Creepy crawlies: scraper load on git.kernel.org</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">6.1</span>
+    <span class="source">Simon Willison</span>
+    <span class="date">7 Sep 2026</span>
+    <span class="tag">Cloud Infrastructure</span><span class="tag">Security</span>
+  </p>
+  <p>Konstantin Ryabitsev reports that git.kernel.org now spends more CPU rendering commits for abusive scrapers than on all legitimate access combined, including git clones, with 14 cores across five geo-distributed nodes dedicated to serving crawlers at any moment. Willison notes Datasette instances face the same "background radiation". Anyone operating a public code host, docs site or data portal should budget for this as a permanent load class and rate-limit expensive render paths separately from clone and API traffic.</p>
+  <p class="src"><a href="https://simonwillison.net/2026/Sep/7/creepy-crawlies/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+</section>
+<section>
+<h2>Client and Systems Engineering</h2>
+<article>
+  <h3><a href="https://huggingface.co/blog/bartowski/per-tensor-layout-maps-for-gguf-quantization" target="_blank" rel="noopener">New tensor type layouts for bartowski GGUF uploads</a></h3>
+  <p class="item-meta">
+    <span class="signal mid">6.5</span>
+    <span class="source">r/LocalLLaMA</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">Local Inference</span><span class="tag">Performance</span>
+  </p>
+  <p>Bartowski, the most widely used GGUF quantiser, ran more than 1,000 "degrade-one" experiments on Qwen models, lowering one tensor at a time and measuring KL divergence on wikitext-2 to build per-tensor sensitivity maps. Findings: token embeddings are 8–16x more sensitive than weight matrices, sensitivity by depth follows a U-shape, and specific attention and feed-forward tensors need protecting. A solver now turns those maps into quantisation recipes, so tier names such as Q4_K_L carry a defined tensor composition, file sizes shift slightly and quality per bit improves, with a canary test per architecture before upload. Re-benchmark rather than assume when you pull new quants, and prefer these over uniform-bit recipes for memory-constrained deployments.</p>
+  <p class="src"><a href="https://huggingface.co/blog/bartowski/per-tensor-layout-maps-for-gguf-quantization" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://simonwillison.net/2026/Sep/10/shopify-react-native/" target="_blank" rel="noopener">Native is now the future of mobile at Shopify</a></h3>
+  <p class="item-meta">
+    <span class="signal mid">6.5</span>
+    <span class="source">Simon Willison</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">AI-Assisted Dev</span><span class="tag">AI Management</span>
+  </p>
+  <p>Shopify is moving its mobile apps from React Native back to separate Swift and Kotlin codebases, reversing its 2020 decision. The 2020 rationale was to stop building features twice and chasing platform parity; Shopify now says coding agents handle enough of the implementation, translation, testing and review that the duplication cost no longer dominates, and the libraries it maintained are being handed to new stewards. This is the clearest large-company statement yet that agents change the cross-platform calculus: when translation between codebases is cheap, the argument for a shared abstraction layer weakens, and native performance and platform fidelity win by default.</p>
+  <p class="src"><a href="https://simonwillison.net/2026/Sep/10/shopify-react-native/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+</section>
+<section>
+<h2>Tools and Frameworks</h2>
+<article>
+  <h3><a href="https://simonwillison.net/2026/Sep/10/trynix/" target="_blank" rel="noopener">Any Nix package, live in your browser</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">5.7</span>
+    <span class="source">Simon Willison</span>
+    <span class="date">10 Sep 2026</span>
+    <span class="tag">Tools</span>
+  </p>
+  <p>Farid Zakaria's trynix.dev boots a qemu-wasm x86_64 Linux virtual machine entirely in the browser and can load any Nix package from the past 13 years via a URL-addressable page. It is a striking demonstration of WebAssembly as a distribution target for full toolchains, and a practical way to hand someone a reproducible environment without local installation. For agent sandboxing it is a hint of where cheap, disposable, browser-hosted execution environments are heading.</p>
+  <p class="src"><a href="https://simonwillison.net/2026/Sep/10/trynix/" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+<article>
+  <h3><a href="https://github.com/OtoDock/oto-dock" target="_blank" rel="noopener">OtoDock: self-hosted company OS with Claude Code and Codex agents in departments</a></h3>
+  <p class="item-meta">
+    <span class="signal lo">5.3</span>
+    <span class="source">Hacker News</span>
+    <span class="date">9 Sep 2026</span>
+    <span class="tag">Multi-Agent</span><span class="tag">Claude Code</span><span class="tag">Tools</span>
+  </p>
+  <p>OtoDock organises Claude Code and Codex agents into departments with delegation hierarchies, each agent carrying a persona, memory, workspace, knowledge base, skills and tools, coordinating through meetings, scheduled runs and webhooks. The architecture is a React dashboard, FastAPI core, MCP tool servers and per-session kernel sandboxes with network isolation, encrypted credentials, SSO, two-factor auth and per-user budgets, under a fair-source licence. Whether or not the "digital employee" framing lands, the security defaults are a reasonable checklist for any self-hosted multi-agent deployment.</p>
+  <p class="src"><a href="https://github.com/OtoDock/oto-dock" target="_blank" rel="noopener">Source ↗</a></p>
+</article>
+</section>
+<details>
+  <summary>Excluded items (79)</summary>
+  <div class="tablewrap"><table><thead><tr><th>Title</th><th>Source</th><th>Reason</th></tr></thead><tbody><tr><td>I resigned from Anthropic today</td><td>Hacker News</td><td>Folded into Interconnects analysis item</td></tr><tr><td>I resigned from Anthropic today (Jacob Coxon)</td><td>Hacker News</td><td>Duplicate</td></tr><tr><td>AI Responsibility – OpenAI and Anthropic</td><td>Hacker News</td><td>Duplicate</td></tr><tr><td>Gambling with our lives: AI researcher quits Anthropic</td><td>Hacker News</td><td>Duplicate press coverage</td></tr><tr><td>Anthropic Researcher Quits over &#x27;Out-of-Control&#x27; AI Fears</td><td>Hacker News</td><td>Duplicate, paywalled</td></tr><tr><td>ex-OpenAI Researcher Quits Anthropic over AI Safety Fears</td><td>Hacker News</td><td>Duplicate, paywalled</td></tr><tr><td>Anthropic researcher says &gt;10% chance AI could kill all humans</td><td>Hacker News</td><td>Press coverage, no technique</td></tr><tr><td>Anthropic researcher believes &gt;10% chance AI could kill humans</td><td>Hacker News</td><td>Duplicate press coverage</td></tr><tr><td>AI researchers leave Anthropic and Google</td><td>Hacker News</td><td>Folded into Interconnects item</td></tr><tr><td>Anthropic Is Building a Predictive Surveillance System</td><td>Hacker News</td><td>Corporate-conduct reporting, no technique</td></tr><tr><td>Anthropic says it blocked efforts to build biological weapons</td><td>Hacker News</td><td>Paywalled; covered by threat report item</td></tr><tr><td>Anthropic discloses fourth AI hacking incident</td><td>Hacker News</td><td>Paywalled, no accessible detail</td></tr><tr><td>Anthropic CEO&#x27;s wife once asked Epstein to fund porn venture</td><td>Hacker News</td><td>Non-technical</td></tr><tr><td>Anthropic Just Threatened to Kill Billions of People</td><td>Hacker News</td><td>Opinion piece</td></tr><tr><td>DeepSeek v4.1 Flash is now available for internal beta testing</td><td>Hacker News</td><td>Superseded by release</td></tr><tr><td>DeepSeek V4-1 Flash is out</td><td>r/LocalLLaMA</td><td>Duplicate of model card item</td></tr><tr><td>Deepseek V4.1 Flash is 748B, not 552B</td><td>r/LocalLLaMA</td><td>Folded into model card item</td></tr><tr><td>DeepSeek-V4.1-Flash surprised ....</td><td>r/LocalLLaMA</td><td>Speculation</td></tr><tr><td>antirez working on DSV4.1 support for ds4</td><td>r/LocalLLaMA</td><td>Link only, no content</td></tr><tr><td>Someone replicated what V4.1 flash does on KV for Qwen</td><td>r/LocalLLaMA</td><td>Demo link, no detail</td></tr><tr><td>Faster than Light in Air: Cherenkov engine on M4 Air</td><td>r/LocalLLaMA</td><td>No repository located; unverifiable</td></tr><tr><td>CyberTiel 35B-A3B uncensored quant beats Opus 4.6</td><td>r/LocalLLaMA</td><td>Unverified single-source claim</td></tr><tr><td>Muse-glimmer-30b punches above its weight for creative writing</td><td>r/LocalLLaMA</td><td>Anecdote, informal testing</td></tr><tr><td>Artificial Analysis is not &quot;broken&quot;, and they prove it</td><td>r/LocalLLaMA</td><td>Explainer, no new data</td></tr><tr><td>Are we missing a benchmark for agent runtimes?</td><td>r/LocalLLaMA</td><td>Question, no findings</td></tr><tr><td>Harness does matter</td><td>r/LocalLLaMA</td><td>Image post, no content</td></tr><tr><td>OUI-1: a model that generates bespoke UI elements</td><td>r/LocalLLaMA</td><td>Niche, unverified</td></tr><tr><td>New Music Model YuE2-3B Released!</td><td>r/LocalLLaMA</td><td>Off-topic</td></tr><tr><td>PCIe downgraded test (m.2-oculink)</td><td>r/LocalLLaMA</td><td>Hardware troubleshooting</td></tr><tr><td>What can you run on 8GB VRAM?</td><td>r/LocalLLaMA</td><td>Q&amp;A</td></tr><tr><td>Mac studio is an ... powerhouse</td><td>r/LocalLLaMA</td><td>Meme</td></tr><tr><td>I find it funny that a flash model is now 512GB</td><td>r/LocalLLaMA</td><td>Meme</td></tr><tr><td>Notes on a hobby sub going mainstream</td><td>r/LocalLLaMA</td><td>Community meta</td></tr><tr><td>ANOTHER researcher accuses OpenAI of training on conversations</td><td>r/LocalLLaMA</td><td>Link only; folded into Willison item</td></tr><tr><td>So relevant</td><td>r/LocalLLaMA</td><td>Meme</td></tr><tr><td>[AINews] not much happened today</td><td>Latent Space</td><td>Empty issue</td></tr><tr><td>When will average people feel AI&#x27;s impact?</td><td>Interconnects</td><td>Essay, no technique</td></tr><tr><td>Quoting Jakub Pachocki</td><td>Simon Willison</td><td>Quote only</td></tr><tr><td>Quoting Terence Tao</td><td>Simon Willison</td><td>Folded into Navier–Stokes item</td></tr><tr><td>Introducing ChatGPT Images 2.5</td><td>Simon Willison</td><td>Product announcement</td></tr><tr><td>llm 0.35</td><td>Simon Willison</td><td>Trivial release</td></tr><tr><td>.blend URL Viewer</td><td>Simon Willison</td><td>Vibe-coding anecdote</td></tr><tr><td>Video compressor</td><td>Simon Willison</td><td>Vibe-coding anecdote</td></tr><tr><td>Mercator ↔ Equal Earth</td><td>Simon Willison</td><td>Vibe-coding anecdote</td></tr><tr><td>Is functional welfare speakable?</td><td>LessWrong</td><td>AI welfare research, low practitioner relevance</td></tr><tr><td>Which character are we evaluating? Persona stability</td><td>LessWrong</td><td>AI welfare research</td></tr><tr><td>Voluntary Gradual Disempowerment in the Judiciary</td><td>LessWrong</td><td>Off-topic</td></tr><tr><td>Questions for the &quot;New Enlightenment&quot; in the Age of AGI</td><td>LessWrong</td><td>Off-topic</td></tr><tr><td>When should I cross-post on LessWrong vs. EA Forum</td><td>LessWrong</td><td>Off-topic</td></tr><tr><td>I wonder how it ends...</td><td>LessWrong</td><td>Empty</td></tr><tr><td>Perspectives in favour of improving conceptual reasoning</td><td>LessWrong</td><td>Informal, no result</td></tr><tr><td>My human advocation for AI</td><td>LessWrong</td><td>Opinion</td></tr><tr><td>How a cold email got the Finnish government to respond</td><td>LessWrong</td><td>Policy anecdote</td></tr><tr><td>Okay, fine. I&#x27;ll try Substack</td><td>LessWrong</td><td>Off-topic</td></tr><tr><td>thedotmack/claude-mem</td><td>GitHub</td><td>Covered last run, no new release</td></tr><tr><td>headroomlabs-ai/headroom</td><td>GitHub</td><td>Covered last run, no new release</td></tr><tr><td>Graphify-Labs/graphify</td><td>GitHub</td><td>Covered last run, no new release</td></tr><tr><td>JuliusBrussee/caveman</td><td>GitHub</td><td>Covered last run, no new release</td></tr><tr><td>asgeirtj/system_prompts_leaks</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>HKUDS/nanobot</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>upstash/context7</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>n8n-io/n8n</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>koala73/worldmonitor</td><td>GitHub</td><td>Off-topic dashboard</td></tr><tr><td>langgenius/dify</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>Significant-Gravitas/AutoGPT</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>langchain-ai/langchain</td><td>GitHub</td><td>Perennial; covered via blog items</td></tr><tr><td>CherryHQ/cherry-studio</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>ruvnet/ruflo</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>NousResearch/hermes-agent</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>firecrawl/firecrawl</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>ollama/ollama</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>hugohe3/ppt-master</td><td>GitHub</td><td>Product, no technique</td></tr><tr><td>career-ops-hq/career-ops</td><td>GitHub</td><td>Off-topic application</td></tr><tr><td>google-gemini/gemini-cli</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>Shubhamsaboo/awesome-llm-apps</td><td>GitHub</td><td>Curated list</td></tr><tr><td>open-webui/open-webui</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>affaan-m/ECC</td><td>GitHub</td><td>Perennial trending repo</td></tr><tr><td>microsoft/generative-ai-for-beginners</td><td>GitHub</td><td>Beginner course</td></tr><tr><td>f/prompts.chat</td><td>GitHub</td><td>Prompt collection, perennial</td></tr></tbody></table></div>
+</details>
 </main>
-
-<footer>
-  Generated 1 September 2026 · 72 items fetched from Simon Willison, LessWrong, Hacker News, r/LocalLLaMA, Latent Space and GitHub · 17 retained.
-</footer>
-
 </body>
 </html>
