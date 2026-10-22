@@ -292,9 +292,19 @@ Render each classification (**Rising**, **New this period**, **Steady**, **Cooli
 
 Write a condensed Slack message, publish it as a Claude Artifact with a one-click copy button (9a–9c), then post it automatically to the configured Slack channel (9d).
 
+The digest itself is not capped; the Slack summary is. It is a short pointer to the digest, not a second digest.
+
 ### 9a — Compose the message text
 
 Use only Unicode characters and emoji — no Slack markdown (`*bold*`, `_italic_`). The message must look clean as raw text before it is posted.
+
+**Selection rules for the Slack summary (22 Oct 2026):**
+- Exclude every item from the **Models and Platforms** section from the Slack summary entirely, including the headline. They remain in the digest.
+- The HEADLINE is the highest-scoring retained item from any other section.
+- TOP PICKS holds **at most 4 items**, ordered by signal descending, drawn from sections 1–4 first; include an Agent Engineering or Tools item only if fewer than 4 items from sections 1–4 score above 6.0.
+- Each pick body is **one or two sentences**; the headline paragraph is at most three.
+- TREND is at most two sentences.
+- Target length: under 2,500 characters.
 
 **Structure** (use this exact skeleton):
 
@@ -318,7 +328,7 @@ TOP PICKS
 {2 sentences: what it is and what a practitioner should do with it.}
 {full https:// URL on its own line}
 
-{repeat for up to 6 more items, ordered by signal score descending}
+{repeat for up to 3 more items, ordered by signal score descending; never from Models and Platforms}
 
 ────────────────────────────────────────
 
@@ -330,7 +340,7 @@ TOP PICKS
 Rules:
 - The `────────────────────────────────────────` divider is exactly 40 `─` characters.
 - Omit the HEADLINE item from TOP PICKS (it is already covered).
-- TOP PICKS: include up to 7 items total (excluding the headline). If fewer than 7 were retained, include all of them.
+- TOP PICKS: include up to 4 items total (excluding the headline), following the selection rules above. If fewer than 4 qualify, include only those.
 - Star counts: round to one decimal and append K (e.g. `53K ★`, `223K ★`). Omit for non-GitHub items.
 - URLs: always full `https://` so Slack auto-links them. One URL per item, on its own line immediately after the item text.
 - No trailing blank lines inside item blocks.
