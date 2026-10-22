@@ -34,54 +34,98 @@ import requests
 
 NEWS_DIR = Path("news")
 
-REDDIT_SUBREDDITS = [
-    "LocalLLaMA",
-    "MachineLearning",
-    "ClaudeAI",
-    "artificial",
-    "singularity",
-    "ExperiencedDevs",
-]
+# Reddit's public JSON API has returned HTTP 403 for every subreddit since
+# September 2026. The fetcher is kept but disabled; re-populate to re-enable.
+# Subreddit coverage now comes from the RSS feeds below.
+REDDIT_SUBREDDITS: list[str] = []
 
 # Multiple HN queries to cover the topic space; results are deduplicated by ID.
+# Weighted toward how technology organisations adopt AI (source review 2026-10-22).
 HN_QUERIES = [
     "Claude AI engineering",
-    "LLM agent workflow",
-    "AI coding assistant",
-    "model context protocol MCP",
     "Anthropic",
-    "AI software architecture",
-    "multimodal model",
+    "AI coding assistant",
     "AI code review",
+    "LLM agent workflow",
+    "model context protocol MCP",
+    "AI software architecture",
+    "engineering manager AI",
+    "product manager AI",
+    "AI software engineers jobs",
+    "junior developers AI",
+    "AI productivity study developers",
+    "AI regulation",
+    "EU AI Act",
+    "enterprise AI agents adoption",
 ]
 
+# Feed set revised 2026-10-22 (see docs/source-review-2026-10-22.md).
+# Focus: how technology organisations adopt, adapt and learn with AI.
 RSS_FEEDS = {
+    # --- Core practitioner commentary (retained from original set) ---
     "Simon Willison": "https://simonwillison.net/atom/everything/",
-    "LessWrong": "https://www.lesswrong.com/feed.xml",
     "Latent Space": "https://www.latent.space/feed",
-    "The Gradient": "https://thegradient.pub/rss/",
     "Interconnects": "https://www.interconnects.ai/feed",
-    # Blog feed republishes select newsletter content as free articles (delayed).
-    # Prefer over the Substack feed which has partial paywall on full articles.
-    "Pragmatic Engineer": "https://blog.pragmaticengineer.com/feed/",
-    "Chip Huyen": "https://huyenchip.com/feed.xml",
     # Title + summary only; full content requires visiting the site.
     "LangChain Blog": "https://www.langchain.com/blog/rss.xml",
-    # Reddit RSS avoids the JSON API 403 blocks while still providing
-    # practitioner-level signal unavailable from other configured sources.
+    # Karma-filtered community feed replaces the full firehose (meetups, essays).
+    "LessWrong": "https://www.lesswrong.com/feed.xml?view=community-rss&karmaThreshold=30",
+    # Hardware/inference tail. Reddit rate-limits (HTTP 429) intermittently.
     "r/LocalLLaMA": "https://www.reddit.com/r/LocalLLaMA/.rss",
-    "r/ClaudeAI": "https://www.reddit.com/r/ClaudeAI/.rss",
+
+    # --- Engineering leadership and organisational practice ---
+    # Blog feed republishes select newsletter content as free full articles (delayed).
+    "Pragmatic Engineer": "https://blog.pragmaticengineer.com/feed/",
+    # Substack feed: titles + summaries of paid issues, same week.
+    "Pragmatic Engineer Newsletter": "https://newsletter.pragmaticengineer.com/feed",
+    "LeadDev": "https://leaddev.com/rss.xml",
+    "Engineering Enablement (DX)": "https://newsletter.getdx.com/feed",
+    "Irrational Exuberance": "https://lethain.com/feeds/",
+    "charity.wtf": "https://charity.wtf/feed/",
+    "Martin Fowler": "https://martinfowler.com/feed.atom",
+    "Thoughtworks Insights": "https://www.thoughtworks.com/rss/insights.xml",
+    "MIT Sloan Management Review": "https://sloanreview.mit.edu/feed/",
+    "Tidy First (Kent Beck)": "https://tidyfirst.substack.com/feed",
+    "Addy Osmani": "https://addyo.substack.com/feed",
+    "Elite AI Assisted Coding": "https://elite-ai-assisted-coding.dev/feed",
+
+    # --- Product, delivery and adjacent disciplines ---
+    "Lenny's Newsletter": "https://www.lennysnewsletter.com/feed",
+    "SVPG": "https://www.svpg.com/feed/",
+    "The Beautiful Mess": "https://cutlefish.substack.com/feed",
+
+    # --- Company engineering blogs with adoption stories ---
+    "Zalando Engineering": "https://engineering.zalando.com/atom.xml",
+    "Spotify Engineering": "https://engineering.atspotify.com/feed/",
+    "Shopify Engineering": "https://shopify.engineering/blog.atom",
+    "GitHub Blog": "https://github.blog/feed/",
+
+    # --- Industry news and research ---
+    "InfoQ AI": "https://feed.infoq.com/ai-ml-data-eng/",
+    "The New Stack": "https://thenewstack.io/feed/",
+    "Stack Overflow Blog": "https://stackoverflow.blog/feed/",
+    "MIT Technology Review AI": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+    "METR": "https://metr.org/feed.xml",
+
+    # --- Regulation, policy and business risk ---
+    "Luiza's Newsletter": "https://www.luizasnewsletter.com/feed",
+    "Import AI": "https://importai.substack.com/feed",
+    "AI Policy Perspectives": "https://www.aipolicyperspectives.com/feed",
+    "Platformer": "https://www.platformer.news/rss/",
+    "One Useful Thing": "https://www.oneusefulthing.org/feed",
 }
 
 # Topics for GitHub repository search (unauthenticated: 60 req/hour).
+# Searches repositories *created* in the last GITHUB_CREATED_WINDOW_DAYS,
+# sorted by stars, so results are new breakouts rather than the same
+# perennial repositories every run (source review 2026-10-22).
 GITHUB_TOPICS = [
-    "llm",
     "ai-agent",
-    "mcp-server",
     "claude",
-    "prompt-engineering",
-    "rag",
+    "mcp-server",
+    "developer-tools",
 ]
+GITHUB_CREATED_WINDOW_DAYS = 60
 
 HTTP_HEADERS = {
     "User-Agent": "digest-bot/1.0 (AI research digest; non-commercial)",
@@ -244,7 +288,13 @@ def fetch_rss(since_dt: datetime) -> list[dict]:
 
     for feed_name, feed_url in RSS_FEEDS.items():
         try:
-            parsed = feedparser.parse(feed_url)
+            parsed = feedparser.parse(feed_url, agent=HTTP_HEADERS["User-Agent"])
+            if getattr(parsed, "bozo", False) and not parsed.entries:
+                print(
+                    f"  Warning: RSS feed '{feed_name}' returned no entries "
+                    f"({getattr(parsed, 'bozo_exception', 'parse error')})",
+                    file=sys.stderr,
+                )
             for entry in parsed.entries:
                 pub = entry.get("published_parsed") or entry.get("updated_parsed")
                 if pub is None:
@@ -277,12 +327,15 @@ def fetch_github(since_dt: datetime) -> list[dict]:
     repository name across topic queries.
     """
     since_date = since_dt.strftime("%Y-%m-%d")
+    created_after = (
+        since_dt - timedelta(days=GITHUB_CREATED_WINDOW_DAYS)
+    ).strftime("%Y-%m-%d")
     seen: dict[str, dict] = {}
 
     for topic in GITHUB_TOPICS:
         url = (
             "https://api.github.com/search/repositories"
-            f"?q=topic:{topic}+pushed:>{since_date}"
+            f"?q=topic:{topic}+created:>{created_after}+pushed:>{since_date}"
             "&sort=stars&order=desc&per_page=5"
         )
         try:

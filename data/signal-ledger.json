@@ -3344,6 +3344,285 @@
           "cluster_id": null
         }
       ]
+    },
+    {
+      "date": "2026-10-05T07:39:29+00:00",
+      "digest_file": "news/2026-10-05-0739.md",
+      "item_count": 20,
+      "topics": [
+        {
+          "tag": "AI Management",
+          "count": 7,
+          "avg_signal": 5.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "Agent Engineering",
+          "count": 6,
+          "avg_signal": 6.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Local Inference",
+          "count": 5,
+          "avg_signal": 4.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Performance",
+          "count": 5,
+          "avg_signal": 5.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Tools",
+          "count": 5,
+          "avg_signal": 5.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI-Assisted Dev",
+          "count": 4,
+          "avg_signal": 6.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Anthropic",
+          "count": 3,
+          "avg_signal": 5.3,
+          "cluster_id": null
+        },
+        {
+          "tag": "Evaluation",
+          "count": 3,
+          "avg_signal": 5.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "Security",
+          "count": 3,
+          "avg_signal": 5.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Context Management",
+          "count": 2,
+          "avg_signal": 5.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Cloud Infrastructure",
+          "count": 1,
+          "avg_signal": 6.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Memory",
+          "count": 1,
+          "avg_signal": 5.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Prompt Engineering",
+          "count": 1,
+          "avg_signal": 6.8,
+          "cluster_id": null
+        }
+      ]
+    },
+    {
+      "date": "2026-10-12T13:58:34+00:00",
+      "digest_file": "news/2026-10-12-1358.md",
+      "item_count": 33,
+      "topics": [
+        {
+          "tag": "Agent Engineering",
+          "count": 10,
+          "avg_signal": 6.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "LLM Models",
+          "count": 8,
+          "avg_signal": 6.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Local Inference",
+          "count": 8,
+          "avg_signal": 5.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI Management",
+          "count": 6,
+          "avg_signal": 5.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "Anthropic",
+          "count": 6,
+          "avg_signal": 6.1,
+          "cluster_id": null
+        },
+        {
+          "tag": "Security",
+          "count": 6,
+          "avg_signal": 5.9,
+          "cluster_id": null
+        },
+        {
+          "tag": "Performance",
+          "count": 5,
+          "avg_signal": 5.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Tools",
+          "count": 5,
+          "avg_signal": 4.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Evaluation",
+          "count": 4,
+          "avg_signal": 5.9,
+          "cluster_id": null
+        },
+        {
+          "tag": "Cloud Infrastructure",
+          "count": 3,
+          "avg_signal": 5.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "MLOps",
+          "count": 3,
+          "avg_signal": 5.3,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI-Assisted Dev",
+          "count": 1,
+          "avg_signal": 5.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Context Management",
+          "count": 1,
+          "avg_signal": 6.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Multi-Agent",
+          "count": 1,
+          "avg_signal": 5.7,
+          "cluster_id": null
+        }
+      ]
+    },
+    {
+      "date": "2026-10-22T07:45:50+00:00",
+      "digest_file": "news/2026-10-22-0745.md",
+      "item_count": 37,
+      "topics": [
+        {
+          "tag": "AI-Assisted Dev",
+          "count": 8,
+          "avg_signal": 6.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Agent Engineering",
+          "count": 8,
+          "avg_signal": 6.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Evaluation",
+          "count": 8,
+          "avg_signal": 6.1,
+          "cluster_id": null
+        },
+        {
+          "tag": "Security",
+          "count": 8,
+          "avg_signal": 6.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "LLM Models",
+          "count": 7,
+          "avg_signal": 6.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Local Inference",
+          "count": 7,
+          "avg_signal": 6.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Tools",
+          "count": 7,
+          "avg_signal": 6.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI Management",
+          "count": 6,
+          "avg_signal": 6.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Cloud Infrastructure",
+          "count": 5,
+          "avg_signal": 6.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Performance",
+          "count": 5,
+          "avg_signal": 6.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Anthropic",
+          "count": 4,
+          "avg_signal": 6.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "Claude Code",
+          "count": 2,
+          "avg_signal": 6.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Context Management",
+          "count": 2,
+          "avg_signal": 6.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Multi-Agent",
+          "count": 2,
+          "avg_signal": 6.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "MCP",
+          "count": 1,
+          "avg_signal": 7.1,
+          "cluster_id": null
+        },
+        {
+          "tag": "Prompt Engineering",
+          "count": 1,
+          "avg_signal": 6.3,
+          "cluster_id": null
+        }
+      ]
     }
   ]
 }

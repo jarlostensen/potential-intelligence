@@ -1,8 +1,8 @@
 ---
 name: digest
-description: Fetch and synthesize a digest of current AI tool trends and practices since the last run. Writes a dated entry to news/. Covers Claude, LLMs, agent engineering, AI-assisted software development, cloud, and systems engineering.
+description: Fetch and synthesize a digest of how technology organisations are adopting, adapting and learning with AI since the last run. Writes a dated entry to news/. Covers org structures and careers, engineering practice, product and adjacent disciplines, regulation and business risk, models and platforms, agent engineering, and tooling.
 argument-hint: "[--since YYYY-MM-DD to override the auto-detected since date]"
-allowed-tools: Bash, Write, Read, Glob
+allowed-tools: Bash, Write, Read, Glob, Edit, WebSearch, WebFetch, Agent, Artifact
 ---
 
 # AI Tool Digest
@@ -20,6 +20,23 @@ uv run scripts/fetch_digest.py $ARGUMENTS
 Progress messages go to stderr (visible in the terminal). JSON output goes to stdout and is what you will process.
 
 If `uv` is not found or the script exits with an error, report the failure and stop — do not attempt to proceed without data.
+
+### 1b — Annual and periodic reports
+
+Several high-value sources publish as reports rather than feeds and will not appear in the fetch output. When the current month matches, search for the latest edition (web search or the publisher's page) and, if it was published since the last run, add it to the item set with `source` set to the publisher name:
+
+| Report | Publisher | Typical month |
+|---|---|---|
+| Developer Survey | Stack Overflow | June–October |
+| State of Developer Experience | Atlassian | September–October |
+| State of AI-assisted Software Development (formerly Accelerate State of DevOps) | DORA / Google Cloud | September–October |
+| State of Developer Ecosystem | JetBrains | July–September |
+| Agentic Coding Trends Report | Anthropic | Variable |
+| State of AI Impact in Engineering (quarterly) | DX | Quarterly |
+| AI Index | Stanford HAI | April |
+| Octoverse | GitHub | October–November |
+
+Skip this sub-step silently when nothing new has been published.
 
 ## Step 2 — Load the signal ledger
 
@@ -56,7 +73,7 @@ Composite = Impact×0.35 + Novelty×0.20 + AdoptionVelocity×0.20 + Repeatabilit
 **Discard** any item that:
 - Is primarily a product announcement with no demonstrated technique
 - Lacks reproducible evidence (anecdotes only)
-- Is off-topic (not AI tools, software engineering, cloud, or client/systems infrastructure)
+- Is off-topic (not about how technology organisations use AI: engineering practice, org structure and careers, product and delivery, regulation and business risk, or the models, agents and tooling that drive those changes)
 - Scores below 4.0 composite
 - Duplicates a higher-scoring item already retained (keep the best-signal version)
 
@@ -66,7 +83,21 @@ Composite = Impact×0.35 + Novelty×0.20 + AdoptionVelocity×0.20 + Repeatabilit
 
 For each retained item, assign 1–3 normalised topic tags. Use the top-50 vocabulary from Step 2 as the preferred tag set — introduce a new tag only when no existing tag is an adequate match. Keep new tags to a minimum and prefer broad labels over narrow ones (e.g. "MCP" not "MCP server discovery").
 
-Tag format: short, title-case labels, e.g. "Claude Code", "MCP", "agent memory", "RAG", "local inference", "prompt engineering", "evaluation", "fine-tuning".
+Tag format: short, title-case labels, e.g. "Claude Code", "MCP", "Memory", "RAG", "Local Inference", "Prompt Engineering", "Evaluation", "Fine-Tuning".
+
+**First-class tags for the organisational focus** (introduced 22 Oct 2026; use these instead of folding everything into "AI Management"):
+
+| Tag | Use for |
+|---|---|
+| Org Design | Team structures, reporting lines, roles, headcount and hiring changes, ways of working |
+| Careers | Individual career impact, skills, junior pipeline, interviewing, compensation |
+| Product Management | Product discovery, PRDs, roadmaps, product operating model, PM tooling |
+| Delivery | Project and programme management, planning, estimation, release process |
+| Regulation | Laws, enforcement, standards, compliance obligations (EU AI Act, FTC, export controls) |
+| Business Risk | Vendor economics, pricing, liability, procurement, concentration risk, incidents with commercial consequences |
+| AI Management | Reserve for leadership strategy and governance that does not fit a narrower tag above |
+
+Existing tags (Agent Engineering, AI-Assisted Dev, Evaluation, Security, LLM Models, Local Inference, Tools, Performance, Cloud Infrastructure, Context Management, Multi-Agent, Claude Code, Anthropic, MCP, Memory, MLOps, Knowledge Graph, RAG, Prompt Engineering) remain valid.
 
 ### 4b — Compute trend classifications
 
@@ -95,15 +126,15 @@ When fewer than 3 prior runs exist, skip the Trend Summary entirely. When 3–6 
 
 Group surviving items into these sections. Omit any section with no qualifying items:
 
-1. **Claude and Anthropic** — model updates, Claude Code, MCP, API changes, Anthropic research
-2. **LLM Models and Capabilities** — other notable models, benchmark results, emergent capabilities
-3. **Agent Engineering** — multi-agent patterns, orchestration, memory systems, tool use
-4. **AI-Assisted Software Development** — coding workflows, spec-driven dev, AI code review, prompt patterns
-5. **Cloud and Infrastructure** — cloud-native AI deployment, MLOps, inference serving, GitOps
-6. **Client and Systems Engineering** — native/C++ tooling, build systems, performance, embedded AI
-7. **Tools and Frameworks** — new or significantly updated tools worth tracking
+1. **Organisations, Roles and Careers** — how companies restructure around AI, hiring and the junior pipeline, role changes, internal adoption data, employee experience
+2. **Engineering Practice and Delivery** — coding workflows, code review, testing and verification, source control and CI at agent scale, developer-experience research, harness and workflow patterns teams actually adopt
+3. **Product, Project and Adjacent Disciplines** — product management, project and programme management, design, data, support and other functions adopting AI; internal tooling for non-engineers
+4. **Regulation, Risk and Governance** — laws and enforcement, standards and certification, liability, vendor economics and pricing, procurement constraints, incidents with business consequences
+5. **Models and Platforms** — model releases and benchmarks from any lab (including Claude and Anthropic), pricing changes, capability shifts that change what organisations can do
+6. **Agent Engineering** — multi-agent patterns, orchestration, memory, context management, tool use, evaluation of agents
+7. **Tools and Infrastructure** — new or significantly updated tools, inference and cloud infrastructure, local inference, systems-level performance
 
-Within each section, order by composite score descending.
+Within each section, order by composite score descending. Sections 1–4 are the digest's centre of gravity; when an item fits both a practice section and a models or tools section, place it in the practice section.
 
 ## Step 6 — Write the digest
 
@@ -308,6 +339,10 @@ Rules:
 
 | Tag | Emoji |
 |---|---|
+| Org Design / Careers | 🏢 |
+| Product Management / Delivery | 🧭 |
+| Regulation | 🏛️ |
+| Business Risk | 💼 |
 | Security | 🔒 |
 | Evaluation / MLOps | 📊 |
 | Agent Engineering (loop/control) | 🔁 |
