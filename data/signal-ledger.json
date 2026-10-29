@@ -3623,6 +3623,260 @@
           "cluster_id": null
         }
       ]
+    },
+    {
+      "date": "2026-10-23T11:05:58+00:00",
+      "digest_file": "news/2026-10-23-1105.md",
+      "item_count": 33,
+      "topics": [
+        {
+          "tag": "Business Risk",
+          "count": 12,
+          "avg_signal": 6.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Security",
+          "count": 12,
+          "avg_signal": 5.9,
+          "cluster_id": null
+        },
+        {
+          "tag": "Agent Engineering",
+          "count": 10,
+          "avg_signal": 5.9,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI-Assisted Dev",
+          "count": 8,
+          "avg_signal": 6.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Tools",
+          "count": 7,
+          "avg_signal": 5.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Evaluation",
+          "count": 6,
+          "avg_signal": 5.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Anthropic",
+          "count": 4,
+          "avg_signal": 7.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "LLM Models",
+          "count": 4,
+          "avg_signal": 5.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Org Design",
+          "count": 4,
+          "avg_signal": 6.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Cloud Infrastructure",
+          "count": 3,
+          "avg_signal": 5.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Careers",
+          "count": 2,
+          "avg_signal": 4.9,
+          "cluster_id": null
+        },
+        {
+          "tag": "Delivery",
+          "count": 2,
+          "avg_signal": 6.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Memory",
+          "count": 2,
+          "avg_signal": 5.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI Management",
+          "count": 1,
+          "avg_signal": 4.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Claude Code",
+          "count": 1,
+          "avg_signal": 5.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Local Inference",
+          "count": 1,
+          "avg_signal": 4.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Multi-Agent",
+          "count": 1,
+          "avg_signal": 5.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Performance",
+          "count": 1,
+          "avg_signal": 5.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Regulation",
+          "count": 1,
+          "avg_signal": 5.2,
+          "cluster_id": null
+        }
+      ]
+    },
+    {
+      "date": "2026-10-29T09:55:44+00:00",
+      "digest_file": "news/2026-10-29-0955.md",
+      "item_count": 54,
+      "topics": [
+        {
+          "tag": "Business Risk",
+          "count": 19,
+          "avg_signal": 5.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "Agent Engineering",
+          "count": 18,
+          "avg_signal": 5.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI-Assisted Dev",
+          "count": 15,
+          "avg_signal": 5.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Security",
+          "count": 14,
+          "avg_signal": 5.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Evaluation",
+          "count": 10,
+          "avg_signal": 5.9,
+          "cluster_id": null
+        },
+        {
+          "tag": "LLM Models",
+          "count": 9,
+          "avg_signal": 5.5,
+          "cluster_id": null
+        },
+        {
+          "tag": "Delivery",
+          "count": 8,
+          "avg_signal": 6.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Org Design",
+          "count": 8,
+          "avg_signal": 6.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Tools",
+          "count": 7,
+          "avg_signal": 5.1,
+          "cluster_id": null
+        },
+        {
+          "tag": "Anthropic",
+          "count": 5,
+          "avg_signal": 6.3,
+          "cluster_id": null
+        },
+        {
+          "tag": "AI Management",
+          "count": 4,
+          "avg_signal": 5.8,
+          "cluster_id": null
+        },
+        {
+          "tag": "Product Management",
+          "count": 4,
+          "avg_signal": 6.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Cloud Infrastructure",
+          "count": 3,
+          "avg_signal": 5.2,
+          "cluster_id": null
+        },
+        {
+          "tag": "Regulation",
+          "count": 3,
+          "avg_signal": 5.7,
+          "cluster_id": null
+        },
+        {
+          "tag": "Careers",
+          "count": 2,
+          "avg_signal": 5.3,
+          "cluster_id": null
+        },
+        {
+          "tag": "MCP",
+          "count": 2,
+          "avg_signal": 5.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Claude Code",
+          "count": 1,
+          "avg_signal": 4.4,
+          "cluster_id": null
+        },
+        {
+          "tag": "Context Management",
+          "count": 1,
+          "avg_signal": 5.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Local Inference",
+          "count": 1,
+          "avg_signal": 5.6,
+          "cluster_id": null
+        },
+        {
+          "tag": "Memory",
+          "count": 1,
+          "avg_signal": 5.0,
+          "cluster_id": null
+        },
+        {
+          "tag": "Performance",
+          "count": 1,
+          "avg_signal": 4.6,
+          "cluster_id": null
+        }
+      ]
     }
   ]
 }
